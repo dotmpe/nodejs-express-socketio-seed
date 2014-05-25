@@ -16,6 +16,24 @@ require "LiveScript"
 env = process.env.NODE_ENV or "dev"
 config = require("./config/config")[env]
 
+# Frontend built
+#
+#require("modulr").build("client", {
+#		environment: 'dev' # always build dev-code and add sourceURL
+#		paths: ['./lib', './vendor']
+#		root: ['./public/script']
+#		#lazyEval: []
+#		minify: true
+#		minifyIdentifiers: true
+#	}, (err, result) ->
+#		console.log err, result
+#		if err
+#			throw err
+#		else
+#			require('fs')
+#				.writeFileSync('public/script/app.js', result.output, 'utf8')
+#)
+
 # create express and socket server
 express = require("express")
 app = module.exports = express()
