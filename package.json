@@ -1,0 +1,39 @@
+{
+  "name": "nodejs-express-socketio-ng-seed-mpe",
+  "description": "Work in progress seed project. ",
+  "keywords": [
+    "express",
+    "socketio",
+    "demo"
+  ],
+  "version": "0.0.1",
+  "private": true,
+  "license": "GPLv3",
+  "author": "Berend (.mpe) <dev@dotmpe.com>",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dotmpe/nodejs-socketio-seed.git"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development nodemon server.js",
+    "test": "NODE_ENV=test mocha --reporter spec --timeout 10000 test/test-*.js"
+  },
+  "dependencies": {
+    "LiveScript": "latest",
+    "coffee-script": "latest",
+    "compression": "^1.0.2",
+    "express": "^4.1.1",
+    "forever": "latest",
+    "jade": "latest",
+    "socket.io": "latest",
+    "underscore": "latest",
+    "view-helpers": "latest",
+    "winston": "latest"
+  }
+}
+

@@ -1,0 +1,32 @@
+{
+  "name": "nodejs-express-socketio-ng-demo-mpe",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/components"
+  ],
+  "dependencies": {
+    "angular": "~1.2.14",
+    "angular-socket-io": "~0.3.0",
+    "angular-route": "~1.2.14",
+    "jquery": "latest",
+    "jquery.tagsinput": "~1.3.2",
+    "bootstrap": "latest",
+    "backbone": "latest",
+    "backbone.localstorage": "latest",
+    "underscore": "latest",
+    "underscore.string": "latest",
+    "coffee-script": "~1.7.1"
+  },
+  "authors": [
+    "Berend (.mpe) <dev@dotmpe.com>"
+  ],
+  "main": "server.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "GPLv3",
+  "private": true
+}
+

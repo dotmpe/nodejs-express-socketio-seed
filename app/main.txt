@@ -1,0 +1,14 @@
+The application directory contains server-side scripts, 
+sorted to three functions:
+
+- controllers
+- models
+- views
+
+See views/main.txt for more info on the template tree.
+
+XXX Extension modules should come with config settings, route initializer and an app dir.
+  These go to config/config.<module>, config/routes/<module> and app/ext/<module>/?
+  
+  'node-markdown-mpe' is an try-out for this plugin mechanism.
+
