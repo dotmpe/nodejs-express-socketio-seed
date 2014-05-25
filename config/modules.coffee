@@ -29,14 +29,17 @@ getModClass = (name, config)->
 	v = config.version || 1
 	classes[v]
 
-module.exports = (app, io, config) ->
+module.exports = (app, io, core) ->
 
-	modules = []
-	extroot = path.join config.root, 'app', 'ext'
+	modules = [
+		#		new Module core.name, core.config, core.routes
+	]
+	extroot = path.join core.config.root, 'app', 'ext'
 	fs.readdir extroot, (files, dirs) ->
 		for name in dirs
-			ModClass = getModClass( name, config )
-			module = new ModClass( name, config )
+			# TODO load module config
+			ModClass = getModClass( name, core.config )
+			module = new ModClass( name, core.config )
 			module.configure extroot
 			module.apply app, io 
 			modules.push module

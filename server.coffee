@@ -22,14 +22,16 @@ app = module.exports = express()
 server = require("http").createServer(app)
 io = require("socket.io").listen(server)
 
-#require('./config/data')(app, config)
-require("./config/express") app, config
+#require('./config/data') app, config
 
 # Express settings
-require("./config/routes") app, io, config
+require("./config/express") app, config
 
-# Bootstrap routes
-require("./config/modules") app, io, config
+# Bootstrap routes, and get properties for built-in module
+core = require("./config/routes") app, io, config
+
+# Load modules and add instance list to app
+modules = require("./config/modules") app, io, core 
 
 # Module try-out
 exports = module.exports = app

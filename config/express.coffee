@@ -52,3 +52,6 @@ module.exports = (app, config) ->
 		res.status(500).render('500', { error: err.stack })
 	)
 
+	# Return app
+	app
+
