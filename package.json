@@ -20,7 +20,7 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "NODE_ENV=development nodemon server.js",
+    "start": "NODE_ENV=development nodemon server.coffee",
     "test": "NODE_ENV=test mocha --reporter spec --timeout 10000 test/test-*.js"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "underscore": "latest",
     "view-helpers": "latest",
     "winston": "latest"
-  }
+  },
+  "main": "server.coffee",
 }
 
