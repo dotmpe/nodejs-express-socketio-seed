@@ -1,0 +1,29 @@
+div.header
+{
+    -moz-border-radius:.7em .7em .2em .2em;
+    -webkit-border-radius:.7em .7em .2em .2em;
+/*	font-family: "Bitstream Vera Sans Mono", monospace;*/
+	border-style: solid;
+	border-width: .3em 1pt 0 1pt;
+	padding-top: 1em;
+	color: #888a85;
+	border-color: #eeeeec;
+}
+div.document
+{
+	background-color: white;
+	border-width: 0 1pt 0 1pt;
+	border-color: #d3d7cf;
+	border-style: solid;
+}
+div.footer
+{
+    -moz-border-radius: .2em .2em .7em .7em;
+    -webkit-border-radius: .2em .2em .7em .7em;
+	border-style: solid;
+	border-width: 0 1pt .3em 1pt;
+	color: #babdb6;
+	border-color: #eeeeec;
+	text-align: center;
+}
+
