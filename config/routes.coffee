@@ -1,17 +1,16 @@
-index = require(__base+'controllers')
-
 applyRoutes = (app, root, controller)->
-	for name of controller
+	for name, route of controller.route
 		url = [ root, name ].join('/')
-		if controller[name].sub
-			applyRoutes app, url, controller[name].sub
+		if route.sub
+			applyRoutes app, url, route.sub
 		for method in ['all', 'get', 'put', 'post', 'options', 'delete']
-			cb = controller[name][method]
+			cb = route[method]
 			if cb
 				app[method] url, cb
 
 module.exports = ( app, config ) ->
 
+	index = require(__base+'controllers')
 	# Apply routes for page controllers
 	site = require(__base+'controllers/site') app, config
 	admin = require(__base+'controllers/admin') app, config
