@@ -15,12 +15,14 @@ require "LiveScript"
 # Load configurations
 env = process.env.NODE_ENV or "dev"
 config = require("./config/config")[env]
+global.__base = __dirname + '/app/'
 
 # create express and socket server
 express = require("express")
 app = module.exports = express()
 server = require("http").createServer(app)
 io = require("socket.io").listen(server)
+app.set 'socketio', io
 
 #require('./config/data') app, config
 
@@ -28,10 +30,10 @@ io = require("socket.io").listen(server)
 require("./config/express") app, config
 
 # Bootstrap routes, and get properties for built-in module
-core = require("./config/routes") app, io, config
+core = require("./config/routes") app, config
 
 # Load modules and add instance list to app
-modules = require("./config/modules") app, io, core 
+require("./config/modules") app, core 
 
 # Module try-out
 exports = module.exports = app

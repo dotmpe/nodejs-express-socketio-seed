@@ -1,26 +1,27 @@
+index = require(__base+'controllers')
 
-redirect = (path) ->
-	(req, res) ->
-		res.redirect(path)
+applyRoutes = (app, root, controller)->
+	for name of controller
+		url = [ root, name ].join('/')
+		if controller[name].sub
+			applyRoutes app, url, controller[name].sub
+		for method in ['all', 'get', 'put', 'post', 'options', 'delete']
+			cb = controller[name][method]
+			if cb
+				app[method] url, cb
 
-simpleRes = (name, getData) ->
-	(req, res, next) ->
-		data = if getData then getData() else {}
-		res.render(name, data)
+module.exports = ( app, config ) ->
 
-module.exports = ( app, io, config ) ->
+	# Apply routes for page controllers
+	site = require(__base+'controllers/site') app, config
+	admin = require(__base+'controllers/admin') app, config
 
-	app.route('/home').all(simpleRes('home', () ->
-		page: title: "Home", summary: config.app.name
-	))
-	app.route('/').all(redirect('/home'))
+	applyRoutes(app, '', site)
+	applyRoutes(app, '', admin)
+	app.all '/', index.redirect('/home')
 
-	app.route('/modules/index')
-		.all(simpleRes('modules', () ->
-			page: title: "Modules"
-			modules: app.get('modules')
-		))
-
+	# Apply routes for socket TODO move to controller
+	io = app.get 'socketio'
 	io.sockets.on 'connection', (socket) ->
 		socket.on 'disconnect', ()->
 			console.log 'client disconnected'
@@ -33,4 +34,9 @@ module.exports = ( app, io, config ) ->
 	# return seed-data for core module
 	name: 'builtin'
 	config: config
-	menu: []
+	menu:
+		home: url: '/home', label: 'Home'
+		about: url: '/about', label: 'About'
+	page:
+		title: "Untitled"
+
