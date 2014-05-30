@@ -36,8 +36,10 @@ module.exports = function(grunt) {
 			},
 		},
 	});
-	// auto load grunt contrib tasks
+	// auto load grunt contrib tasks from package.json
 	require('load-grunt-tasks')(grunt);
+	// auto load parts from grunt/
+	require('load-grunt-config')(grunt);
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'nodeunit']);
 };
