@@ -1,27 +1,41 @@
+applyRoutes = (app, root, controller)->
+	for name, route of controller.route
+		url = [ root, name ].join('/')
+		if route.sub
+			applyRoutes app, url, route.sub
+		for method in ['all', 'get', 'put', 'post', 'options', 'delete']
+			cb = route[method]
+			if cb
+				app[method] url, cb
 
-redirect = (path) ->
-	(req, res) ->
-		res.redirect(path)
+module.exports = ( app, config ) ->
 
-simpleRes = (name, getData) ->
-	(req, res, next) ->
-		data = if getData then getData() else {}
-		res.render(name, data)
+	index = require(__base+'controllers')
+	# Apply routes for page controllers
+	site = require(__base+'controllers/site') app, config
+	admin = require(__base+'controllers/admin') app, config
 
-module.exports = ( app, io, config ) ->
+	applyRoutes(app, '', site)
+	applyRoutes(app, '', admin)
+	app.all '/', index.redirect('/home')
 
-	app.route('/home').all(simpleRes('home', () ->
-		page: title: "Home", summary: config.app.name
-	))
-	app.route('/').all(redirect('/home'))
-
-	app.route('/modules/index')
-		.all(simpleRes('modules', () ->
-			page: title: "Modules"
-			modules: app.get('modules')
-		))
-
+	# Apply routes for socket TODO move to controller
+	io = app.get 'socketio'
 	io.sockets.on 'connection', (socket) ->
+		socket.on 'disconnect', ()->
+			console.log 'client disconnected'
+		socket.on 'message', (msg)->
+			console.log 'message from client: '+msg
+			socket.send('hello!')
 		socket.emit 'test',
 			foo: 'Bar'
-		
+
+	# return seed-data for core module
+	name: 'builtin'
+	config: config
+	menu:
+		home: url: '/home', label: 'Home'
+		about: url: '/about', label: 'About'
+	page:
+		title: "Untitled"
+

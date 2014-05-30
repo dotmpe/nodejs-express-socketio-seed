@@ -7,6 +7,7 @@ pkg = require('../package.json')
 
 env = process.env.NODE_ENV || 'development'
 
+
 module.exports = (app, config) ->
 
 	app.set 'port', process.env.PORT || 3000
@@ -28,14 +29,13 @@ module.exports = (app, config) ->
 	app.set 'views', path.join __dirname, '..', 'app', 'views'
 	app.set 'view engine', 'jade'
 
-	# expose package.json, config.lib to views
-	app.use((req, res, next)->
+	# expose package.json, config.lib,# appcore and modules to views
+	app.use (req, res, next)->
 		res.locals.pkg = pkg
-		res.locals.lib = config.lib
-		res.locals.url = base: '/'
-		res.locals.page = title: "Untitled", summary: "An unspecified page"
+		res.locals.head = config.lib
+		res.locals.core = app.get 'appcore'
+		res.locals.modules = app.get 'appmodules'
 		next()
-	)
 	
 	app.use(helpers(pkg.name))
 
@@ -51,4 +51,7 @@ module.exports = (app, config) ->
 		console.error(err.stack)
 		res.status(500).render('500', { error: err.stack })
 	)
+
+	# Return app
+	app
 
