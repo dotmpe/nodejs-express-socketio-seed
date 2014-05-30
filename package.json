@@ -1,15 +1,24 @@
 {
   "name": "nodejs-express-socketio-seed-mpe",
   "description": "Work in progress seed project. ",
+  "version": "0.0.1",
+  "homepage": "https://github.com/berend/nodejs-express-socketio-seed",
+  "author": {
+    "name": "B. van Berkum",
+    "email": "mpe@dotmpe.com"
+  },
   "keywords": [
     "express",
-    "socketio",
-    "demo"
+    "socketio"
   ],
-  "version": "0.0.1",
   "private": true,
   "license": "GPLv3",
-  "author": "Berend (.mpe) <dev@dotmpe.com>",
+  "licenses": [
+    {
+      "type": "GPLv3",
+      "url": "https://github.com/dotmpe/x-nodejs-htdocs/blob/master/LICENSE-GPLv3"
+    }
+  ],
   "contributors": [],
   "repository": {
     "type": "git",
@@ -22,7 +31,7 @@
   "main": "server.coffee",
   "scripts": {
     "start": "NODE_ENV=development nodemon server.coffee",
-    "test": "NODE_ENV=test mocha --reporter spec --timeout 10000 test/test-*.js"
+    "test": "grunt nodeunit"
   },
   "dependencies": {
     "LiveScript": "latest",
@@ -37,6 +46,12 @@
     "winston": "latest"
   },
   "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-nodeunit": "^0.4.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "load-grunt-tasks": "^0.4.0",
     "modulr": "^0.14.0"
   }
 }
