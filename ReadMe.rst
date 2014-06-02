@@ -1,10 +1,14 @@
+NodeJS Socket.IO Seed
+=====================
 Seed project for NodeJS+Express.
 
+Going to write some examples, demos, and hopefully work towards some common
+structure and seed branches.
 
 Branch docs
 -----------
 master
-  - Initial project structure.
+  - Initial project structure, documentation.
 
   f_bootstrap
     - Going to dust off my own Du stylesheets and get bootstrap components and
