@@ -43,21 +43,23 @@ must_exist = (path) ->
 
 module.exports = (app, core) ->
 
+	must_exist(core.config.root)
+
 	# expose core module to Jade via Express
 	core = new Component core
 	core.configure(core.config.root)
 	app.set 'appcore', core
-
-	must_exist(core.config.root)
 
 	modules = []
 	extroot = path.join core.config.root, 'app', 'ext'
 	must_exist(extroot)
 	fs.readdir extroot, (files, dirs) ->
 		for name in dirs
-			# TODO load module config
-			ModClass = getModClass( name, core.config )
-			module = new ModClass( name, core.config )
+			if fs.existsSync './config.'+name
+				modConfig = require './config.'+name
+			config = _.extend {}, core.config, modConfig || {}
+			ModClass = getModClass( name, config )
+			module = new ModClass( name, config )
 			module.configure extroot
 			module.load app 
 			modules.push module

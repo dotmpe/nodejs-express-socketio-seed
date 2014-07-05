@@ -10,7 +10,7 @@ module.exports = (app, config) ->
 	route:
 		admin:
 			get: (req, res) ->
-				res.render 'admin'
+				res.render 'admin', page: title: "Admin"
 		modules:
 			get: base.simpleRes 'admin/modules', ()->
 				page: title: "Modules"

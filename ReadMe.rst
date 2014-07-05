@@ -10,6 +10,7 @@ structure and seed branches.
 Work in progress
   Modulr 
     - fix configuration
+  - Initialize menu for loaded components.
 
 Wanted
   - View-Controller metadata
