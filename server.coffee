@@ -18,22 +18,23 @@ config = require("./config/config")[env]
 global.__base = __dirname + '/app/'
 
 # Frontend built
-#
-#require("modulr").build("client", {
-#		environment: 'dev' # always build dev-code and add sourceURL
-#		paths: ['./lib', './vendor']
-#		root: ['./public/script']
-#		#lazyEval: []
-#		minify: true
-#		minifyIdentifiers: true
-#	}, (err, result) ->
-#		console.log err, result
-#		if err
-#			throw err
-#		else
-#			require('fs')
-#				.writeFileSync('public/script/app.js', result.output, 'utf8')
-#)
+
+require("modulr").build("x-nodejs-htdocs", {
+		environment: 'dev' # always build dev-code and add sourceURL
+		paths: ['./lib', './vendor']
+		# cwd:root: ['./public/script']
+		lazyEval: ['x-nodejs-htdocs']
+		minify: true
+		minifyIdentifiers: true,
+		resolveIdentifiers: true
+	}, (err, result) ->
+		if err
+			console.error err
+			throw err
+		else
+			require('fs')
+				.writeFileSync('public/script/app-modulr-main.js', result.output, 'utf8')
+)
 
 # create express and socket server
 express = require("express")
@@ -46,6 +47,9 @@ app.set 'socketio', io
 
 # Express settings
 require("./config/express") app, config
+
+# Bootstrap server-side routes
+#controllers = require(__base+'controllers')(app, config)
 
 # Bootstrap routes, and get properties for built-in module
 core = require("./config/routes") app, config

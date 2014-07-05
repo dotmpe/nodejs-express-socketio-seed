@@ -2,8 +2,19 @@ NodeJS Socket.IO Seed
 =====================
 Seed project for NodeJS+Express.
 
+XXX After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up.
+
 Going to write some examples, demos, and hopefully work towards some common
 structure and seed branches.
+
+Work in progress
+  Modulr 
+    - fix configuration
+
+Wanted
+  - View-Controller metadata
+  - Schema metadata, migration, validation at structure and datatype level.
+ 
 
 Branch docs
 -----------

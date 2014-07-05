@@ -1,4 +1,5 @@
 path = require 'path'
+util = require 'util'
 fs = require 'fs'
 _ = require 'underscore'
 
@@ -35,6 +36,11 @@ getModClass = (name, config)->
 	v = config.version || 1
 	classes[v]
 
+must_exist = (path) ->
+	if not path or not fs.existsSync(path)
+		console.error(util.format("Path does not exist: %s", path))
+		process.exit(1)
+
 module.exports = (app, core) ->
 
 	# expose core module to Jade via Express
@@ -42,8 +48,11 @@ module.exports = (app, core) ->
 	core.configure(core.config.root)
 	app.set 'appcore', core
 
+	must_exist(core.config.root)
+
 	modules = []
 	extroot = path.join core.config.root, 'app', 'ext'
+	must_exist(extroot)
 	fs.readdir extroot, (files, dirs) ->
 		for name in dirs
 			# TODO load module config
