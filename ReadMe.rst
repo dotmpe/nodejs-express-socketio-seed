@@ -26,7 +26,7 @@ master
     - Going to dust off my own Du stylesheets and get bootstrap components and
       layout into the picture.
 
-  f_client
+  f_clientbuild *
     - Want to build lazy-loading, fully packaged client. 
       Need build-system, code and style compilers.
 
@@ -35,3 +35,4 @@ master
 
   f_backbone
     - Get going with MarionetteJS
+
