@@ -6,9 +6,6 @@
 # * GNU GPL v3
 # 
 
-# Enable coffeescript 
-require "coffee-script/register"
-
 # Enable LiveScript 
 require "LiveScript"
 

@@ -2,7 +2,7 @@
   "name": "nodejs-express-socketio-seed-mpe",
   "description": "Work in progress seed project. ",
   "version": "0.0.1",
-  "homepage": "https://github.com/berend/nodejs-express-socketio-seed",
+  "homepage": "https://github.com/dotmpe/nodejs-express-socketio-seed",
   "author": {
     "name": "B. van Berkum",
     "email": "mpe@dotmpe.com"
@@ -32,7 +32,8 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon server.coffee",
     "test": "grunt nodeunit",
-    "srctree": "tree -I 'node_modules|build|components'"
+    "srctree": "tree -I 'node_modules|build|components'",
+    "srcloc": "find app/ config/ grunt/ lib/ migrations public/script/ spec/ test/ -iname '*.js' -o -iname '*.coffee' -exec cat {} + | grep -v '^\\s*$' | wc -l"
   },
   "dependencies": {
     "LiveScript": "latest",
