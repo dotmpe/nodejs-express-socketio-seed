@@ -1,3 +1,20 @@
+###
+
+Express Modules.
+
+Loads M/V/C components from extension modules
+
+- moving over from x-..
+  had extensions in app/ext/...
+
+- TODO: load
+  ext/<>/config/config.default.ls or config/config.<>.ls
+- TODO:
+  ext/<>/config/routes.default.ls or config/routes.<>.ls
+
+
+###
+
 path = require 'path'
 util = require 'util'
 fs = require 'fs'

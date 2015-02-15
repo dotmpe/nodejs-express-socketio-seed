@@ -2,7 +2,7 @@
 #!
 # * See LICENSE.txt for full copyright notice.
 # *
-# * Copyright (C) 2014 Berend van Berkum (.mpe) <dev@dotmpe.com>
+# * Copyright (C) 2014, 2015 Berend van Berkum (.mpe) <dev@dotmpe.com>
 # * GNU GPL v3
 # 
 
