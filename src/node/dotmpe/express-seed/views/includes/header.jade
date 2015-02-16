@@ -14,7 +14,7 @@ nav.navbar.navbar-default(role="navigation")
     // Collect the nav links, forms, and other content for toggling
     #main-navbar-collapse.collapse.navbar-collapse
       ul.nav.navbar-nav
-        - each route, name in core.menu
+        - each route, name in core.meta.menu
           li(class=isActive(route.url) ? 'active' : '')
             a(href=route.url)= route.label
 

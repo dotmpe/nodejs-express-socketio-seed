@@ -1,12 +1,19 @@
-path = require('path')
-rootPath = path.normalize(__dirname + '/..')
+#path = require('path')
+#rootPath = path.normalize(__dirname + '/..')
 
 module.exports =
+
+	production:
+		#root: rootPath
+		root: __dirname
+
 	test:
-		root: rootPath
+		#root: rootPath
+		root: __dirname
 		app: name: 'Nodejs Express Socket IO Demo (test)'
+
 	development:
-		root: rootPath
+		root: __dirname
 		app: name: 'Nodejs Express Socket IO Demo (dev)'
 		lib:
 			js:

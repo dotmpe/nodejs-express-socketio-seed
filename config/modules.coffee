@@ -20,6 +20,8 @@ util = require 'util'
 fs = require 'fs'
 _ = require 'underscore'
 
+mpe_module = require '../src/node/dotmpe/module'
+
 
 class Component
 	# Object to hold paths and loaded controllers

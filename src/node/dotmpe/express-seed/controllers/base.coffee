@@ -2,17 +2,20 @@ _ = require 'underscore'
 
 
 util = {
+
 	# redirect generator
 	redirect: (path) ->
 		(req, res) ->
 			res.redirect(path)
+
 	# simpleRes generates a route handler from a template path and callback for context
 	simpleRes: (name, getContext) ->
 		(req, res, next) ->
 			data = if getContext then getContext() else {}
 			if not data
 				console.warn('No data for '+name)
-			res.render(name, data)
+			console.log( 'render', name, data )
+			res.render( name, data )
 }
 
 # Controller baseclass
@@ -38,8 +41,9 @@ class StaticController extends Controller
 
 
 # static export for other controllers
-module.exports = 
-	_.extend( {}, util, 
+module.exports = (core, base)->
+	_.extend( base, 
+		util, 
 		type:
 			base: Controller
 			static: StaticController

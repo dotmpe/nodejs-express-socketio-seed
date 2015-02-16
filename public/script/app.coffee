@@ -1,7 +1,8 @@
 $(document).ready () ->
 	console.log 'CoffeeScript, jQuery ready'
 
-	socket = io.connect 'http://localhost'
+	socket = io.connect()
+
 	socket.on 'connect', () -> 
 		console.log 'Connected to server'
 		socket.send('hi')

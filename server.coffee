@@ -9,59 +9,19 @@
 # Enable LiveScript 
 require "LiveScript"
 
-# Load configurations
-env = process.env.NODE_ENV or "dev"
-config = require("./config/config")[env]
-global.__base = __dirname + '/app/'
+# customized Express loader
+module_mpe = require './src/node/dotmpe/module'
 
-# Frontend built
+module_mpe.init( __dirname )
 
-require("modulr").build("x-nodejs-htdocs", {
-		environment: 'dev' # always build dev-code and add sourceURL
-		paths: ['./lib', './vendor']
-		# cwd:root: ['./public/script']
-		lazyEval: ['x-nodejs-htdocs']
-		minify: true
-		minifyIdentifiers: true,
-		resolveIdentifiers: true
-	}, (err, result) ->
-		if err
-			console.error err
-			throw err
-		else
-			require('fs')
-				.writeFileSync('public/script/app-modulr-main.js', result.output, 'utf8')
-)
+# Init express-seed base app
+core = module_mpe.load_core( 'src/node/dotmpe/express-seed' )
+core.configure()
 
-# create express and socket server
-express = require("express")
-app = module.exports = express()
-server = require("http").createServer(app)
-io = require("socket.io").listen(server)
-app.set 'socketio', io
+# Load core component of the app
+#core = require("./config/routes") app, config
+# Add configured components
+#require("./config/modules") app, core 
 
-#require('./config/data') app, config
+core.start()
 
-# Express settings
-require("./config/express") app, config
-
-# Bootstrap server-side routes
-#controllers = require(__base+'controllers')(app, config)
-
-# Bootstrap routes, and get properties for built-in module
-core = require("./config/routes") app, config
-
-# Load modules and add instance list to app
-require("./config/modules") app, core 
-
-# Module try-out
-exports = module.exports = app
-
-# Start ...
-server.listen app.get("port"), ->
-  console.log "Express server listening on port " + app.get("port")
-  return
-
-
-# expose app
-exports = module.exports = app
