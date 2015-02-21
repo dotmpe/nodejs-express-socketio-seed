@@ -41,9 +41,7 @@ resolve_mvc_meta = ( from_path, meta )->
 		comppath = path.join( from_path, compname )
 		pathprop = compname.substring(0, compname.length-1) + 'Path'
 		meta[ pathprop ] = comppath
-		console.log pathprop, comppath
 
-	console.log 'controllerPath', meta.controllerPath
 	#for compname in meta.components
 	#	compidx = require comppath
 
