@@ -41,7 +41,7 @@ class Component
 			console.log('Core: loaded', ctrl, 'controller')
 
 		if @meta.default_route
-			defroute = [ @url, @meta.default_route ].join()
+			defroute = [ @url, @meta.default_route ].join('/')
 			@app.all @url, base.redirect(defroute)
 
 
