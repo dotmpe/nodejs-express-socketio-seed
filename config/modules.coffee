@@ -2,6 +2,8 @@
 
 Express Modules.
 
+Old, keeping for reference. See src/node/dotmpe/module
+
 Loads M/V/C components from extension modules
 
 - moving over from x-..

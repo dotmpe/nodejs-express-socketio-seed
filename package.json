@@ -48,13 +48,16 @@
     "winston": "latest"
   },
   "devDependencies": {
+    "bookshelf": "^0.7.9",
     "grunt": "~0.4.4",
     "grunt-contrib-coffee": "^0.10.1",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-nodeunit": "^0.4.0",
     "grunt-contrib-watch": "~0.5.3",
+    "knex": "^0.7.3",
     "load-grunt-config": "^0.9.2",
     "load-grunt-tasks": "^0.4.0",
-    "modulr": "^0.14.0"
+    "modulr": "^0.14.0",
+    "sqlite3": "^3.0.5"
   }
 }

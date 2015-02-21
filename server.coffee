@@ -18,6 +18,8 @@ module_mpe.init( __dirname )
 core = module_mpe.load_core( 'src/node/dotmpe/express-seed' )
 core.configure()
 
+core.load_modules()
+
 # Load core component of the app
 #core = require("./config/routes") app, config
 # Add configured components

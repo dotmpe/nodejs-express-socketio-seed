@@ -53,6 +53,7 @@ load_controllers = ( app, config )->
 module.exports = ( approot )->
 
 	app = module.exports = express()
+
 	#envname = process.env.NODE_ENV or 'development'
 	envname = app.get 'env'
 
@@ -72,6 +73,7 @@ module.exports = ( approot )->
 
 	io = require("socket.io").listen(server)
 
+
 	# Apply routes for socket TODO move to controller
 	io.sockets.on 'connection', (socket) ->
 		socket.on 'disconnect', ()->
@@ -81,6 +83,7 @@ module.exports = ( approot )->
 			socket.send('hello!')
 		socket.emit 'test',
 			foo: 'Bar'
+
 
 	app: app
 	server: server

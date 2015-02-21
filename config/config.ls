@@ -6,6 +6,9 @@ module.exports =
 	production:
 		#root: rootPath
 		root: __dirname
+		modules: [
+			'dotmpe/x-bookmarks'
+		]
 
 	test:
 		#root: rootPath
@@ -27,4 +30,6 @@ module.exports =
 				'/components/bootstrap/dist/css/bootstrap.css'
 				'/components/bootstrap/dist/css/bootstrap-theme.css'
 				'/style/app.css'
-
+		modules: [
+			'dotmpe/x-bookmarks'
+		]

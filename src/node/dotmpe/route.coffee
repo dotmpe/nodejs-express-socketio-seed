@@ -1,4 +1,7 @@
 applyRoutes = (app, root, controller)->
+	if !app
+		console.log root, controller
+		throw "Missing app"
 	for name, route of controller.route
 		url = [ root, name ].join('/')
 		if route.route

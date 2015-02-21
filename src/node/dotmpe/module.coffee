@@ -8,14 +8,47 @@
 
 ###
 path = require 'path'
+_ = require 'underscore'
 
 metadata = require './metadata'
 applyRoutes = require('./route').applyRoutes
 
 
-class Core
+class Component
+
+	constructor: ( @name ) ->
+		@path = ''
+		@url = ''
+		@controllers = {}
+
+	@load_config: ( name )->
+		{}
+
+	configure: () ->
+		@load_controllers()
+
+	load_controllers: ()->
+		if ! @meta.controllers
+			console.warn 'No controllers for component', @name
+			return
+		base = {}
+		# load configured controllers
+		for ctrl in @meta.controllers
+			ctrl_path = path.join( @controllerPath, ctrl )
+			@controllers[ ctrl ] = require ctrl_path
+			ctrlr = @controllers[ ctrl ] @, base
+			applyRoutes( @app, @url, ctrlr )
+			console.log('Core: loaded', ctrl, 'controller')
+
+		if @meta.default_route
+			defroute = [ @url, @meta.default_route ].join()
+			@app.all @url, base.redirect(defroute)
+
+
+class Core extends Component
 
 	constructor: (opts) ->
+		super opts
 
 	# static init for core, relay app init to core module, then init
 	@config: ( core_path )->
@@ -43,7 +76,7 @@ class CoreV01 extends Core
 		{@app, @server, @root, @config, @meta, @url} = opts
 		@controllers = {}
 		@routes = {}
-		console.log 'core', @meta
+		#console.log 'core', @meta
 
 	configure: () ->
 		# url must point to netpath, WITHOUT any *path* part (ie. including root)
@@ -61,21 +94,19 @@ class CoreV01 extends Core
 
 		# Apply routes (load controllers, apply all url handlers)
 		@controllerPath = path.join @root, 'controllers'
-		@load_controllers()
 
-	load_controllers: ()->
-		base = {}
-		console.log 'url', @url
-		# load configured controllers
-		for ctrl in @meta.controllers
-			ctrl_path = path.join( @controllerPath, ctrl )
-			@controllers[ ctrl ] = require ctrl_path
-			ctrlr = @controllers[ ctrl ] @, base
-			applyRoutes( @app, @url, ctrlr )
-			console.log('Core: loaded', ctrl, 'controller')
+		super
 
-		defroute = [ @url, @meta.default_route ].join()
-		@app.all @url, base.redirect(defroute)
+	load_modules: ()->
+		console.log 'load_modules', @config.modules
+		mods = _.extend( [], @config.modules, @meta.modules )
+		for modpath in mods
+			fullpath = path.join( __approot, 'src', 'node', modpath )
+			mod = ModuleV01.load( @, fullpath )
+			mod.configure()
+			for ctrlr in mod.controllers
+				applyRoutes( @app, '', ctrlr )
+			console.log 'loaded module', modpath
 
 	start: ()->
 		# Start ...
@@ -89,7 +120,7 @@ class CoreV01 extends Core
 		new CoreV01( opts )
 
 
-class ModuleV01
+class ModuleV01 extends Component
 
 	###
 	
@@ -101,24 +132,32 @@ class ModuleV01
 	###
 
 	# Get new instance holding module metadata and config.
-	constructor: ( @metadata, @config )->
+	constructor: ( @meta, @config )->
+		super { 'name' : 'ModuleV01' }
 
 	# FIXME: init like old seed project did
-	configure: (extroot) ->
-		@moduleRoot = path.join extroot, @name
-		super @moduleRoot
+	configure: () ->
+		#@moduleRoot = path.join extroot, @name
+		@controllerPath = path.join @path, 'controllers'
+		@modelPath = path.join @path, 'models'
+		@viewPath = path.join @path, 'views'
+		super
 
 	# Static methods
 	
 	# Read module metadata from path, load MVC-ext-type modules
-	@load: ( path )->
-		md = metadata.load( path )
+	@load: ( core, from_path )->
+		md = metadata.load( from_path )
 		for mdc in md
 			if mdc.type == 'express-mvc-ext/0.1'
-				ModuleClass = module_classes[ mdc.ext_version ]
-				module_config = ModuleClass.load_config
-				module = new ModuleClass( md, module_config )
+				meta = metadata.resolve_mvc_meta from_path, mdc
+				ModuleClass = module_classes[ meta.ext_version ]
+				module_config = ModuleClass.load_config( from_path )
+				module = new ModuleClass( meta, module_config )
+				module.app = core.app
+				module.path = from_path
 				return module
+
 
 module_classes = {
 	'0.1': ModuleV01
@@ -143,6 +182,6 @@ module.exports = {
 		Core: CoreV01
 		Module: ModuleV01
 	load_core: load_core,
-	load_module: load_module,
+	#load_module: load_module,
 }
 
