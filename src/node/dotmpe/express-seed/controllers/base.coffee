@@ -8,13 +8,23 @@ util = {
 		(req, res) ->
 			res.redirect(path)
 
-	# simpleRes generates a route handler from a template path and callback for context
-	simpleRes: (name, getContext) ->
+	# Generates a route handler
+	simpleView: (name, data_cb, template_cb) ->
+		(req, res, next) ->
+			data = if data_cb then data_cb() else {}
+			if not data
+				console.warn('No data for '+name)
+			#console.log( 'tpl render', name, data )
+			res.write( template_cb( data ) )
+			res.end()
+
+	# Generates a route handler using the Express view renderer
+	simpleExpressView: (name, getContext) ->
 		(req, res, next) ->
 			data = if getContext then getContext() else {}
 			if not data
 				console.warn('No data for '+name)
-			console.log( 'render', name, data )
+			#console.log( 'render', name, data )
 			res.render( name, data )
 }
 

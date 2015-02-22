@@ -1,0 +1,11 @@
+# -*- Yaml -*-
+
+- type: express-mvc-ext/0.1
+  name: dotmpe/x-bookmarks
+  components:
+    - controllers
+    - models
+  controllers:
+    - 'index'
+
+# vim:ft=yaml:

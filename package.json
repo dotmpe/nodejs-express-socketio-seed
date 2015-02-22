@@ -32,6 +32,7 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon server.coffee",
     "test": "grunt nodeunit",
+    "build": "coffee build.coffee",
     "srctree": "tree -I 'node_modules|build|components'",
     "srcloc": "find app/ config/ grunt/ lib/ migrations public/script/ spec/ test/ -iname '*.js' -o -iname '*.coffee' -exec cat {} + | grep -v '^\\s*$' | wc -l"
   },

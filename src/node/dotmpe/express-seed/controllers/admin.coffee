@@ -15,11 +15,11 @@ module.exports = (core, base) ->
 				get: (req, res) ->
 					res.render 'admin', page: title: "Admin"
 			modules:
-				get: base.simpleRes 'admin/modules', ()->
+				get: base.simpleExpressView 'admin/modules', ()->
 					page: title: "Modules"
 				route:
 					list: 
-						get: base.simpleRes 'admin/modules', () ->
+						get: base.simpleExpressView 'admin/modules', () ->
 							page: title: "Modules"
 							modules: core.app.get('modules')
 	)

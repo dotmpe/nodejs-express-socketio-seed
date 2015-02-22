@@ -15,7 +15,31 @@ Work in progress
 Wanted
   - View-Controller metadata
   - Schema metadata, migration, validation at structure and datatype level.
+
+Tree docs
+---------
+app
+  - deprecated, moving to src/node/dotmpe
  
+src
+  node
+    - local NodeJS code
+
+    dotmpe/express-seed
+      - bootstrap for Express. 
+        Beginning of some Express-MVC framwork
+        with other modules in dotmpe/
+
+    dotmpe/x-bookmarks
+      - re-using some old code to test Express-MVC
+        see also project:node-htdocs
+
+    dotmpe/project
+      - TODO Express-MVC module to deal with projects
+
+    dotmpe/npm-project
+      - TODO Express-MVC module to interact with other npm projects
+
 
 Branch docs
 -----------
@@ -26,11 +50,11 @@ master
     - Going to dust off my own Du stylesheets and get bootstrap components and
       layout into the picture.
 
-  f_clientbuild *
+  f_clientbuild
     - Want to build lazy-loading, fully packaged client. 
       Need build-system, code and style compilers.
 
-  f_ext
+  f_ext *
     - Try to get an extension framework going at the backend with plugin modules.
 
   f_backbone

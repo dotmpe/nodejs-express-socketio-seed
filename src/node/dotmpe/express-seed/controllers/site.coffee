@@ -9,7 +9,7 @@ module.exports = (core, base)->
 		getPage: (name) ->
 			(req, res) ->
 				res.render name, data
-			base.simpleRes 'site', (context)->
+			base.simpleExpressView 'site', (context)->
 				_.extend {}, context, 
 					page: title: "Home", summary: config.app.name
 
@@ -26,9 +26,9 @@ module.exports = (core, base)->
 			page: StaticPage
 			#site: Site
 		route:
-			home: get: base.simpleRes 'site', ()->
+			home: get: base.simpleExpressView 'site', ()->
 				page: title: "Home", summary: core.config.app.name
-			about: get: base.simpleRes 'site/about', ()->
+			about: get: base.simpleExpressView 'site/about', ()->
 				page: title: "About", summary: core.config.app.name
 
 	)

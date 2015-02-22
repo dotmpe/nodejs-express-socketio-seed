@@ -31,5 +31,4 @@ module.exports =
 				'/components/bootstrap/dist/css/bootstrap-theme.css'
 				'/style/app.css'
 		modules: [
-			'dotmpe/x-bookmarks'
 		]

@@ -16,9 +16,9 @@ applyRoutes = require('./route').applyRoutes
 
 class Component
 
-	constructor: ( @name ) ->
-		@path = ''
-		@url = ''
+	constructor: ( opts ) ->
+		{@app, @server, @root, @config, @meta, @url, @path} = opts
+		@base = {}
 		@controllers = {}
 
 	@load_config: ( name )->
@@ -31,18 +31,17 @@ class Component
 		if ! @meta.controllers
 			console.warn 'No controllers for component', @name
 			return
-		base = {}
 		# load configured controllers
 		for ctrl in @meta.controllers
 			ctrl_path = path.join( @controllerPath, ctrl )
 			@controllers[ ctrl ] = require ctrl_path
-			ctrlr = @controllers[ ctrl ] @, base
+			ctrlr = @controllers[ ctrl ] @, @base
 			applyRoutes( @app, @url, ctrlr )
 			console.log('Core: loaded', ctrl, 'controller')
 
 		if @meta.default_route
 			defroute = [ @url, @meta.default_route ].join('/')
-			@app.all @url, base.redirect(defroute)
+			@app.all @url, @base.redirect(defroute)
 
 
 class Core extends Component
@@ -55,7 +54,8 @@ class Core extends Component
 		core_file = path.join core_path, 'main'
 		core_seed_cb = require core_file
 		# Return core opts
-		core_seed_cb __approot
+		opts = core_seed_cb __approot
+		opts
 
 
 class CoreV01 extends Core
@@ -73,8 +73,6 @@ class CoreV01 extends Core
 
 	constructor: (opts) ->
 		super opts
-		{@app, @server, @root, @config, @meta, @url} = opts
-		@controllers = {}
 		@routes = {}
 		#console.log 'core', @meta
 
@@ -115,6 +113,10 @@ class CoreV01 extends Core
 			console.log "Express server listening on port " + self.app.get("port")
 
 	@load: ( core_path )->
+		# TODO sync with Module.load
+		#md = metadata.load( core_path )
+		#if not md
+		#	md = type: 'express-mvc/0.1'
 		# static configuration
 		opts = Core.config( path.join( __approot, core_path ) )
 		new CoreV01( opts )
@@ -132,8 +134,11 @@ class ModuleV01 extends Component
 	###
 
 	# Get new instance holding module metadata and config.
-	constructor: ( @meta, @config )->
-		super { 'name' : 'ModuleV01' }
+	constructor: ( opts )->
+		{@core} = opts
+		if !opts.name
+			opts.name = 'ModuleV01'
+		super opts
 
 	# FIXME: init like old seed project did
 	configure: () ->
@@ -152,11 +157,19 @@ class ModuleV01 extends Component
 			if mdc.type == 'express-mvc-ext/0.1'
 				meta = metadata.resolve_mvc_meta from_path, mdc
 				ModuleClass = module_classes[ meta.ext_version ]
-				module_config = ModuleClass.load_config( from_path )
-				module = new ModuleClass( meta, module_config )
-				module.app = core.app
-				module.path = from_path
-				return module
+				opts = ModuleClass.config( core, meta, from_path )
+				if !meta.controllers
+					console.error "Missing MVC meta for ", mdc
+				return new ModuleClass( opts )
+
+	@config: ( core, meta, from_path )->
+			#ModuleClass = module_classes[ meta.ext_version ]
+			# TODO module_config = ModuleClass.load_config( from_path )
+			meta: meta
+			core: core
+			app: core.app
+			base: core.base
+			path: from_path
 
 
 module_classes = {
