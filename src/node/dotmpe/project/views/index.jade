@@ -9,6 +9,10 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
 
   body
 
-    div.container 
+    div.container
+      ul
+        - each project in projects
+          li
+            span= project
 
 

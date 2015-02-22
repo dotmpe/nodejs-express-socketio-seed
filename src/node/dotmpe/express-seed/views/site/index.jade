@@ -9,6 +9,23 @@ block content
 
   p This is the contents.
 
+  table
+    tr
+      th App Name
+      td= core.config.app.name
+    tr
+      th Process dir
+      td= process.cwd()
+    tr
+      th App Root
+      td= __approot
+    tr
+      th Core Root
+      td= core.root
+    tr
+      th Core URL
+      td= core.url
+
 block footer
 
   p.text-muted.credit Footer

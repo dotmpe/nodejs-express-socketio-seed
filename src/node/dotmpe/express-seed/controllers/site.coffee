@@ -27,7 +27,9 @@ module.exports = (core, base)->
 			#site: Site
 		route:
 			home: get: base.simpleExpressView 'site', ()->
-				page: title: "Home", summary: core.config.app.name
+				page: 
+					title: "Home", summary: core.config.app.name
+				core: core
 			about: get: base.simpleExpressView 'site/about', ()->
 				page: title: "About", summary: core.config.app.name
 
