@@ -3,6 +3,7 @@ fs = require 'fs'
 path = require 'path'
 jade = require 'jade'
 
+
 projectTemplate = jade.compileFile require.resolve '../views/index.jade'
 
 listProjects = ()->
@@ -16,6 +17,7 @@ listProjects = ()->
 		if (fs.statSync(projectPath).isDirectory())
 			results.push name
 	results
+
 
 module.exports = ( module )->
 
