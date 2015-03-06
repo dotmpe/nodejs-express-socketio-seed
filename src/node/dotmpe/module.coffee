@@ -20,6 +20,7 @@ class Component
 		{@app, @server, @root, @config, @meta, @url, @path} = opts
 		@base = {}
 		@controllers = {}
+		@routes = {}
 
 	@load_config: ( name )->
 		{}
@@ -31,13 +32,18 @@ class Component
 		if ! @meta.controllers
 			console.warn 'No controllers for component', @name
 			return
+
+		p = @root || @path
+		console.log @name, @root, @path
+		
 		# load configured controllers
 		for ctrl in @meta.controllers
-			ctrl_path = path.join( @controllerPath, ctrl )
+			ctrl_path = path.join( p, ctrl )
 			@controllers[ ctrl ] = require ctrl_path
 			ctrlr = @controllers[ ctrl ] @, @base
-			applyRoutes( @app, @url, ctrlr )
-			console.log('Core: loaded', ctrl, 'controller')
+			newRoutes = applyRoutes( @app, @url, ctrlr )
+			_.extend @routes, newRoutes
+			console.log 'Component: loaded', ctrl, 'controller', newRoutes
 
 		if @meta.default_route
 			defroute = [ @url, @meta.default_route ].join('/')
@@ -47,6 +53,7 @@ class Component
 class Core extends Component
 
 	constructor: (opts) ->
+		@name = "Express Seed Core"
 		super opts
 
 	# static init for core, relay app init to core module, then init
@@ -73,7 +80,7 @@ class CoreV01 extends Core
 
 	constructor: (opts) ->
 		super opts
-		@routes = {}
+		@modules = {}
 		#console.log 'core', @meta
 
 	configure: () ->
@@ -95,16 +102,29 @@ class CoreV01 extends Core
 
 		super
 
+	###
+		CoreV01.load_modules
+	###
 	load_modules: ()->
 		console.log 'load_modules', @config.modules
+		modroot = path.join __approot, @config.src || 'src'
 		mods = _.extend( [], @config.modules, @meta.modules )
 		for modpath in mods
-			fullpath = path.join( __approot, 'src', 'node', modpath )
+			fullpath = path.join( modroot, modpath )
 			mod = ModuleV01.load( @, fullpath )
 			mod.configure()
-			for ctrlr in mod.controllers
-				applyRoutes( @app, '', ctrlr )
-			console.log 'loaded module', modpath
+			_.extend @routes, mod.routes
+			#for ctrlr in mod.controllers
+			#	_.extend @routes, ctrl.routes
+			@modules[ mod.meta.name ] = mod
+			console.log 'loaded module', modpath, mod.meta.name, mod.routes
+
+	###
+		CoreV01.get_all_components
+	###
+	get_all_components: ()->
+		comps = [ @ ]
+		_.union comps, _.values( @modules )
 
 	start: ()->
 		# Start ...
@@ -153,6 +173,9 @@ class ModuleV01 extends Component
 	# Read module metadata from path, load MVC-ext-type modules
 	@load: ( core, from_path )->
 		md = metadata.load( from_path )
+		if !md
+			console.warn "No module to load from", from_path
+			return
 		for mdc in md
 			if mdc.type == 'express-mvc-ext/0.1'
 				meta = metadata.resolve_mvc_meta from_path, mdc

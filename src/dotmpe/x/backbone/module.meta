@@ -1,0 +1,24 @@
+# -*- Yaml -*-
+
+# x-backbone backend
+
+- type: express-mvc-ext/0.1
+  name: dotmpe/x/backbone
+
+  components:
+    - controllers
+    - views
+
+  controllers:
+    - x-backbone/main
+  views: 
+    - x-backbone/index.jade
+  models:
+    - x-backbone/test
+
+
+# x-backbone frontend
+#
+#
+
+# vim:ft=yaml:

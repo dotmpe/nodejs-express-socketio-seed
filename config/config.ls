@@ -7,7 +7,7 @@ module.exports =
 		#root: rootPath
 		root: __dirname
 		modules: [
-			'dotmpe/x-bookmarks'
+			'node/dotmpe/x-bookmarks'
 		]
 
 	test:
@@ -31,6 +31,9 @@ module.exports =
 				'/components/bootstrap/dist/css/bootstrap-theme.css'
 				'/style/app.css'
 		modules: [
-			'dotmpe/x-bookmarks',
-			'dotmpe/project'
+			#'node/dotmpe/x-bookmarks',
+			#'node/dotmpe/project',
+			'dotmpe/x/backbone',
+			#'dotmpe/x/backbone/backend',
+			#'dotmpe/x/backbone/frontend'
 		]

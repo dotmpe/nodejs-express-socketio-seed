@@ -92,7 +92,7 @@ module.exports = ( approot )->
 	config: config
 
 	meta:
-		controllers: [ 'base', 'site', 'admin' ]
+		controllers: [ 'controllers/base', 'controllers/site', 'controllers/admin' ]
 		default_route: 'home'
 
 		menu:

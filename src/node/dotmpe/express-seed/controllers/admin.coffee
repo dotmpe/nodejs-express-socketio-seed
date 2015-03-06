@@ -17,10 +17,12 @@ module.exports = (core, base) ->
 			modules:
 				get: base.simpleExpressView 'admin/modules', ()->
 					page: title: "Modules"
+					components: core.get_all_components()
 				route:
 					list: 
 						get: base.simpleExpressView 'admin/modules', () ->
 							page: title: "Modules"
+							routes: core.routes
 							modules: core.app.get('modules')
 	)
 
