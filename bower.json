@@ -17,7 +17,8 @@
     "backbone.localstorage": "latest",
     "underscore": "latest",
     "underscore.string": "latest",
-    "coffee-script": "~1.7.1"
+    "coffee-script": "~1.7.1",
+    "require": "*"
   },
   "authors": [
     "Berend (.mpe) <dev@dotmpe.com>"
@@ -29,4 +30,3 @@
   "license": "GPLv3",
   "private": true
 }
-

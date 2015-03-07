@@ -1,8 +1,7 @@
-console.log 'dotmpe-x-backbone'
+console.log 'test'
 
-module.exports = ()->
-	console.log 'dotmpe-x-backbone client', arguments, @
+require(['jquery'], ($)->
 
-	null
+	console.log 'dotmpe-x-backbone', $
 
-
+)
