@@ -3,7 +3,11 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
   head
     title Bookshelf, Knex, Warehouse testing
     link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
-    //link(rel="stylesheet", href="/style/node-backbone-todo-example.css")
+    link(rel="stylesheet", href="/style/node-backbone-todo-example.css")
+
+    script(id="requirejs", data-main="/script/x-bookmarks/main",
+      src="/components/requirejs/require.js")
+
   body
 
     h1 Backbone experimentation.
@@ -48,8 +52,5 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
       |    <div><%= model.attributes.global_id %></div>
       |    <code><%= model.attributes.ref %></code>
       | </li>
-
-    script(id="requirejs-2.1.10", data-main="/script/x-bookshelf.js",
-      src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js")
 
 

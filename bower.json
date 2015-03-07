@@ -18,7 +18,7 @@
     "underscore": "latest",
     "underscore.string": "latest",
     "coffee-script": "~1.7.1",
-    "require": "*"
+    "requirejs": "~2.1.16"
   },
   "authors": [
     "Berend (.mpe) <dev@dotmpe.com>"
