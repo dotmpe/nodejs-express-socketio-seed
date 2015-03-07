@@ -10,12 +10,12 @@
 require "LiveScript"
 
 # customized Express loader
-module_mpe = require './src/node/dotmpe/module'
+module_mpe = require './src/dotmpe/nodelib/module'
 
 module_mpe.init( __dirname )
 
 # Init express-seed base app
-core = module_mpe.load_core( 'src/node/dotmpe/express-seed' )
+core = module_mpe.load_core( 'src/dotmpe/express-seed' )
 core.configure()
 
 core.load_modules()

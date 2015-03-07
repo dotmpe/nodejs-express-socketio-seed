@@ -6,7 +6,7 @@
   components:
     - controllers
   controllers:
-    - 'index'
+    - controllers/index
 
 # TODO: have a look at building the frontend-side state of affairs
 - type: x-jvc/0.1

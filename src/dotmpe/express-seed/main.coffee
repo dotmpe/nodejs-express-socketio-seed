@@ -27,7 +27,7 @@ init_express = ( app, server, config, pkg, envname )->
 	app.set 'views', path.join rootPath, 'views'
 	app.set 'view engine', 'jade'
 
-	# expose package.json, config.lib to views
+	# expose package.json, config.lib to Express views
 	app.use (req, res, next)->
 		res.locals.pkg = pkg
 		res.locals.head = config.lib

@@ -113,9 +113,6 @@ class CoreV01 extends Core
 			fullpath = path.join( modroot, modpath )
 			mod = ModuleV01.load( @, fullpath )
 			mod.configure()
-			_.extend @routes, mod.routes
-			#for ctrlr in mod.controllers
-			#	_.extend @routes, ctrl.routes
 			@modules[ mod.meta.name ] = mod
 			console.log 'loaded module', modpath, mod.meta.name, mod.routes
 
@@ -127,13 +124,12 @@ class CoreV01 extends Core
 		_.union comps, _.values( @modules )
 
 	start: ()->
-		# Start ...
 		self = @
 		@server.listen @app.get("port"), ->
 			console.log "Express server listening on port " + self.app.get("port")
 
 	@load: ( core_path )->
-		# TODO sync with Module.load
+		# TODO sync with Module.load:
 		#md = metadata.load( core_path )
 		#if not md
 		#	md = type: 'express-mvc/0.1'
@@ -160,7 +156,6 @@ class ModuleV01 extends Component
 			opts.name = 'ModuleV01'
 		super opts
 
-	# FIXME: init like old seed project did
 	configure: () ->
 		#@moduleRoot = path.join extroot, @name
 		@controllerPath = path.join @path, 'controllers'
