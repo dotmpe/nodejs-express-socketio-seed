@@ -6,12 +6,19 @@ block main
   form
     .form-group
       label Path
-      input(name='path', value=docpath).form-control
+      input(name='docpath', value=docpath).form-control
+    .form-group
+      label Format
+      select(name='format')
+        option(value="xml") XML
+        option(value="pseudoxml") Pseudo XML (plain text)
+        option(value="html") HTML
+        option(value="source") Source (reStructuredText)
 
 block content
 
-  .row
-    #viewer
+  .row.form-group
+    iframe#viewer.form-control
 
 block footer
 

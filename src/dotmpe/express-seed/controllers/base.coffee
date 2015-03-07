@@ -43,11 +43,11 @@ class Controller
 			for models elsewhere, and deal with Controller-View here.
 	###
 	constructor: (opts)->
-		{@name, @core} = opts
-	@property 'title',
-		get: -> @core.meta.title
-	@init: ( core, type=Controller )->
-		new type core: core
+		{@name, @title, @core} = opts
+	#@property 'title',
+	#	get: -> @core.meta.title
+	@init: ( core, type=Controller, opts )->
+		new type _.defaults opts, core: core
 
 class StaticController extends Controller
 

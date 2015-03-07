@@ -7,6 +7,7 @@
     - controllers
   controllers:
     - controllers/index
+    - data
 
 # TODO: have a look at building the frontend-side state of affairs
 - type: x-jvc/0.1

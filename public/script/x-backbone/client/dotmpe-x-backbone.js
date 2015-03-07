@@ -1,0 +1,1 @@
+(function(){console.log("test"),require(["jquery"],function(e){return console.log("dotmpe-x-backbone",e)})}).call(this);

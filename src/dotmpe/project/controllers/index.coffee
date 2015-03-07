@@ -49,11 +49,11 @@ module.exports = ( module )->
 		if not req.query.docpath
 			req.query.docpath = 'ReadMe'
 
-		ctrlr = base.type.base.init module.core, base.type.page
-		#base.type.base title: "Doc viewer"
+		ctrlr = base.type.base.init module.core, base.type.page,
+			title: "Doc viewer"
 
 		pkg: module.core.pkg
-		head: module.core.config.lib # _.union, )
+		head: _.merge module.core.config.lib, js: 'proj-doc': '/script/project.js'
 		core: module.core
 		isActive: ()-> false
 		page: ctrlr
