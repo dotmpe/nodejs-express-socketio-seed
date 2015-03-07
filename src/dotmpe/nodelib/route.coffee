@@ -18,8 +18,6 @@ applyRoutes = (app, root, controller)->
 		for method in ['all', 'get', 'put', 'post', 'options', 'delete']
 			cb = route[method]
 			if cb
-				# Debug
-				console.log 'route', method, url
 				# Track all routes?
 				if url not of routes
 					routes[url] = {}

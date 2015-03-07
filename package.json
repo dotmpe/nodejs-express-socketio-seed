@@ -43,6 +43,7 @@
     "express": "^4.1.1",
     "forever": "latest",
     "jade": "latest",
+    "lodash": "^3.4.0",
     "socket.io": "latest",
     "underscore": "latest",
     "view-helpers": "latest",

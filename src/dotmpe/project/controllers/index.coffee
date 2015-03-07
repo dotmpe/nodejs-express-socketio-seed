@@ -1,14 +1,25 @@
-_ = require 'underscore'
+###
+
+###
+
+_ = require 'lodash'
 fs = require 'fs'
 path = require 'path'
 jade = require 'jade'
 
 
+docTemplate = jade.compileFile require.resolve '../views/docs.jade'
 projectTemplate = jade.compileFile require.resolve '../views/index.jade'
 
 listProjects = ()->
 	dataDir = process.cwd()
-	names = fs.readdirSync path.join dataDir, 'project'
+	projectsDir = path.join dataDir, 'project'
+
+	if (!fs.existsSync(projectsDir))
+		return ['No project dir']
+
+	names = fs.readdirSync projectsDir
+
 	results = []
 	for name in names
 		projectPath = path.join(dataDir, 'project', name)
@@ -18,17 +29,44 @@ listProjects = ()->
 			results.push name
 	results
 
+currentProject = ()->
+	pkg_fn = path.join process.cwd(), 'package.json'
+	if (fs.existsSync(pkg_fn))
+		require pkg_fn
 
 module.exports = ( module )->
 
+	base = module.core.base
+
+	projectDir = process.cwd()
+
 	projectData = ()->
+		current: pkg: currentProject()
 		projects: listProjects()
 		page: title: "Projects", summary: module.core.config.app.name
 
-	base = module.core.base
+	docData = (req, res)->
+		if not req.query.docpath
+			req.query.docpath = 'ReadMe'
 
-	_.extend( base,
-		route: project: get: base.simpleView 'index', projectData, projectTemplate
-	)
+		ctrlr = base.type.base.init module.core, base.type.page
+		#base.type.base title: "Doc viewer"
+
+		pkg: module.core.pkg
+		head: module.core.config.lib # _.union, )
+		core: module.core
+		isActive: ()-> false
+		page: ctrlr
+		modules: []
+		docpath: req.query.docpath
+
+	_.merge base,
+
+		route: 
+			project: 
+				route:
+					document:
+						get: base.simpleView docData, docTemplate
+				get: base.simpleView projectData, projectTemplate
 
 

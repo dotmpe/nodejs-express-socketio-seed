@@ -1,4 +1,11 @@
-# create express and socket server
+###
+Do the heavy lifting for Express. 
+
+This module exports an options object to pass along to
+dotmpe.nodelib.module.Component
+
+###
+
 path = require 'path'
 express = require 'express'
 
@@ -47,8 +54,7 @@ init_express = ( app, server, config, pkg, envname )->
 		res.status(500).render('500', { error: err.stack })
 	)
 
-load_controllers = ( app, config )->
-	
+#load_controllers = ( app, config )->
 
 module.exports = ( approot )->
 
@@ -88,6 +94,7 @@ module.exports = ( approot )->
 	app: app
 	server: server
 
+	pkg: pkg
 	root: rootPath
 	config: config
 
@@ -96,8 +103,9 @@ module.exports = ( approot )->
 		default_route: 'home'
 
 		menu:
-			home: url: 'home', label: 'Home'
-			about: url: 'about', label: 'About'
+			home: url: '/home', label: 'Home'
+			about: url: '/about', label: 'About'
+			module: url: '/modules', label: 'Modules'
 
 		page:
 			title: "Untitled"

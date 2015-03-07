@@ -1,5 +1,5 @@
 
-_ = require 'underscore'
+_ = require 'lodash'
 fs = require 'fs'
 path = require 'path'
 jade = require 'jade'
@@ -14,7 +14,6 @@ module.exports = (module)->
 
 	base = module.core.base
 
-	_.extend( base,
-		route: 'dotmpe/x/backbone/': get: base.simpleView 'index', data, indexTpl
-	)
+	_.merge module.core.base,
+		route: 'dotmpe/x/backbone/': get: base.simpleView data, indexTpl
 

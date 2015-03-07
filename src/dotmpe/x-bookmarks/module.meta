@@ -6,6 +6,6 @@
     - controllers
     - models
   controllers:
-    - 'index'
+    - controllers/index
 
 # vim:ft=yaml:

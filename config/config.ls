@@ -31,8 +31,8 @@ module.exports =
 				'/components/bootstrap/dist/css/bootstrap-theme.css'
 				'/style/app.css'
 		modules: [
-			#'node/dotmpe/x-bookmarks',
-			#'node/dotmpe/project',
+			'dotmpe/x-bookmarks',
+			'dotmpe/project',
 			'dotmpe/x/backbone',
 			#'dotmpe/x/backbone/backend',
 			#'dotmpe/x/backbone/frontend'

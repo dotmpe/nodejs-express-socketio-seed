@@ -1,3 +1,5 @@
+//extends ../../express-seed/views/layouts/base
+
 doctype html
 html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
 
@@ -8,6 +10,27 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
     script(type="text/javascript", src='/script/pkg-dotmpe-project.js')
 
   body
+
+    .container
+      .row
+
+        .col-md-2
+
+        .col-md-10
+          h1 Current Project
+          if current.pkg
+            table
+              tr
+                th Name
+                td= current.pkg.name
+              tr
+                th Version
+                td= current.pkg.version
+              tr
+                th License
+                td= current.pkg.license
+          else
+            span Not an NPM project
 
     .container
       .row

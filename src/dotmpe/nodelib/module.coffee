@@ -17,7 +17,7 @@ applyRoutes = require('./route').applyRoutes
 class Component
 
 	constructor: ( opts ) ->
-		{@app, @server, @root, @config, @meta, @url, @path} = opts
+		{@app, @server, @root, @pkg, @config, @meta, @url, @path} = opts
 		@base = {}
 		@controllers = {}
 		@routes = {}
@@ -34,19 +34,22 @@ class Component
 			return
 
 		p = @root || @path
-		console.log @name, @root, @path
 		
 		# load configured controllers
 		for ctrl in @meta.controllers
+
 			ctrl_path = path.join( p, ctrl )
 			@controllers[ ctrl ] = require ctrl_path
 			ctrlr = @controllers[ ctrl ] @, @base
+
+			# FIXME: apply routes only once. Currently controllers each merge base.{type,route}
 			newRoutes = applyRoutes( @app, @url, ctrlr )
 			_.extend @routes, newRoutes
-			console.log 'Component: loaded', ctrl, 'controller', newRoutes
+
+			console.log 'Component: loaded', ctrl, 'controller'
 
 		if @meta.default_route
-			defroute = [ @url, @meta.default_route ].join('/')
+			defroute = path.join( @url, @meta.default_route )
 			@app.all @url, @base.redirect(defroute)
 
 
@@ -81,7 +84,6 @@ class CoreV01 extends Core
 	constructor: (opts) ->
 		super opts
 		@modules = {}
-		#console.log 'core', @meta
 
 	configure: () ->
 		# url must point to netpath, WITHOUT any *path* part (ie. including root)
@@ -114,7 +116,7 @@ class CoreV01 extends Core
 			mod = ModuleV01.load( @, fullpath )
 			mod.configure()
 			@modules[ mod.meta.name ] = mod
-			console.log 'loaded module', modpath, mod.meta.name, mod.routes
+			console.log 'loaded module', modpath, mod.meta.name
 
 	###
 		CoreV01.get_all_components

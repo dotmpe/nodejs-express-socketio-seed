@@ -1,15 +1,16 @@
-_ = require 'underscore'
+_ = require 'lodash'
 
 
 module.exports = (core, base) ->
 
-	_.extend( base, 
+	_.merge( base, 
 		# Dynamic define of resource subtypes?
 		#types = app.get 'controllers'
 		#class Admin extends types.Page
 		#app.get 'controllers' ['page']
 		#
 		# static route pre-config
+		
 		route:
 			admin:
 				get: (req, res) ->

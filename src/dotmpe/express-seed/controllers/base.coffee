@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 
 
 util = {
@@ -9,11 +9,9 @@ util = {
 			res.redirect(path)
 
 	# Generates a route handler
-	simpleView: (name, data_cb, template_cb) ->
+	simpleView: (data_cb, template_cb) ->
 		(req, res, next) ->
-			data = if data_cb then data_cb() else {}
-			if not data
-				console.warn('No data for '+name)
+			data = if data_cb then data_cb(req, res) else {}
 			#console.log( 'tpl render', name, data )
 			res.write( template_cb( data ) )
 			res.end()
@@ -21,7 +19,7 @@ util = {
 	# Generates a route handler using the Express view renderer
 	simpleExpressView: (name, getContext) ->
 		(req, res, next) ->
-			data = if getContext then getContext() else {}
+			data = if getContext then getContext(req, res) else {}
 			if not data
 				console.warn('No data for '+name)
 			#console.log( 'render', name, data )
@@ -29,6 +27,9 @@ util = {
 }
 
 # Controller baseclass
+Function::property = (prop, desc) ->
+	Object.defineProperty @prototype, prop, desc
+
 class Controller
 	###
 	The server-side controller is a helper class to provides handlers
@@ -42,21 +43,26 @@ class Controller
 			for models elsewhere, and deal with Controller-View here.
 	###
 	constructor: (opts)->
-		{@name} = opts
+		{@name, @core} = opts
+	@property 'title',
+		get: -> @core.meta.title
+	@init: ( core, type=Controller )->
+		new type core: core
 
 class StaticController extends Controller
+
 	constructor: (opts)->
 		@options = _.extend(@options, opts)
 		super opts
 
 
-# static export for other controllers
-module.exports = (core, base)->
-	_.extend( base, 
-		util, 
+module.exports = ( core )->
+
+	_.merge core.base, util,
 		type:
 			base: Controller
 			static: StaticController
-	)
+	
+	{}
 
 

@@ -1,0 +1,20 @@
+extends ../../express-seed/views/layouts/base
+
+
+block main
+
+  form
+    .form-group
+      label Path
+      input(name='path', value=docpath).form-control
+
+block content
+
+  .row
+    #viewer
+
+block footer
+
+  p.text-muted.credit Express MVC - Project - Documents
+
+
