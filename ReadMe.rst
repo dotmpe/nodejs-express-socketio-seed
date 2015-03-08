@@ -50,7 +50,7 @@ master
     - Going to dust off my own Du stylesheets and get bootstrap components and
       layout into the picture.
 
-  f_clientbuild
+  f_clientbuild *
     - Want to build lazy-loading, fully packaged client. 
       Need build-system, code and style compilers.
     - Testing Grunt.
@@ -60,9 +60,10 @@ master
   f_ext
     - Try to get an extension framework going at the backend with plugin modules.
 
-  f_orm *
+  f_orm
     - Added Knex ORM, and WarehouseJS for Backbone REST access to ORM.
 
-  f_backbone
-    - Get going with MarionetteJS
+  feature
+    - Merging all features with exmaple modules here.
+      To keep master clean. Should hand-pick generic changes to master.
 
