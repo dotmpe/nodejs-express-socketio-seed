@@ -10,7 +10,7 @@ module.exports =
 	# Create model, collection and register with Bookshelf
 	define: (Base) -> 
 		Location = Base.Model.extend(
-			tableName: 'ids_lctr'
+			tableName: 'bm'
 		)
 		Locations = Base.Collection.extend(
 			model: Location

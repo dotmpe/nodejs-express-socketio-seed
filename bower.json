@@ -17,8 +17,11 @@
     "backbone.localstorage": "latest",
     "underscore": "latest",
     "underscore.string": "latest",
+    "require-cs": "latest",
     "coffee-script": "~1.7.1",
-    "requirejs": "~2.1.16"
+    "requirejs": "~2.1.16",
+    "requirejs-plugins": "git@github.com:millermedeiros/requirejs-plugins.git#master",
+    "backbone.localstorage": "latest"
   },
   "authors": [
     "Berend (.mpe) <dev@dotmpe.com>"

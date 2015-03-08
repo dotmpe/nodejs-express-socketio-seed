@@ -30,10 +30,21 @@ module.exports =
 				'/components/bootstrap/dist/css/bootstrap.css'
 				'/components/bootstrap/dist/css/bootstrap-theme.css'
 				'/style/app.css'
-		modules: [
-			'dotmpe/x-bookmarks',
-			'dotmpe/project',
-			'dotmpe/x/backbone',
+		modules:
+			'dotmpe/x-bookmarks'
+			'dotmpe/project'
+			'dotmpe/x/backbone'
 			#'dotmpe/x/backbone/backend',
 			#'dotmpe/x/backbone/frontend'
-		]
+			
+		database:
+			main:
+				# knex 0.6.20 config
+				client: 'sqlite3'
+				connection:
+					filename: __approot + '/main.sqlite3.db'
+					#filename: '/Users/berend/htdocs/.cllct/bms.sqlite'
+				migrations:
+					tableName: 'knex_migrations'
+					directory: __approot + '/migrations/main'
+

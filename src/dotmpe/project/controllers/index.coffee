@@ -53,7 +53,8 @@ module.exports = ( module )->
 			title: "Doc viewer"
 
 		pkg: module.core.pkg
-		head: _.merge module.core.config.lib, js: 'proj-doc': '/script/project.js'
+		head: module.core.config.lib
+		#head: _.merge module.core.config.lib, js: 'proj-doc': '/script/project.js'
 		core: module.core
 		isActive: ()-> false
 		page: ctrlr

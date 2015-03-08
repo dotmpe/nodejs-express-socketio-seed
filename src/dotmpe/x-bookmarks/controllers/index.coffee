@@ -1,16 +1,24 @@
 path = require 'path'
 sqlite3 = require 'sqlite3'
 Bookshelf = require 'bookshelf'
+warehouse = require 'warehousejs'
+chalk = require 'chalk'
+
 
 module.exports = (module)->
 
+	app = module.core.app
+
+	# Set up a primary persisted storage
+	knex = app.get('knex.main')
+	if not knex
+		knex = require('knex')(module.core.config.database.main) 
+		app.set('knex.main', knex)
+	console.log(chalk.grey('Initialized main DB conn'))
+
 	# Prepare DB connection
-	SQLiteBase = Bookshelf.initialize(
-		client: 'sqlite'
-		connection:
-			#filename: './bookmarks.sqlite3.db'
-			filename: '/Users/berend/htdocs/.cllct/bms.sqlite'
-	)
+	SQLiteBase = Bookshelf.initialize(knex)
+	
 	Bookshelf.session = SQLiteBase
 	# Load models of module
 	models = require module.modelPath
@@ -19,6 +27,16 @@ module.exports = (module)->
 	# Define and register models
 	models.location.define(SQLiteBase)
 	models.bookmark.define(SQLiteBase)
+
+	# Set up barebone CRUD for SQLite3 records
+	SqlBackend = require 'warehousejs/backend/sql'
+
+	bookmarks = new SqlBackend
+		driver: 'sqlite3'
+		filename: module.core.config.database.main.connection.filename
+	bookmarks.open()
+	warehouse.applyRoutes app, '/data/locations', bookmarks.objectStore 'ids_lctr'
+	warehouse.applyRoutes app, '/data/bookmarks', bookmarks.objectStore 'bm'
 
 	# Return hash with handlers
 	x_bookshelf = (req, res, next)->

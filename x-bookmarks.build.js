@@ -1,7 +1,6 @@
 {
 	appDir: 'src/dotmpe/x-bookmarks/client',
-
-	baseUrl: '.',//./../../../public/script/x-bookmarks', // relative to appDir
+	baseUrl: '.',// relative to appDir
 	paths: {
 		app: '../app',
 		jquery: 'empty:',
