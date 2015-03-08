@@ -1,0 +1,30 @@
+extends ../../express-seed/views/layouts/base
+
+
+block main
+
+  form
+    .form-group
+      label Path
+      input(name='docpath', value=docpath).form-control
+    .form-group
+      label Format
+      select(name='format')
+        option(value="html") HTML
+        option(value="pseudoxml") Pseudo XML (plain text)
+        option(value="source") Source (reStructuredText)
+        option(value="xml") XML
+
+block content
+
+  .row.form-group
+    iframe#viewer.form-control
+
+  script(id="requirejs", data-main="/script/project/main",
+      src="/components/requirejs/require.js")
+
+block footer
+
+  p.text-muted.credit Express MVC - Project - Documents
+
+

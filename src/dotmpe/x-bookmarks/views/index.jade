@@ -1,0 +1,56 @@
+doctype html
+html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
+  head
+    title Bookshelf, Knex, Warehouse testing
+    link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
+    link(rel="stylesheet", href="/style/node-backbone-todo-example.css")
+
+    script(id="requirejs", data-main="/script/x-bookmarks/main",
+      src="/components/requirejs/require.js")
+
+  body
+
+    h1 Backbone experimentation.
+
+    h2 Backone+WarehouseJS
+    p A standard Backbone MCV setup, using a standardized backend at 
+      a(href="/data/locations") /data/locations
+      | , leveraged from a SQLite table using WarehouseJS.
+
+    div#locations
+      header
+        h3 Locators
+        div#new-location
+          input.global_id(type="text",placeholder="")
+          input.ref(type="text",placeholder="")
+      section#main(style="display:none;")
+        ul.location-list
+      footer(style="display: none;")
+        div#location-count
+
+    script(type="text/template",id="item-template")
+      | <div class="view">
+      |   <div>
+      |     <input class="toggle" type="checkbox" 
+      |              <%= private ? 'checked="checked"' : '' %> />
+      |     <label>Private</label>
+      |   </div>
+      |   <code><%- global_id %></code>
+      |   <code><%- ref %></code>
+      |   <a class="destroy"></a>
+      | </div>
+      | <div class="edit">
+      |   <input class="global_id edit" type="text" value="<%- global_id %>" />
+      |   <input class="ref edit" type="text" value="<%- ref %>" />
+      | </div>
+
+    script(type="text/template", id="stats-template")
+      | <div class="location-count"><b><%= count %></b> <%= count == 1 ? 'item' : 'items' %> </div>
+
+    script(type="text/template", id="lctr-template")
+      | <li class="location">
+      |    <div><%= model.attributes.global_id %></div>
+      |    <code><%= model.attributes.ref %></code>
+      | </li>
+
+

@@ -1,0 +1,26 @@
+extends ../layouts/base
+
+block main
+
+  h3 Routes
+  div URLs loaded from core and MVC extension modules..
+
+    - each comp, index in components
+      h4= comp.name || comp.meta.name
+      if comp.routes
+        - each methods, url in comp.routes
+          table
+            - each cb, method in methods
+              tr
+                td
+                  if (method == 'get')
+                    a(href= url)= method +' ('+url+')'
+                  else
+                    span= method
+
+block content
+
+block footer
+
+  p.text-muted.credit Express MVC - Modules Admin
+

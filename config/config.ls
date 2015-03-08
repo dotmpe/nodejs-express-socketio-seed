@@ -1,12 +1,22 @@
-path = require('path')
-rootPath = path.normalize(__dirname + '/..')
+#path = require('path')
+#rootPath = path.normalize(__dirname + '/..')
 
 module.exports =
+
+	production:
+		#root: rootPath
+		root: __dirname
+		modules: [
+			'node/dotmpe/x-bookmarks'
+		]
+
 	test:
-		root: rootPath
+		#root: rootPath
+		root: __dirname
 		app: name: 'Nodejs Express Socket IO Demo (test)'
+
 	development:
-		root: rootPath
+		root: __dirname
 		app: name: 'Nodejs Express Socket IO Demo (dev)'
 		lib:
 			js:
@@ -20,4 +30,21 @@ module.exports =
 				'/components/bootstrap/dist/css/bootstrap.css'
 				'/components/bootstrap/dist/css/bootstrap-theme.css'
 				'/style/app.css'
+		modules:
+			'dotmpe/x-bookmarks'
+			'dotmpe/project'
+			'dotmpe/x/backbone'
+			#'dotmpe/x/backbone/backend',
+			#'dotmpe/x/backbone/frontend'
+			
+		database:
+			main:
+				# knex 0.6.20 config
+				client: 'sqlite3'
+				connection:
+					filename: __approot + '/main.sqlite3.db'
+					#filename: '/Users/berend/htdocs/.cllct/bms.sqlite'
+				migrations:
+					tableName: 'knex_migrations'
+					directory: __approot + '/migrations/main'
 

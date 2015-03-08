@@ -1,0 +1,32 @@
+extends ../layouts/base
+
+block main
+
+  h1= title
+  p This is the home page.
+
+block content
+
+  table
+    tr
+      th App Name
+      td= core.config.app.name
+    tr
+      th Process dir
+      td= process.cwd()
+    tr
+      th App Root
+      td= __approot
+    tr
+      th Core Root
+      td= core.root
+    tr
+      th Core URL
+      td= core.url
+
+
+block footer
+
+  p.text-muted.credit Express MVC - Site Index
+
+

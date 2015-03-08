@@ -1,0 +1,44 @@
+# -*- Yaml -*-
+
+# Work in progress
+- type: express-mvc-ext/0.1
+  name: dotmpe/project
+  components:
+    - controllers
+  controllers:
+    - controllers/index
+    - data
+
+# TODO: have a look at building the frontend-side state of affairs
+- type: x-jvc/0.1
+  jvc:
+      ext:
+        layout:
+            default:
+                controller:
+                template:
+            project:
+                type: default
+                components:
+                    - layout:
+                        type: simple
+                        components:
+                            - name: 
+                    - type: nav
+            content:
+                components:
+                    - components:
+                        - view: nav
+                        - view: ctxnav
+                        - view: main
+        views:
+            panel:
+            nav:
+            main:
+            ctxnav:
+        fields:
+            base:
+            label:
+            field:
+
+# vim:ft=yaml:
