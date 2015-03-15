@@ -1,5 +1,3 @@
-require "LiveScript"
-
 global.__approot = __dirname
 #require('./config/config'){ rootPath: __dirname }
 

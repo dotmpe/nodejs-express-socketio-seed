@@ -31,7 +31,7 @@ load = ( from_path )->
 resolve_mvc_meta = ( from_path, meta )->
 
 	version = meta.type.split('/')[1]
-	meta.path = path
+	meta.path = from_path
 	meta.ext_version = version
 
 	if not meta.components

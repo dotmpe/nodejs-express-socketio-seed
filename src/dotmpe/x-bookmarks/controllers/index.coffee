@@ -45,10 +45,20 @@ module.exports = (module)->
 		new Locations().query().count('id').then(
 			(rs) ->
 				res.render path.join(module.viewPath, 'index'),
+					page: title: "Bookshelf, Knex, Warehouse testing"
+					module: module
+					config: module.core.config
+					pkg: module.core.pkg
+					menu: module.core.meta.menu
+					head: module.core.config.lib
 					test: rs[0]['count("id")']
 		)
 
 	route:
 		'x-bookmarks':
 			get: x_bookshelf
+
+	meta:
+		menu:
+			bookmarks: url: '/x-bookmarks', label: 'Bookmarks'
 

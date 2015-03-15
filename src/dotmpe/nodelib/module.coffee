@@ -8,7 +8,7 @@
 
 ###
 path = require 'path'
-_ = require 'underscore'
+_ = require 'lodash'
 
 metadata = require './metadata'
 applyRoutes = require('./route').applyRoutes
@@ -21,11 +21,18 @@ class Component
 		@base = {}
 		@controllers = {}
 		@routes = {}
+		@route = {}
 
 	@load_config: ( name )->
 		{}
 
 	configure: () ->
+		p = @root || @path
+
+		@controllerPath = path.join p, 'controllers'
+		@modelPath = path.join p, 'models'
+		@viewPath = path.join p, 'views'
+
 		@load_controllers()
 
 	load_controllers: ()->
@@ -40,13 +47,20 @@ class Component
 
 			ctrl_path = path.join( p, ctrl )
 			@controllers[ ctrl ] = require ctrl_path
-			ctrlr = @controllers[ ctrl ] @, @base
+			updateObj = @controllers[ ctrl ] @, @base
 
-			# FIXME: apply routes only once. Currently controllers each merge base.{type,route}
-			newRoutes = applyRoutes( @app, @url, ctrlr )
-			_.extend @routes, newRoutes
+			# update global meta object
+			if @core
+				if updateObj.meta
+					_.merge @core.meta, updateObj.meta
+
+			# keep routes at local module
+			_.merge @route, updateObj.route
 
 			console.log 'Component: loaded', ctrl, 'controller'
+
+		# pick of new routes from updateObj
+		_.extend @routes, applyRoutes( @app, @url, @ )
 
 		if @meta.default_route
 			defroute = path.join( @url, @meta.default_route )
@@ -99,16 +113,13 @@ class CoreV01 extends Core
 			res.locals.modules = []
 			next()
 
-		# Apply routes (load controllers, apply all url handlers)
-		@controllerPath = path.join @root, 'controllers'
-
 		super
 
 	###
 		CoreV01.load_modules
 	###
 	load_modules: ()->
-		console.log 'load_modules', @config.modules
+		#console.log 'load_modules', @config.modules
 		modroot = path.join __approot, @config.src || 'src'
 		mods = _.extend( [], @config.modules, @meta.modules )
 		for modpath in mods
@@ -157,13 +168,6 @@ class ModuleV01 extends Component
 		if !opts.name
 			opts.name = 'ModuleV01'
 		super opts
-
-	configure: () ->
-		#@moduleRoot = path.join extroot, @name
-		@controllerPath = path.join @path, 'controllers'
-		@modelPath = path.join @path, 'models'
-		@viewPath = path.join @path, 'views'
-		super
 
 	# Static methods
 	

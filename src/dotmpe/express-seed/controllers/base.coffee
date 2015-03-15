@@ -1,4 +1,6 @@
 _ = require 'lodash'
+path = require 'path'
+jade = require 'jade'
 
 
 util = {
@@ -12,7 +14,6 @@ util = {
 	simpleView: (data_cb, template_cb) ->
 		(req, res, next) ->
 			data = if data_cb then data_cb(req, res) else {}
-			#console.log( 'tpl render', name, data )
 			res.write( template_cb( data ) )
 			res.end()
 
@@ -22,46 +23,85 @@ util = {
 			data = if getContext then getContext(req, res) else {}
 			if not data
 				console.warn('No data for '+name)
-			#console.log( 'render', name, data )
 			res.render( name, data )
 }
 
-# Controller baseclass
 Function::property = (prop, desc) ->
 	Object.defineProperty @prototype, prop, desc
 
+# Controller baseclass
 class Controller
-	###
-	The server-side controller is a helper class to provides handlers
-	for the Express app routes. These routines mainly concern getting the 
-	server-side template data and making the call to res.render.
 
-	The important controller of the UI is client-side, so this can deal 
-	with less dynamic things. Configuratin is currently done in config/routes.
+	constructor: (core)->
+		@component = core
+		if core.core
+			@module = core
+			@core = @module.core
+		else
+			@core = core
 
-	TODO: look into metadata based MVC. Would need some schema framework 
-			for models elsewhere, and deal with Controller-View here.
+class Base extends Controller
+
 	###
-	constructor: (opts)->
-		{@name, @title, @core} = opts
-	#@property 'title',
-	#	get: -> @core.meta.title
+	Base is the HTML client.
+	###
+	
+	constructor: (core, @view, @seed)->
+		super core
+		@viewPath = path.join @component.viewPath, @view
+		@template = jade.compileFile @viewPath+'.jade'
+	
+	getContext: ()->
+		if not @core
+			throw "Error"
+		@view_vars =
+			# view:includes/head
+			page:
+				title: 'Title'
+			core: @core
+			app: @core.config.app
+			pkg: @core.pkg
+			head: @core.config.lib
+			# view:includes/header
+			menu: @core.meta.menu
+			modules: [
+				name: 'Mod A'
+			]
+			isActive: ()->
+			# view:includes/messages
+			#info: [
+			#	"Info!"
+			#]
+			#errors: [
+			#	"Error!"
+			#]
+			#success: [
+			#	"Success!"
+			#]
+			#warning: [
+			#	"Warning!"
+			#]
+		x = _.extend {},
+			@view_vars,
+			@seed
+		return x
+
+	# Static methods
 	@init: ( core, type=Controller, opts )->
 		new type _.defaults opts, core: core
 
-class StaticController extends Controller
-
-	constructor: (opts)->
-		@options = _.extend(@options, opts)
-		super opts
+	get: ( req, res, next )->
+		context = _.bind @getContext, @
+		browserHandler = util.simpleView context, @template
+		browserHandler req, res, next
 
 
 module.exports = ( core )->
 
 	_.merge core.base, util,
 		type:
-			base: Controller
-			static: StaticController
+			Controller: Controller
+			Base: Base
 	
 	{}
 

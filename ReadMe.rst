@@ -8,9 +8,7 @@ Going to write some examples, demos, and hopefully work towards some common
 structure and seed branches.
 
 Work in progress
-  Modulr 
-    - fix configuration
-  - Initialize menu for loaded components.
+  Backbone frontend
 
 Wanted
   - View-Controller metadata
@@ -62,6 +60,7 @@ master
 
   f_orm
     - Added Knex ORM, and WarehouseJS for Backbone REST access to ORM.
+    - Play with backbone client. Look at MarionetteJS
 
   feature
     - Merging all features with exmaple modules here.

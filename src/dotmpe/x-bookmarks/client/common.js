@@ -15,5 +15,7 @@ requirejs.config({
 	shim: {
 		backbone: { exports: "Backbone" },
 //		etch: { deps: ['backbone'], exports: 'etch' }
-	}
+	},
+});
+define('common', [], function() {
 });
