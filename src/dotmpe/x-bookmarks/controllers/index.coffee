@@ -49,6 +49,7 @@ module.exports = (module)->
 					module: module
 					config: module.core.config
 					pkg: module.core.pkg
+					menu: module.core.meta.menu
 					head: module.core.config.lib
 					test: rs[0]['count("id")']
 		)
@@ -56,4 +57,8 @@ module.exports = (module)->
 	route:
 		'x-bookmarks':
 			get: x_bookshelf
+
+	meta:
+		menu:
+			bookmarks: url: '/x-bookmarks', label: 'Bookmarks'
 

@@ -4,7 +4,15 @@ module.exports = ( module )->
 
 	base = module.core.base
 
-	browser = new base.type.Base module, 'main', {}
+	class Browser extends base.type.Base
+		getContext: ()->
+			ctx = super
+			ctx.head.js.r_main = "/script/project/main"
+			ctx
+
+	browser = new Browser module, 'main', {}
 
 	route: browser: get: _.bind browser.get, browser
+	meta: menu: browser: url: '/browser', label: 'Browser'
+
 

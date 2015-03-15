@@ -36,6 +36,8 @@ module.exports = (core, base) ->
 						get: base.simpleExpressView 'admin/modules', () ->
 							page: title: "Modules"
 							routes: core.routes
-							modules: core.app.get('modules')
+							modules: core.modules
+							components: core.get_all_components()
+							menu: core.meta.menu
 	)
 

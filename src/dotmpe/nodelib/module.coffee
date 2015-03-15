@@ -8,7 +8,7 @@
 
 ###
 path = require 'path'
-_ = require 'underscore'
+_ = require 'lodash'
 
 metadata = require './metadata'
 applyRoutes = require('./route').applyRoutes
@@ -21,6 +21,7 @@ class Component
 		@base = {}
 		@controllers = {}
 		@routes = {}
+		@route = {}
 
 	@load_config: ( name )->
 		{}
@@ -46,13 +47,20 @@ class Component
 
 			ctrl_path = path.join( p, ctrl )
 			@controllers[ ctrl ] = require ctrl_path
-			ctrlr = @controllers[ ctrl ] @, @base
+			updateObj = @controllers[ ctrl ] @, @base
 
-			# FIXME: apply routes only once. Currently controllers each merge base.{type,route}
-			newRoutes = applyRoutes( @app, @url, ctrlr )
-			_.extend @routes, newRoutes
+			# update global meta object
+			if @core
+				if updateObj.meta
+					_.merge @core.meta, updateObj.meta
+
+			# keep routes at local module
+			_.merge @route, updateObj.route
 
 			console.log 'Component: loaded', ctrl, 'controller'
+
+		# pick of new routes from updateObj
+		_.extend @routes, applyRoutes( @app, @url, @ )
 
 		if @meta.default_route
 			defroute = path.join( @url, @meta.default_route )
