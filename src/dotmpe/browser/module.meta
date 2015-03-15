@@ -1,0 +1,14 @@
+# -*- Yaml -*-
+
+# Work in progress
+- type: express-mvc-ext/0.1
+  name: dotmpe/browser
+  components:
+    - controllers
+    - views
+  controllers:
+    - controller
+  views:
+    - controller
+
+# vim:ft=yaml:

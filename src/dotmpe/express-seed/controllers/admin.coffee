@@ -17,9 +17,15 @@ module.exports = (core, base) ->
 		# static route pre-config
 		
 		route:
-			admin:
+
+			admin: 
 				get: (req, res) ->
 					res.render 'admin', page: title: "Admin"
+				route:
+					template: get: base.simpleExpressView 'admin/template', () ->
+						page: title: "Template"
+						menu: core.meta.menu
+
 			modules:
 				get: base.simpleExpressView 'admin/modules', ()->
 					page: title: "Modules"

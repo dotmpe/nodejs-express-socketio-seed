@@ -33,6 +33,7 @@ module.exports =
 		modules:
 			'dotmpe/x-bookmarks'
 			'dotmpe/project'
+			'dotmpe/browser'
 			'dotmpe/x/backbone'
 			#'dotmpe/x/backbone/backend',
 			#'dotmpe/x/backbone/frontend'
