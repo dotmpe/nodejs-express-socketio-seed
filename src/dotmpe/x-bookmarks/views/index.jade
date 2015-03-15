@@ -3,8 +3,8 @@ extends ../../express-seed/views/layouts/base
 block head
     link(rel="stylesheet", href="/style/node-backbone-todo-example.css")
 
-    script(id="requirejs", data-main="/script/x-bookmarks/main",
-      src="/components/requirejs/require.js")
+    script(id="x-bookmark-app", data-main="/script/x-bookmarks/main",
+      src=head.js.requirejs)
 
 block main
 

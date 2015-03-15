@@ -49,6 +49,7 @@ module.exports = ( module )->
 		getContext: ( req, res )->
 			ctx = super
 			ctx.docpath = req.query.docpath
+			ctx.head.js.r_main = "/script/project/main.js"
 			ctx
 
 	ctrlr = new DocViewer module, 'docs',
@@ -63,5 +64,9 @@ module.exports = ( module )->
 							req.query.docpath = 'ReadMe'
 						ctrlr.get( req, res, next )
 			get: _.bind projectIndex.get, projectIndex
+
+	meta:
+		menu:
+			docview: url: '/project/document', label: 'DocView'
 
 

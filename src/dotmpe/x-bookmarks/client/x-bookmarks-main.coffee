@@ -6,6 +6,7 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
 	Location = Backbone.Model.extend
 		defaults: () ->
 			id: null
+			href: null
 			deleted: false
 			date_added: Date.now()
 			#order: Locations.nextOrder()

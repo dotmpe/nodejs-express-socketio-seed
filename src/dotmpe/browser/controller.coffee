@@ -7,7 +7,7 @@ module.exports = ( module )->
 	class Browser extends base.type.Base
 		getContext: ()->
 			ctx = super
-			ctx.head.js.r_main = "/script/project/main"
+			ctx.head.js.r_main = "/script/browser/main.js"
 			ctx
 
 	browser = new Browser module, 'main', {}
