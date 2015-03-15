@@ -3,7 +3,12 @@ _ = require 'lodash'
 
 module.exports = (core, base) ->
 
+	base = core.base
+
+	modules = new base.type.Base core, 'admin/modules', {}
+
 	_.merge( base, 
+
 		# Dynamic define of resource subtypes?
 		#types = app.get 'controllers'
 		#class Admin extends types.Page
@@ -19,6 +24,7 @@ module.exports = (core, base) ->
 				get: base.simpleExpressView 'admin/modules', ()->
 					page: title: "Modules"
 					components: core.get_all_components()
+					menu: core.meta.menu
 				route:
 					list: 
 						get: base.simpleExpressView 'admin/modules', () ->

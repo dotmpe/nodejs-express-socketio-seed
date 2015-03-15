@@ -1,28 +1,33 @@
-doctype html
-html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
-  head
-    title Bookshelf, Knex, Warehouse testing
-    link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
+extends ../../express-seed/views/layouts/base
+
+block head
     link(rel="stylesheet", href="/style/node-backbone-todo-example.css")
 
     script(id="requirejs", data-main="/script/x-bookmarks/main",
       src="/components/requirejs/require.js")
 
-  body
-
-    h1 Backbone experimentation.
+block main
 
     h2 Backone+WarehouseJS
     p A standard Backbone MCV setup, using a standardized backend at 
       a(href="/data/locations") /data/locations
       | , leveraged from a SQLite table using WarehouseJS.
 
+    p.text-muted
+      div
+        span DB Path:
+        span= config.database.main.connection.filename
+
     div#locations
       header
         h3 Locators
         div#new-location
-          input.global_id(type="text",placeholder="")
-          input.ref(type="text",placeholder="")
+          .form-group
+            label Global ID
+            input.global_id(type="text",placeholder="")
+          .form-group
+            label Ref
+            input.href(type="text",placeholder="")
       section#main(style="display:none;")
         ul.location-list
       footer(style="display: none;")
@@ -30,18 +35,21 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
 
     script(type="text/template",id="item-template")
       | <div class="view">
+      |   <code><%- id %></code>
+      |   <code><%- global_id %></code>
       |   <div>
       |     <input class="toggle" type="checkbox" 
       |              <%= private ? 'checked="checked"' : '' %> />
       |     <label>Private</label>
       |   </div>
-      |   <code><%- global_id %></code>
-      |   <code><%- ref %></code>
+      |   <code><%- href %></code>
+      |   <code><%- date_added %></code>
       |   <a class="destroy"></a>
       | </div>
+      | 
       | <div class="edit">
       |   <input class="global_id edit" type="text" value="<%- global_id %>" />
-      |   <input class="ref edit" type="text" value="<%- ref %>" />
+      |   <input class="href edit" type="text" value="<%- href %>" />
       | </div>
 
     script(type="text/template", id="stats-template")
@@ -50,7 +58,8 @@ html(lang='en', xmlns='http://www.w3.org/1999/xhtml')
     script(type="text/template", id="lctr-template")
       | <li class="location">
       |    <div><%= model.attributes.global_id %></div>
-      |    <code><%= model.attributes.ref %></code>
+      |    <code><%= model.attributes.href %></code>
       | </li>
 
+    p.text-muted.credit dotmpe/x-bookmarks
 

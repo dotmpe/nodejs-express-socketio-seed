@@ -32,7 +32,7 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon server.coffee",
     "test": "grunt nodeunit",
-    "build": "coffee --compile src/dotmpe/x/backbone/client/*.coffee ; r.js -o x-bookmarks.build.js ; r.js -o project.build.js ",
+    "build": "knex migrate:latest && coffee --compile src/dotmpe/x/backbone/client/*.coffee && r.js -o x-bookmarks.build.js && r.js -o project.build.js ",
     "srctree": "tree -I 'node_modules|build|components'",
     "srcloc": "find app/ config/ grunt/ lib/ migrations public/script/ spec/ test/ -iname '*.js' -o -iname '*.coffee' -exec cat {} + | grep -v '^\\s*$' | wc -l"
   },

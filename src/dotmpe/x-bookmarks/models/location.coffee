@@ -3,14 +3,15 @@ module.exports =
 		table.integer('id').primary()
 		table.string('global_id').nullable().unique()
 		table.datetime('date_added').notNullable()
-		table.boolean('deleted')
-		table.datetime('date_deleted').notNullable()
-		table.text('ref').unique()
+		table.boolean('deleted').default(false)
+		table.boolean('private')
+		table.datetime('date_deleted').nullable()
+		table.text('href').unique()
 
 	# Create model, collection and register with Bookshelf
 	define: (Base) -> 
 		Location = Base.Model.extend(
-			tableName: 'bm'
+			tableName: 'ids_lctr'
 		)
 		Locations = Base.Collection.extend(
 			model: Location

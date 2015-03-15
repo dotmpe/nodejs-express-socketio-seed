@@ -26,6 +26,12 @@ class Component
 		{}
 
 	configure: () ->
+		p = @root || @path
+
+		@controllerPath = path.join p, 'controllers'
+		@modelPath = path.join p, 'models'
+		@viewPath = path.join p, 'views'
+
 		@load_controllers()
 
 	load_controllers: ()->
@@ -99,16 +105,13 @@ class CoreV01 extends Core
 			res.locals.modules = []
 			next()
 
-		# Apply routes (load controllers, apply all url handlers)
-		@controllerPath = path.join @root, 'controllers'
-
 		super
 
 	###
 		CoreV01.load_modules
 	###
 	load_modules: ()->
-		console.log 'load_modules', @config.modules
+		#console.log 'load_modules', @config.modules
 		modroot = path.join __approot, @config.src || 'src'
 		mods = _.extend( [], @config.modules, @meta.modules )
 		for modpath in mods
@@ -157,13 +160,6 @@ class ModuleV01 extends Component
 		if !opts.name
 			opts.name = 'ModuleV01'
 		super opts
-
-	configure: () ->
-		#@moduleRoot = path.join extroot, @name
-		@controllerPath = path.join @path, 'controllers'
-		@modelPath = path.join @path, 'models'
-		@viewPath = path.join @path, 'views'
-		super
 
 	# Static methods
 	

@@ -45,6 +45,11 @@ module.exports = (module)->
 		new Locations().query().count('id').then(
 			(rs) ->
 				res.render path.join(module.viewPath, 'index'),
+					page: title: "Bookshelf, Knex, Warehouse testing"
+					module: module
+					config: module.core.config
+					pkg: module.core.pkg
+					head: module.core.config.lib
 					test: rs[0]['count("id")']
 		)
 

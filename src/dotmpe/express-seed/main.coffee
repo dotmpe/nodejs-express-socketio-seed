@@ -90,7 +90,6 @@ module.exports = ( approot )->
 		socket.emit 'test',
 			foo: 'Bar'
 
-
 	app: app
 	server: server
 

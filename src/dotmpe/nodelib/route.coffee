@@ -17,7 +17,7 @@ applyRoutes = (app, root, controller)->
 		# apply current level
 		for method in ['all', 'get', 'put', 'post', 'options', 'delete']
 			cb = route[method]
-			if cb
+			if _.isFunction cb
 				# Track all routes?
 				if url not of routes
 					routes[url] = {}
