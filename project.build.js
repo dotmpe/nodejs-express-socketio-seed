@@ -16,5 +16,3 @@
 	],
 	dir: './public/script/project',
 }
-
-

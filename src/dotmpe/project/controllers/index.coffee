@@ -40,34 +40,33 @@ module.exports = ( module )->
 
 	projectDir = process.cwd()
 
-	projectData = ()->
+	projectIndex = new base.type.Base module, 'index',
 		current: pkg: currentProject()
 		projects: listProjects()
 		page: title: "Projects", summary: module.core.config.app.name
+	
+	class DocViewer extends base.type.Base
+		getContext: ( req, res )->
+			ctx = super
+			ctx.docpath = req.query.docpath
+			ctx.head.js.r_main = "/script/project/main.js"
+			ctx
 
-	docData = (req, res)->
-		if not req.query.docpath
-			req.query.docpath = 'ReadMe'
+	ctrlr = new DocViewer module, 'docs',
+		title: "Doc viewer"
 
-		ctrlr = base.type.base.init module.core, base.type.page,
-			title: "Doc viewer"
+	route: 
+		project: 
+			route:
+				document:
+					get: (req, res, next)->
+						if not req.query.docpath
+							req.query.docpath = 'ReadMe'
+						ctrlr.get( req, res, next )
+			get: _.bind projectIndex.get, projectIndex
 
-		pkg: module.core.pkg
-		head: module.core.config.lib
-		#head: _.merge module.core.config.lib, js: 'proj-doc': '/script/project.js'
-		core: module.core
-		isActive: ()-> false
-		page: ctrlr
-		modules: []
-		docpath: req.query.docpath
-
-	_.merge base,
-
-		route: 
-			project: 
-				route:
-					document:
-						get: base.simpleView docData, docTemplate
-				get: base.simpleView projectData, projectTemplate
+	meta:
+		menu:
+			docview: url: '/project/document', label: 'DocView'
 
 

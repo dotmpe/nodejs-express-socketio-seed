@@ -7,7 +7,7 @@
 # 
 
 # Enable LiveScript 
-require "LiveScript"
+#require "LiveScript"
 
 # customized Express loader
 module_mpe = require './src/dotmpe/nodelib/module'

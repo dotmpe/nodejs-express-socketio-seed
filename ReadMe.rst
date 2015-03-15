@@ -8,9 +8,7 @@ Going to write some examples, demos, and hopefully work towards some common
 structure and seed branches.
 
 Work in progress
-  Modulr 
-    - fix configuration
-  - Initialize menu for loaded components.
+  Backbone frontend
 
 Wanted
   - View-Controller metadata
@@ -50,7 +48,7 @@ master
     - Going to dust off my own Du stylesheets and get bootstrap components and
       layout into the picture.
 
-  f_clientbuild
+  f_clientbuild *
     - Want to build lazy-loading, fully packaged client. 
       Need build-system, code and style compilers.
     - Testing Grunt.

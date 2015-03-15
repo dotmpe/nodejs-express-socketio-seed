@@ -5,7 +5,11 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
 
 	Location = Backbone.Model.extend
 		defaults: () ->
-			order: Locations.nextOrder()
+			id: null
+			href: null
+			deleted: false
+			date_added: Date.now()
+			#order: Locations.nextOrder()
 			private: true
 		togglePrivate: () ->
 			this.save(private: ! this.get 'private')
@@ -13,7 +17,7 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
 	LocationList = Backbone.Collection.extend
 		url: '/data/locations'
 		model: Location
-		#localStorage: new Backbone.LocalStorage("todos-backbone"),
+		#localStorage: new Backbone.LocalStorage("locations-backbone"),
 		count: ()->
 			this.where(done: true)
 		nextOrder: ()->
@@ -37,16 +41,17 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
 		render: ()->
 			@$el.html(@template(@model.toJSON()))
 			@edit = @$('.edit')
-			@global_id = @$('.edit > .global_id')
-			@ref = @$('.edit > .ref')
+			@edit.hide()
+			@global_id = @$('input.global_id')
+			@href = @$('input.href')
 			@
 		edit: ()->
 			@$el.addClass 'editing'
 			@edit.show()
 			@global_id.focus()
 		close: ()->
-			return
-			@model.save global_id: @$global_id.val(), ref: @$ref.val()
+			@edit.hide()
+			@model.save global_id: @global_id.val(), href: @href.val()
 			@clear()
 		updateOnEnter: (e) ->
 			if e.keyCode == 13
@@ -60,17 +65,23 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
 		lctrTemplate: _.template($('#lctr-template').html()),
 		statsTemplate: _.template($('#stats-template').html()),
 		events:
-			#"keypress #new-location":  "createOnEnter"
+			"keypress #new-location input":  "createOnEnter"
 			#"click #clear-completed": "clearCompleted"
 			"click #toggle-all": "toggleAllComplete"
 		initialize: ()->
-			@input = @$("#new-location")
+			@id_input = @$("#new-location input.global_id")
+			@href_input = @$("#new-location input.href")
 			@listenTo(Locations, 'add', @addOne)
 			@listenTo(Locations, 'reset', @addAll)
 			@listenTo(Locations, 'all', @render)
 			@footer = @$('footer')
 			@main = $('#main')
-			Locations.fetch()
+			Locations.fetch
+				success: (collection, response, options)->
+					console.log('fetched', arguments)
+				error: ()->
+					console.log('fetch error', arguments)
+			console.log 'AppView #locations initialized'
 		render: ()->
 			if Locations.length
 				this.main.show()
@@ -79,7 +90,7 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
 					count: Locations.length
 				))
 			else
-				#this.main.hide()
+				this.main.hide()
 				this.footer.hide()
 		addOne: (location)->
 			view = new LocationView(model: location)
@@ -89,10 +100,12 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
 		createOnEnter: (e)->
 			if e.keyCode != 13
 				return
-			if !this.input.val()
+			if !this.href_input.val()
 				return
-			Locations.create(title: this.input.val())
-			this.input.val('')
+			model = global_id: @id_input.val(), href: @href_input.val()
+			Locations.create(model)
+			@id_input.val('')
+			@href_input.val('')
 		clearCompleted: ()->
 			_.invoke(Locations.done(), 'destroy')
 			return false

@@ -90,7 +90,6 @@ module.exports = ( approot )->
 		socket.emit 'test',
 			foo: 'Bar'
 
-
 	app: app
 	server: server
 
@@ -105,6 +104,7 @@ module.exports = ( approot )->
 		menu:
 			home: url: '/home', label: 'Home'
 			about: url: '/about', label: 'About'
+			template: url: '/admin/template', label: 'Template'
 			module: url: '/modules', label: 'Modules'
 
 		page:
