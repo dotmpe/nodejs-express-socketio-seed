@@ -44,7 +44,7 @@ module.exports = ( module )->
 		current: pkg: currentProject()
 		projects: listProjects()
 		page: title: "Projects", summary: module.core.config.app.name
-	
+
 	class DocViewer extends base.type.Base
 		getContext: ( req, res )->
 			ctx = super
@@ -63,10 +63,18 @@ module.exports = ( module )->
 						if not req.query.docpath
 							req.query.docpath = 'ReadMe'
 						ctrlr.get( req, res, next )
-			get: _.bind projectIndex.get, projectIndex
+
+			#get: _.bind projectIndex.get, projectIndex
+
+			get: ( req, res, next)->
+				res.write projectIndex.template _.merge projectIndex.getContext(req, res), projectIndex.seed
+				res.end()
 
 	meta:
 		menu:
-			docview: url: '/project/document', label: 'DocView'
+			project:
+				_menu: 'Project'
+				current: _url: '/project', _label: 'Current'
+				docview: _url: '/project/document', _label: 'DocView'
 
 

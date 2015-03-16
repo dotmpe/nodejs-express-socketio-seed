@@ -86,10 +86,8 @@ class Base extends Controller
 	getContext: ()->
 		if not @core
 			throw "Error"
-		@view_vars =
 		x = _.extend {},
 			util.basicContext @core,
-			@view_vars,
 			@seed
 		return x
 

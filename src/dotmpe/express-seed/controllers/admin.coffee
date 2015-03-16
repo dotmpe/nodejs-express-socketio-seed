@@ -41,7 +41,6 @@ module.exports = (core, base) ->
 							components: core.get_all_components()
 	meta:
 		menu:
-			_d1: _divider: true
 			_g1:
 				_menu: 'Admin'
 				admin: _url: '/admin', _label: 'Admin'
