@@ -1,0 +1,32 @@
+extends ../layouts/default
+
+block main
+	- var name = user.attributes.name ? user.attributes.name : user.attributes.username
+
+	h1=name
+
+	table.table
+		tr
+			th ID
+			th Name
+			th Username
+			th Provider
+			th E-Mail
+			th Google
+			th Github
+			th Twitter
+			th Facebook
+			th LinkedIn
+		tr
+			td=user.id
+			td=user.attributes.name
+			td=user.attributes.username
+			td=user.attributes.provider
+			td=user.attributes.email
+			td=user.attributes.google
+			td=user.attributes.github
+			td=user.attributes.twitter
+			td=user.attributes.facebook
+			td=user.attributes.linkedin
+
+

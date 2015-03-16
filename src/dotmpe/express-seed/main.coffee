@@ -56,7 +56,7 @@ init_express = ( app, server, config, pkg, envname )->
 
 #load_controllers = ( app, config )->
 
-module.exports = ( approot )->
+module.exports = ( )->
 
 	app = module.exports = express()
 
@@ -67,15 +67,15 @@ module.exports = ( approot )->
 
 	server = require("http").createServer(app)
 
-	configs = require path.join approot, 'config/config'
+	configs = require path.join __noderoot, 'config/config'
 	config = configs[envname]
 
-	pkg_file = path.join approot, 'package.json'
+	pkg_file = path.join __noderoot, 'package.json'
 	pkg = require( pkg_file )
 
 	init_express( app, server, config, pkg, envname )
 
-	app.use express.static path.join approot, 'public'
+	app.use express.static path.join __noderoot, 'public'
 
 	io = require("socket.io").listen(server)
 
@@ -98,7 +98,12 @@ module.exports = ( approot )->
 	config: config
 
 	meta:
-		controllers: [ 'controllers/base', 'controllers/site', 'controllers/admin' ]
+		controllers: [ 
+			'controllers/base'
+			'controllers/site'
+			'controllers/admin'
+			'controllers/user'
+		]
 		default_route: 'home'
 
 		menu:

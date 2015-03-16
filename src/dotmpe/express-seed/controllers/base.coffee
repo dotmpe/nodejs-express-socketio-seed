@@ -10,6 +10,37 @@ util = {
 		(req, res) ->
 			res.redirect(path)
 
+	basicContext: ( core )->
+		# view:includes/head
+		page: title: 'Title'
+		core: core
+		app: core.app
+		pkg: core.pkg
+		head: core.config.lib
+		# view:includes/header
+		menu: core.meta.menu
+		modules: [
+			name: 'Mod A'
+		]
+		isActive: ()->
+		# view:includes/messages
+		#info: [
+		#	"Info!"
+		#]
+		#errors: [
+		#	"Error!"
+		#]
+		#success: [
+		#	"Success!"
+		#]
+		#warning: [
+		#	"Warning!"
+		#]
+
+	compileTemplate: ( name, component )->
+		tplPath = require.resolve path.join component.viewPath, "#{name}.jade"
+		jade.compileFile tplPath
+
 	# Generates a route handler
 	simpleView: (data_cb, template_cb) ->
 		(req, res, next) ->
@@ -55,33 +86,8 @@ class Base extends Controller
 		if not @core
 			throw "Error"
 		@view_vars =
-			# view:includes/head
-			page:
-				title: 'Title'
-			core: @core
-			app: @core.config.app
-			pkg: @core.pkg
-			head: @core.config.lib
-			# view:includes/header
-			menu: @core.meta.menu
-			modules: [
-				name: 'Mod A'
-			]
-			isActive: ()->
-			# view:includes/messages
-			#info: [
-			#	"Info!"
-			#]
-			#errors: [
-			#	"Error!"
-			#]
-			#success: [
-			#	"Success!"
-			#]
-			#warning: [
-			#	"Warning!"
-			#]
 		x = _.extend {},
+			util.basicContext @core,
 			@view_vars,
 			@seed
 		return x

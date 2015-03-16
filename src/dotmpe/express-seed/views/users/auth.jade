@@ -1,0 +1,31 @@
+extends ../layouts/default
+
+block main
+  center
+    h1= title
+
+block content
+  center
+    if config.facebook
+      a(href="/auth/facebook")
+        img(src="/img/facebook.png")
+    if config.github
+      a(href="/auth/github")
+        img(src="/img/github.png")
+    if config.twitter
+      a(href="/auth/twitter")
+        img(src="/img/twitter.png")
+    if config.google
+      a(href="/auth/google")
+        img(src="/img/google.png")
+    if config.linkedin
+      a(href="/auth/linkedin")
+        img(src="/img/linkedin.png")
+
+  center
+    br
+    h2 OR
+    br
+
+  .login
+    block auth
