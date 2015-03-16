@@ -33,9 +33,11 @@ module.exports = ( core )->
 	_.merge core.base,
 		type:
 			page: StaticPage
-		route:
-			home: get: _.bind site.get, site
-			about: get: _.bind about.get, about
+
+	route:
+		home: get: _.bind site.get, site
+		about: get: _.bind about.get, about
+
 ###
 			about: get: base.simpleExpressView 'site/about', ()->
 				page: title: "About", summary: core.config.app.name

@@ -77,6 +77,7 @@ module.exports =
 				'socket_io'
 				'jquery'
 				'coffeescript'
+				'bootstrap'
 			]
 			coffeescript:
 				app: '/script/app.coffee'

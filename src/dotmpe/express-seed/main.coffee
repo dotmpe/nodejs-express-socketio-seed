@@ -106,11 +106,7 @@ module.exports = ( )->
 		]
 		default_route: 'home'
 
-		menu:
-			home: url: '/home', label: 'Home'
-			about: url: '/about', label: 'About'
-			template: url: '/admin/template', label: 'Template'
-			module: url: '/modules', label: 'Modules'
+		menu: {}
 
 		page:
 			title: "Untitled"

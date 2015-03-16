@@ -13,6 +13,6 @@ module.exports = ( module )->
 	browser = new Browser module, 'main', {}
 
 	route: browser: get: _.bind browser.get, browser
-	meta: menu: browser: url: '/browser', label: 'Browser'
+	meta: menu: browser: _url: '/browser', _label: 'Browser'
 
 

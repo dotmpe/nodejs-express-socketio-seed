@@ -16,6 +16,7 @@ util = {
 		core: core
 		app: core.app
 		pkg: core.pkg
+		config: core.config
 		head: core.config.lib
 		# view:includes/header
 		menu: core.meta.menu

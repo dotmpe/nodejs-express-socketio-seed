@@ -86,9 +86,9 @@ class Component
 				throw err
 
 			# update global meta object
-			if @core
-				if updateObj.meta
-					_.merge @core.meta, updateObj.meta
+			comp = @core || @
+			if updateObj.meta
+				_.merge comp.meta, updateObj.meta
 
 			# keep params at local module
 			_.merge @params, updateObj.params

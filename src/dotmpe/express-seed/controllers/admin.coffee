@@ -18,23 +18,36 @@ module.exports = (core, base) ->
 
 		admin: 
 			get: (req, res) ->
-				res.render 'admin', page: title: "Admin"
+				res.render 'admin', 
+					_.merge {}, core.base.basicContext(core),
+						page: title: "Admin"
+						user: req.user
 			route:
 				template: get: base.simpleExpressView 'admin/template', () ->
-					page: title: "Template"
-					menu: core.meta.menu
+					_.merge {}, core.base.basicContext(core),
+						page: title: "Template"
 
 		modules:
 			get: base.simpleExpressView 'admin/modules', ()->
-				page: title: "Modules"
-				components: core.get_all_components()
-				menu: core.meta.menu
+				_.merge {}, core.base.basicContext(core),
+					page: title: "Modules"
+					components: core.get_all_components()
 			route:
 				list: 
 					get: base.simpleExpressView 'admin/modules', () ->
-						page: title: "Modules"
-						routes: core.routes
-						modules: core.modules
-						components: core.get_all_components()
-						menu: core.meta.menu
+						_.merge {}, core.base.basicContext(core),
+							page: title: "Modules"
+							modules: core.modules
+							components: core.get_all_components()
+	meta:
+		menu:
+			_d1: _divider: true
+			_g1:
+				_menu: 'Admin'
+				admin: _url: '/admin', _label: 'Admin'
+				_d1: _divider: true
+				template: _url: '/admin/template', _label: 'Template'
+				_d2: _divider: true
+				user1: _url: '/users/1', _label: 'User 1'
+
 
