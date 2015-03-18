@@ -1,0 +1,12 @@
+extends ../layouts/default
+
+block content
+
+  h1 Homepage
+  p the current time is {{time}}
+
+  p
+    | showing of 'interpolate' filter:
+    | {{ 'current version is v%VERSION%.' | interpolate }}
+
+

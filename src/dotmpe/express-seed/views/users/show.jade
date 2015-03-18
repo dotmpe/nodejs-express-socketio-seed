@@ -1,32 +1,53 @@
 extends ../layouts/default
 
 block main
-	- var name = user.attributes.name ? user.attributes.name : user.attributes.username
+  - var name = user.attributes.name ? user.attributes.name : user.attributes.username
 
-	h1=name
+  h1=name
 
-	table.table
-		tr
-			th ID
-			th Name
-			th Username
-			th Provider
-			th E-Mail
-			th Google
-			th Github
-			th Twitter
-			th Facebook
-			th LinkedIn
-		tr
-			td=user.id
-			td=user.attributes.name
-			td=user.attributes.username
-			td=user.attributes.provider
-			td=user.attributes.email
-			td=user.attributes.google
-			td=user.attributes.github
-			td=user.attributes.twitter
-			td=user.attributes.facebook
-			td=user.attributes.linkedin
+  table.table
+    tr
+      th ID
+      th Name
+      th Username
+      th Provider
+      th E-Mail
+      th Google
+      th Github
+      th Twitter
+      th Facebook
+      th LinkedIn
+    tr
+      td=user.id
+      td=user.attributes.name
+      td=user.attributes.username
+      td=user.attributes.provider
+      td=user.attributes.email
+      td=user.attributes.google
+      td=user.attributes.github
+      td=user.attributes.twitter
+      td=user.attributes.facebook
+      td=user.attributes.linkedin
+
+  form.form-horizontal
+      .form-group
+        label.col-sm-2.control-label ID
+        .col-sm-10
+          input#provider.form-control(value= user.attributes.id)
+      .form-group
+        label.col-sm-2.control-label Name
+        .col-sm-10
+          input#name.form-control(value= user.attributes.name)
+      .form-group
+        label.col-sm-2.control-label Provider
+        .col-sm-10
+          input#provider.form-control(value= user.attributes.provider)
+      .form-group
+        label.col-sm-2.control-label(for="username") Username
+        .col-sm-10
+          input#username.form-control(value= user.attributes.username)
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          button.btn.btn-primary(type='submit') Update
 
 

@@ -34,7 +34,19 @@ currentProject = ()->
 	if (fs.existsSync(pkg_fn))
 		require pkg_fn
 
+listDocuments = ()->
+	docnames = []
+	names = fs.readdirSync process.cwd()
+	for name in names
+		if name.substr(-4) == '.rst'
+			docnames.push name[0..-5]
+	docnames
+
 module.exports = ( module )->
+
+	io = module.core.app.get('io')
+	io.sockets.on 'connection', ( socket )->
+		require('./socket')(socket)
 
 	base = module.core.base
 
@@ -43,17 +55,39 @@ module.exports = ( module )->
 	projectIndex = new base.type.Base module, 'index',
 		current: pkg: currentProject()
 		projects: listProjects()
+		documents: listDocuments()
 		page: title: "Projects", summary: module.core.config.app.name
 
 	class DocViewer extends base.type.Base
 		getContext: ( req, res )->
 			ctx = super
 			ctx.docpath = req.query.docpath
-			ctx.head.js.r_main = "/script/project/main.js"
+			# script/project is build by r.js from dotmpe/project/client
+			ctx.head.js.require_main.push "/script/project/main.js"
 			ctx
 
-	ctrlr = new DocViewer module, 'docs',
+	docview = new DocViewer module, 'docs',
 		title: "Doc viewer"
+
+
+	class NgViewer extends base.type.Base
+		getContext: ( req, res )->
+			ctx = super
+			ctx.docpath = req.query.docpath
+			# script/project is build by r.js from dotmpe/project/client
+			ctx.head.js.require_main.push "/script/project/main.js"
+			ctx
+
+	ngview = new NgViewer module, 'ng-client',
+		title: "Doc viewer"
+
+	project_ng_view = (req, res, next) ->
+		view = req.params.view
+		action = req.params.action || view
+		tplPath = path.join( module.viewPath, 'ng', view, action ) 
+		template = jade.compileFile "#{tplPath}.jade"
+		res.write template url: base: '/project/ng-client/'
+		res.end()
 
 	route: 
 		project: 
@@ -62,7 +96,11 @@ module.exports = ( module )->
 					get: (req, res, next)->
 						if not req.query.docpath
 							req.query.docpath = 'ReadMe'
-						ctrlr.get( req, res, next )
+						docview.get( req, res, next )
+
+				ng: route:
+					view: route:$view: route:$action: all: project_ng_view
+				'ng-client': all: _.bind ngview.get, ngview
 
 			#get: _.bind projectIndex.get, projectIndex
 

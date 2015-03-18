@@ -2,31 +2,16 @@ extends ../layouts/base
 
 block main
 
-  p 
+  p
     a(href='/modules/') Modules
 
-  h3 User
-
-  form.form-horizontal
-    .form-group
-      label.col-sm-2.control-label ID
-      .col-sm-10
-        input#provider.form-control(value= user.attributes.id)
-    .form-group
-      label.col-sm-2.control-label Name
-      .col-sm-10
-        input#name.form-control(value= user.attributes.name)
-    .form-group
-      label.col-sm-2.control-label Provider
-      .col-sm-10
-        input#provider.form-control(value= user.attributes.provider)
-    .form-group
-      label.col-sm-2.control-label(for="username") Username
-      .col-sm-10
-        input#username.form-control(value= user.attributes.username)
-    .form-group
-      .col-sm-offset-2.col-sm-10
-        button.btn.btn-primary(type='submit') Update
+  if user
+    p
+      a(href='/users/'+user.attributes.id) View profile.
+  else
+    p Not logged in.
+    p 
+      a(href=config.urls.login) Login
 
 block content
 

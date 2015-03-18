@@ -9,23 +9,12 @@ block head
 block wrap_epilogue
   // start after page #wrap and container and create window-wide chrome for
   // doc viewer 
-
-  form
-    .form-group
-      label Path
-      input(name='docpath', value=docpath).form-control
-    .form-group
-      label Format
-      select(name='format')
-        option(value="html") HTML
-        option(value="pseudoxml") Pseudo XML (plain text)
-        option(value="source") Source (reStructuredText)
-        option(value="xml") XML
-
-  iframe#viewer.form-control
+  .container
+    .ng-view-wrapper(ng-view)
 
 block footer
 
   p.text-muted.credit Express MVC - Project - Documents
+
 
 

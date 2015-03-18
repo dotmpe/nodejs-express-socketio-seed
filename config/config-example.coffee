@@ -72,6 +72,7 @@ module.exports =
 				coffeescript: '/components/coffee-script/extras/coffee-script.js'
 				angular: '/components/angular/angular.min.js'
 				requirejs: '/components/requirejs/require.js'
+				require_main: []
 			# booststrap here without requirejs:
 			include_js: [ 
 				'socket_io'
@@ -105,7 +106,7 @@ module.exports =
 					#filename: '/Users/berend/htdocs/.cllct/bms.sqlite'
 				migrations:
 					tableName: 'knex_migrations'
-					directory: __approot + '/migrations/main'
+					directory: __noderoot + '/migrations/main'
 
 		notifier: notifier
 		facebook: {}
