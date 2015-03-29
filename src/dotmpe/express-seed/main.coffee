@@ -98,6 +98,8 @@ module.exports = ( )->
 	config: config
 
 	meta:
+		name: 'core'
+
 		controllers: [ 
 			'controllers/base'
 			'controllers/site'

@@ -41,14 +41,14 @@ src
 
 Branch docs
 -----------
-master
+master *
   - Initial project structure, documentation.
 
   f_bootstrap
     - Going to dust off my own Du stylesheets and get bootstrap components and
       layout into the picture.
 
-  f_clientbuild *
+  f_clientbuild
     - Want to build lazy-loading, fully packaged client. 
       Need build-system, code and style compilers.
     - Testing Grunt.
@@ -62,7 +62,7 @@ master
     - Added Knex ORM, and WarehouseJS for Backbone REST access to ORM.
     - Play with backbone client. Look at MarionetteJS
 
-  feature *
+  feature
     - Merging all features with exmaple modules here.
       To keep master clean. Should hand-pick generic changes to master.
 

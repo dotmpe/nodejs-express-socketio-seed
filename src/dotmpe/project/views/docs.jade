@@ -12,15 +12,17 @@ block wrap_epilogue
 
   form
     .form-group
-      label Path
-      input(name='docpath', value=docpath).form-control
+      label.col-md-1 Path
+      div.col-md-8
+        input.form-control(name='docpath', value=docpath)
     .form-group
-      label Format
-      select(name='format')
-        option(value="html") HTML
-        option(value="pseudoxml") Pseudo XML (plain text)
-        option(value="source") Source (reStructuredText)
-        option(value="xml") XML
+      label.col-md-1 Format
+      .col-md-2
+        select.form-control(name='format')
+          option(value="html") HTML
+          option(value="pseudoxml") Pseudo XML (plain text)
+          option(value="source") Source (reStructuredText)
+          option(value="xml") XML
 
   iframe#viewer.form-control
 

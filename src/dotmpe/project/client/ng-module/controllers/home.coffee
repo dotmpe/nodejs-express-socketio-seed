@@ -4,7 +4,7 @@ define [
 
 	'cs!dotmpe-project/app'
 	'cs!dotmpe-project/ng-module/services'
-	#'cs!dotmpe-project/ng-module/directives/navMenu'
+	'cs!dotmpe-project/ng-module/directives/navMenu'
 
 ], (app)->
 

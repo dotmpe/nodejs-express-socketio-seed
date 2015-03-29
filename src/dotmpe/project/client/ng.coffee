@@ -26,7 +26,7 @@ define [
 				.when '/home', 
 					templateUrl: '/project/ng/view/home/home'
 					controllerUrl: 'cs!dotmpe-project/ng-module/controllers/home'
-					#navTab: 'home'
+					navTab: 'home'
 				#.when('/account',
 				#	templateUrl: '/trojan/view/account/account'
 				#	controller: 'AccountCtrl'

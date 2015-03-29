@@ -39,6 +39,8 @@ class Component
 	configure: () ->
 		p = @root || @path
 
+		@name = @meta.name
+
 		@controllerPath = path.join p, 'controllers'
 		@modelPath = path.join p, 'models'
 		@viewPath = path.join p, 'views'
@@ -110,7 +112,6 @@ class Component
 class Core extends Component
 
 	constructor: (opts) ->
-		@name = 'core'
 		super opts
 
 	# static init for core, relay app init to core module, then init
@@ -166,8 +167,8 @@ class CoreV01 extends Core
 			fullpath = path.join( modroot, modpath )
 			mod = ModuleV01.load( @, fullpath )
 			mod.configure()
-			@modules[ mod.meta.name ] = mod
-			console.log 'loaded module', modpath, mod.meta.name
+			@modules[ mod.name ] = mod
+			console.log 'Loaded module:', mod.name
 
 	###
 		CoreV01.get_all_components
