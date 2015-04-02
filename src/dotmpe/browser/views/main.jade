@@ -5,8 +5,14 @@ block prologue
 
 block header
 
+  script(id="requirejs", data-main=head.js.r_main, src=head.js.requirejs)
+
 
 block main
+
+  span Custom Element test:
+
+  browser-mpe(atr="test") Test
 
 
 block content

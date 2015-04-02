@@ -26,6 +26,7 @@ requirejs.config({
 		'angular.socket-io': [ 'angular' ],
 		angularAMD: [ 'angular' ],
 		'angular-route': [ 'angular' ]
-	}
+	},
+	deps: [ 'cs!app/main' ]
 });
 

@@ -63,6 +63,7 @@ module.exports =
 			include_js: [ 
 				'socket_io'
 				'jquery'
+				'bootstrap'
 				'coffeescript'
 			]
 			coffeescript:
@@ -70,7 +71,6 @@ module.exports =
 			css:  [
 				'/components/bootstrap/dist/css/bootstrap.css'
 				'/components/bootstrap/dist/css/bootstrap-theme.css'
-				#/style/bootstrap-responsive.min.css'
 				'/style/app.css'
 			]
 		# extension modules to load:
