@@ -82,13 +82,21 @@ module.exports = ( approot )->
 
 	# Apply routes for socket TODO move to controller
 	io.sockets.on 'connection', (socket) ->
+
 		socket.on 'disconnect', ()->
 			console.log 'client disconnected'
+
 		socket.on 'message', (msg)->
 			console.log 'message from client: '+msg
 			socket.send('hello!')
+
 		socket.emit 'test',
 			foo: 'Bar'
+
+		sendPing = ->
+			socket.emit 'ping', Date.now()
+
+		setInterval sendPing, 5000
 
 	app: app
 	server: server

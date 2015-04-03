@@ -10,8 +10,7 @@ browserElementPrototype.attributeChangedCallback = ->
 browserElementPrototype.testBrowser = ->
 
 require [
-	'./common'
-], (common)->
+], ()->
 
 	console.log 'Browser main'
 

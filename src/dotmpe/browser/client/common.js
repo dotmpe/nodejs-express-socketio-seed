@@ -27,6 +27,6 @@ requirejs.config({
 		angularAMD: [ 'angular' ],
 		'angular-route': [ 'angular' ]
 	},
-	deps: [ 'cs!app/main' ]
 });
-
+define( 'common', [ 'cs!app/main' ], function() {
+});
