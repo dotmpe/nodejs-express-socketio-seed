@@ -32,7 +32,7 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon server.coffee",
     "test": "grunt nodeunit",
-    "build": "knex migrate:latest && make build-clients ",
+    "build": "make build",
     "srctree": "tree -I 'node_modules|build|components'",
     "srcloc": "find app/ config/ grunt/ lib/ migrations public/script/ spec/ test/ -iname '*.js' -o -iname '*.coffee' -exec cat {} + | grep -v '^\\s*$' | wc -l"
   },
@@ -68,15 +68,16 @@
     "winston": "latest"
   },
   "devDependencies": {
-    "bookshelf": "^0.7.9",
-    "grunt": "~0.4.4",
-    "grunt-contrib-coffee": "^0.10.1",
-    "grunt-contrib-jshint": "~0.6.4",
+    "coffeelint": "latest",
+    "grunt": "latest",
+    "grunt-coffeelint": "latest",
+    "grunt-contrib-coffee": "latest",
+    "grunt-contrib-jshint": "latest",
     "grunt-contrib-nodeunit": "^0.4.0",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-watch": "latest",
     "knex": "^0.7.3",
-    "load-grunt-config": "^0.9.2",
-    "load-grunt-tasks": "^0.4.0",
+    "load-grunt-config": "latest",
+    "load-grunt-tasks": "latest",
     "modulr": "^0.14.0",
     "sqlite3": "^3.0.5"
   }

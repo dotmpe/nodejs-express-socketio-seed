@@ -1,33 +1,30 @@
-require ['jquery'], ($)->
+require ['jquery'], ($) ->
 
-	console.log 'Document: Coffee Time'
-	
-	getDocHeight = (doc)->
-		doc = doc || document
-		body = doc.body
-		html = doc.documentElement
-		cath.max( body.scrollHeight, body.offsetHeight, 
-			html.clientHeight, html.scrollHeight, html.offsetHeight )
+  console.log 'Document: Coffee Time'
 
-	setSource = ()->
-		docpath = $('[name=docpath]').val()
-		format = $('[name=format]').val()
-		url = '/data/project/document?' + $.param({
-				docpath: docpath,
-				format: format
-			})
+  getDocHeight = (doc) ->
+    doc = doc || document
+    body = doc.body
+    html = doc.documentElement
+    cath.max( body.scrollHeight, body.offsetHeight,
+      html.clientHeight, html.scrollHeight, html.offsetHeight )
 
-		$('#viewer')
-			.attr('src', url)
-			.height('25em')
+  setSource = ->
+    docpath = $('[name=docpath]').val()
+    format = $('[name=format]').val()
+    url = '/data/project/document?' +
+      $.param docpath: docpath, format: format
 
-	$(document).ready ()->
+    $('#viewer')
+      .attr('src', url)
+      .height('25em')
 
-		$('[name=format]').on('change', ()->
-			console.log('format change')
-			setSource()
-		)
+  $(document).ready ->
 
-		setSource()
+    $('[name=format]').on('change', ->
+      console.log('format change')
+      setSource()
+    )
 
+    setSource()
 

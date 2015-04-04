@@ -1,5 +1,5 @@
 ###
-Do the heavy lifting for Express. 
+Do the heavy lifting for Express.
 
 This module exports an options object to pass along to
 dotmpe.nodelib.module.Component
@@ -12,104 +12,113 @@ express = require 'express'
 rootPath = path.normalize(__dirname)
 
 
-init_express = ( app, server, config, pkg, envname )->
+init_express = ( app, server, config, pkg, envname ) ->
 
-	app.set('showStackError', true)
+  app.set('showStackError', true)
 
-	# Logging
-	log
-	if envname != 'dev'
-		winston = require('winston')
-		log = 
-			stream: 
-				write: (message, encoding) ->
-					winston.info(message)
-	else 
-		log = 'dev'
+  # Logging
+  log
+  if envname != 'dev'
+    winston = require('winston')
+    log =
+      stream:
+        write: (message, encoding) ->
+          winston.info(message)
+  else
+    log = 'dev'
 
-	# Don't log during tests
-	envname != 'test' ? app.use(logger(log))
+  # Don't log during tests
+  envname != 'test' ? app.use(logger(log))
 
-	# Templating
-	app.set 'views', path.join rootPath, 'views'
-	app.set 'view engine', 'jade'
+  # Templating
+  app.set 'views', path.join rootPath, 'views'
+  app.set 'view engine', 'jade'
 
-	# expose package.json, config.lib to Express views
-	app.use (req, res, next)->
-		res.locals.pkg = pkg
-		res.locals.head = config.lib
-		next()
-	
-	helpers = require('view-helpers')
-	app.use(helpers(pkg.name))
+  # expose package.json, config.lib to Express views
+  app.use (req, res, next) ->
+    res.locals.pkg = pkg
+    res.locals.head = config.lib
+    next()
 
-	envname == 'development' ?
-		app.use express.errorHandler()
-		app.locals.pretty = true
+  helpers = require('view-helpers')
+  app.use(helpers(pkg.name))
 
-	app.use((err, req, res, next)->
-		if err.message && (~err.message.indexOf('not found') || (~err.message.indexOf('Cast to ObjectId failed')))
-			return next()
-		console.error(err.stack)
-		res.status(500).render('500', { error: err.stack })
-	)
+  envname == 'development' ?
+    app.use express.errorHandler()
+    app.locals.pretty = true
 
-#load_controllers = ( app, config )->
+  app.use((err, req, res, next) ->
+    if err.message && ( ~err.message.indexOf('not found') ||
+       (~err.message.indexOf('Cast to ObjectId failed')))
+      return next()
+    console.error(err.stack)
+    res.status(500).render('500', { error: err.stack })
+  )
 
-module.exports = ( )->
+#load_controllers = ( app, config ) ->
 
-	app = module.exports = express()
+module.exports = ->
 
-	#envname = process.env.NODE_ENV or 'development'
-	envname = app.get 'env'
+  app = module.exports = express()
 
-	app.set 'port', process.env.PORT || 3000
+  #envname = process.env.NODE_ENV or 'development'
+  envname = app.get 'env'
 
-	server = require("http").createServer(app)
+  app.set 'port', process.env.PORT || 3000
 
-	configs = require path.join __noderoot, 'config/config'
-	config = configs[envname]
+  server = require("http").createServer(app)
 
-	pkg_file = path.join __noderoot, 'package.json'
-	pkg = require( pkg_file )
+  configs = require path.join __noderoot, 'config/config'
+  config = configs[envname]
 
-	init_express( app, server, config, pkg, envname )
+  pkg_file = path.join __noderoot, 'package.json'
+  pkg = require( pkg_file )
 
-	app.use express.static path.join __noderoot, 'public'
+  init_express( app, server, config, pkg, envname )
 
-	io = require("socket.io").listen(server)
-	app.set('io', io)
+  app.use express.static path.join __noderoot, 'public'
 
-	# Apply routes for socket TODO cleanup after move to controller(s)
-	#io.sockets.on 'connection', (socket) ->
-	#	socket.on 'disconnect', ()->
-	#		console.log 'client disconnected'
-	#	socket.on 'message', (msg)->
-	#		console.log 'message from client: '+msg
-	#		socket.send('hello!')
-	#	socket.emit 'test',
-	#		foo: 'Bar'
+  io = require("socket.io").listen(server)
+  app.set('io', io)
 
-	app: app
-	server: server
+  # Apply routes for socket TODO cleanup after move to controller(s)
+  io.sockets.on 'connection', (socket) ->
 
-	pkg: pkg
-	root: rootPath
-	config: config
+    socket.on 'disconnect', ->
+      console.log 'client disconnected'
 
-	meta:
-		name: 'core'
+    socket.on 'message', (msg) ->
+      console.log 'message from client: '+msg
+      socket.send('hello!')
 
-		controllers: [ 
-			'controllers/base'
-			'controllers/site'
-			'controllers/admin'
-			'controllers/user'
-		]
-		default_route: 'home'
+    socket.emit 'test',
+      foo: 'Bar'
 
-		menu: {}
+    sendPing = ->
+      socket.emit 'ping', Date.now()
 
-		page:
-			title: "Untitled"
+    setInterval sendPing, 5000
+
+  app: app
+  server: server
+
+  pkg: pkg
+  root: rootPath
+  config: config
+
+  meta:
+    name: 'core'
+
+    controllers: [
+      'controllers/base'
+      'controllers/site'
+      'controllers/admin'
+      'controllers/user'
+    ]
+    default_route: 'home'
+
+    menu: {}
+
+    page:
+      title: "Untitled"
 

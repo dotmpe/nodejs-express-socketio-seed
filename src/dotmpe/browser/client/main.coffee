@@ -1,7 +1,7 @@
 require [
-	'./common'
-], (common)->
+  './common'
+], (common) ->
 
-	#require ['cs!app']
-	#
-	console.log 'Browser main'
+  #require ['cs!app']
+  #
+  console.log 'Browser main', common

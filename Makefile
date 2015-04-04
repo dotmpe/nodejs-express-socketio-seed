@@ -1,4 +1,4 @@
-TRGTS := install update build build-clients info
+TRGTS := install update build build-clients info test lint
 
 empty := 
 space := $(empty) $(empty)
@@ -10,13 +10,23 @@ default:
 install:
 	npm install
 	bower install
+	make test
+
+lint:
+	grunt lint
+
+test: lint
+	npm test
+	grunt test
 
 update:
 	npm update
 	bower update
 
-build:
-	npm run build
+migrate:
+	knex migrate:latest
+
+build: migrate build-clients
 
 info:
 	npm run srctree

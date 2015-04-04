@@ -1,4 +1,4 @@
-module.exports = 
-	location: require './location'
-	bookmark: require './bookmark'
+module.exports =
+  location: require './location'
+  bookmark: require './bookmark'
 
