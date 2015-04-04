@@ -1,0 +1,7 @@
+sitefile: 0.2
+routes:
+  $name: 'du:**/*.rst'
+
+# sitefile serves docutils using Express
+# github.com:dotmpe/node-sitefile
+

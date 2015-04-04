@@ -8,11 +8,19 @@
 
 ###
 path = require 'path'
+
 _ = require 'lodash'
+uuid = require 'node-uuid'
+chalk = require 'chalk'
+Bookshelf = require 'bookshelf'
 
 metadata = require './metadata'
 applyRoutes = require('./route').applyRoutes
 
+applyParams = ( app, context )->
+	if context.params
+		for name, handler of context.params
+			app.param( name, handler )
 
 class Component
 
@@ -22,6 +30,8 @@ class Component
 		@controllers = {}
 		@routes = {}
 		@route = {}
+		@models = {}
+		@params = {}
 
 	@load_config: ( name )->
 		{}
@@ -33,7 +43,29 @@ class Component
 		@modelPath = path.join p, 'models'
 		@viewPath = path.join p, 'views'
 
+		@load_models()
 		@load_controllers()
+
+	load_models: ()->
+		knex = @app.get('knex.main')
+		if not knex
+			knex = require('knex')(@config.database.main) 
+			@app.set('knex.main', knex)
+			console.log(chalk.grey('Initialized main DB conn'))
+		Base = Bookshelf.initialize(knex)
+		@modelbase = Bookshelf.session = Base
+		# Prepare Bookshelf.{model,collection} registries
+		Base.plugin 'registry'
+		if ! @meta.models
+			return
+
+		p = @root || @path
+
+	load_model: ( name )->
+		if not @models[name]
+			modpath = path.join @modelPath, name
+			@models[name] = require(modpath).define(@modelbase)
+		@models[name]
 
 	load_controllers: ()->
 		if ! @meta.controllers
@@ -47,20 +79,28 @@ class Component
 
 			ctrl_path = path.join( p, ctrl )
 			@controllers[ ctrl ] = require ctrl_path
-			updateObj = @controllers[ ctrl ] @, @base
+			try
+				updateObj = @controllers[ ctrl ] @, @base
+			catch err
+				console.error "Unable to load #{ctrl}"
+				throw err
 
 			# update global meta object
-			if @core
-				if updateObj.meta
-					_.merge @core.meta, updateObj.meta
+			comp = @core || @
+			if updateObj.meta
+				_.merge comp.meta, updateObj.meta
 
+			# keep params at local module
+			_.merge @params, updateObj.params
 			# keep routes at local module
 			_.merge @route, updateObj.route
 
-			console.log 'Component: loaded', ctrl, 'controller'
+			console.log "Component: #{@name} loaded", ctrl, "controller"
 
 		# pick of new routes from updateObj
 		_.extend @routes, applyRoutes( @app, @url, @ )
+
+		applyParams @app, @
 
 		if @meta.default_route
 			defroute = path.join( @url, @meta.default_route )
@@ -70,15 +110,15 @@ class Component
 class Core extends Component
 
 	constructor: (opts) ->
-		@name = "Express Seed Core"
+		@name = 'core'
 		super opts
 
 	# static init for core, relay app init to core module, then init
 	@config: ( core_path )->
-		core_file = path.join core_path, 'main'
+		core_file = path.join __noderoot, core_path, 'main'
 		core_seed_cb = require core_file
 		# Return core opts
-		opts = core_seed_cb __approot
+		opts = core_seed_cb core_path
 		opts
 
 
@@ -120,7 +160,7 @@ class CoreV01 extends Core
 	###
 	load_modules: ()->
 		#console.log 'load_modules', @config.modules
-		modroot = path.join __approot, @config.src || 'src'
+		modroot = path.join __noderoot, @config.src || 'src'
 		mods = _.extend( [], @config.modules, @meta.modules )
 		for modpath in mods
 			fullpath = path.join( modroot, modpath )
@@ -147,7 +187,7 @@ class CoreV01 extends Core
 		#if not md
 		#	md = type: 'express-mvc/0.1'
 		# static configuration
-		opts = Core.config( path.join( __approot, core_path ) )
+		opts = Core.config( core_path )
 		new CoreV01( opts )
 
 
@@ -200,13 +240,44 @@ module_classes = {
 	'0.1': ModuleV01
 }
 
+# set globals to track projects and apps
+#
+session = {
+	instances: { },
+	projects: { },
+	apps: { }
+}
 
-init = ( app_path )->
+init = ( node_path, app_path=null )->
+	if not session.projects[node_path]
+		code_id = uuid.v4()
+		session.projects[node_path] = code_id
+	else
+		code_id = session.projects[node_path]
+
+	global.__noderoot = node_path
+
+
+load_core = ( app_path )->
 	global.__approot = app_path
+	app_id
 
-load_core = ( core_path )->
-	# Return core instance for path
-	CoreV01.load( core_path )
+	if not session.apps[app_path]
+		app_id = uuid.v4()
+		session.apps[app_path] = app_id
+	else
+		app_id = session.apps[app_path]
+
+	global.__appid = app_id
+
+	if not session.instances[app_id]
+		session.instances[app_id] = core = CoreV01.load( app_path )
+
+	else
+		core = session.instances[app_id]
+
+	core
+
 
 load_module = ( mod_path )->
 	module.configure extroot
@@ -214,11 +285,18 @@ load_module = ( mod_path )->
 
 
 module.exports = {
-	init: init,
+	session: session
+	init: init
 	classes:
 		Core: CoreV01
 		Module: ModuleV01
 	load_core: load_core,
 	#load_module: load_module,
+	load_and_start: ( app_path )->
+		init process.cwd()
+		core = load_core app_path
+		core.configure()
+		core.load_modules()
+		core.start()
 }
 

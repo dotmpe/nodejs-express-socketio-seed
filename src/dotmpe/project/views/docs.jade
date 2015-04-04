@@ -1,11 +1,13 @@
 extends ../../express-seed/views/layouts/base
 
 
-block header
+block head
 
   script(id="requirejs", data-main=head.js.r_main, src=head.js.requirejs)
 
-block main
+block wrap_epilogue
+  // start after page #wrap and container and create window-wide chrome for
+  // doc viewer 
 
   form
     .form-group

@@ -1,12 +1,12 @@
 require ['jquery'], ($)->
 
-	console.log 'Document: Coffee Time'
+	console.log 'Project Document: Coffee Time'
 	
 	getDocHeight = (doc)->
 		doc = doc || document
 		body = doc.body
 		html = doc.documentElement
-		cath.max( body.scrollHeight, body.offsetHeight, 
+		Math.max( body.scrollHeight, body.offsetHeight, 
 			html.clientHeight, html.scrollHeight, html.offsetHeight )
 
 	setSource = ()->

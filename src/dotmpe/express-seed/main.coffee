@@ -56,7 +56,7 @@ init_express = ( app, server, config, pkg, envname )->
 
 #load_controllers = ( app, config )->
 
-module.exports = ( approot )->
+module.exports = ( )->
 
 	app = module.exports = express()
 
@@ -67,20 +67,20 @@ module.exports = ( approot )->
 
 	server = require("http").createServer(app)
 
-	configs = require path.join approot, 'config/config'
+	configs = require path.join __noderoot, 'config/config'
 	config = configs[envname]
 
-	pkg_file = path.join approot, 'package.json'
+	pkg_file = path.join __noderoot, 'package.json'
 	pkg = require( pkg_file )
 
 	init_express( app, server, config, pkg, envname )
 
-	app.use express.static path.join approot, 'public'
+	app.use express.static path.join __noderoot, 'public'
 
 	io = require("socket.io").listen(server)
+	app.set('io', io)
 
-
-	# Apply routes for socket TODO move to controller
+	# Apply routes for socket TODO cleanup after move to controller(s)
 	io.sockets.on 'connection', (socket) ->
 
 		socket.on 'disconnect', ()->
@@ -106,14 +106,19 @@ module.exports = ( approot )->
 	config: config
 
 	meta:
-		controllers: [ 'controllers/base', 'controllers/site', 'controllers/admin' ]
+		controllers: [ 
+			'controllers/base'
+			'controllers/site'
+			'controllers/admin'
+			#'controllers/user'
+		]
 		default_route: 'home'
 
-		menu:
-			home: url: '/home', label: 'Home'
-			about: url: '/about', label: 'About'
-			template: url: '/admin/template', label: 'Template'
-			module: url: '/modules', label: 'Modules'
+		menu: {}
+		#	home: url: '/home', label: 'Home'
+		#	about: url: '/about', label: 'About'
+		#	template: url: '/admin/template', label: 'Template'
+		#	module: url: '/modules', label: 'Modules'
 
 		page:
 			title: "Untitled"

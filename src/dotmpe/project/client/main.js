@@ -8,4 +8,3 @@ requirejs.config({
 	paths: local_dev_paths,
 });
 require(["app/document"]);
-

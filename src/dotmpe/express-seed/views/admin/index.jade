@@ -2,8 +2,16 @@ extends ../layouts/base
 
 block main
 
-  p 
+  p
     a(href='/modules/') Modules
+
+  if user
+    p
+      a(href='/users/'+user.attributes.id) View profile.
+  else
+    p Not logged in.
+    p 
+      a(href=config.urls.login) Login
 
 block content
 

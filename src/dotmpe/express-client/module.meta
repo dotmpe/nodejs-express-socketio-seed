@@ -1,0 +1,13 @@
+# -*- Yaml -*-
+
+# Work in progress
+- type: express-mvc-ext/0.1
+  name: dotmpe/express-client
+  components:
+    - controllers
+  controllers:
+    - controllers
+  # XXX models..
+
+# vim:ft=yaml:
+

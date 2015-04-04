@@ -17,6 +17,11 @@ module.exports =
 	production:
 		#root: rootPath
 		root: __dirname
+		lib:
+			include_js: []
+			js: {}
+			css: {}
+			coffeescript: {}
 		modules: [
 			'node/dotmpe/x-bookmarks'
 		]
@@ -25,6 +30,13 @@ module.exports =
 		root: __dirname
 		app: name: 'Nodejs Express Socket IO Demo (test)'
 		db: 'mongodb://localhost/noobjs_test'
+		urls:
+			base: '/'
+		lib:
+			include_js: []
+			js: {}
+			css: {}
+			coffeescript: {}
 		# old
 		notifier: notifier
 		facebook:
@@ -51,6 +63,9 @@ module.exports =
 	development:
 		root: __dirname
 		app: name: 'Nodejs Express Socket IO Demo (dev)'
+		urls:
+			base: '/'
+			login: '/login'
 		lib:
 			js:
 				socket_io: '/socket.io/socket.io.js'
@@ -59,6 +74,7 @@ module.exports =
 				coffeescript: '/components/coffee-script/extras/coffee-script.js'
 				angular: '/components/angular/angular.min.js'
 				requirejs: '/components/requirejs/require.js'
+				require_main: []
 			# booststrap here without requirejs:
 			include_js: [ 
 				'socket_io'
@@ -79,6 +95,7 @@ module.exports =
 			'dotmpe/project'
 			'dotmpe/browser'
 			'dotmpe/x/backbone'
+			'dotmpe/express-client'
 			#'dotmpe/x/backbone/backend',
 			#'dotmpe/x/backbone/frontend'
 		]

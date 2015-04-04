@@ -1,7 +1,7 @@
 
 //require(['jquery'], function(x) {
 
-console.log('main');
+console.log('x-Backbone client main');
 
 //});
 

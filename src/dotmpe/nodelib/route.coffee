@@ -1,4 +1,8 @@
-_ = require 'underscore'
+###
+Metadata to Express helpers.
+
+###
+_ = require 'lodash'
 
 applyRoutes = (app, root, controller)->
 
@@ -9,7 +13,7 @@ applyRoutes = (app, root, controller)->
 	routes = {}
 	for name, route of controller.route
 		# full url
-		url = [ root, name ].join('/')
+		url = [ root, name ].join('/').replace('$', ':')
 		# recurse to sub-route
 		if route.route
 			subRoutes = applyRoutes app, url, route
@@ -17,7 +21,8 @@ applyRoutes = (app, root, controller)->
 		# apply current level
 		for method in ['all', 'get', 'put', 'post', 'options', 'delete']
 			cb = route[method]
-			if _.isFunction cb
+			if cb
+				#console.log url, method
 				# Track all routes?
 				if url not of routes
 					routes[url] = {}
@@ -25,7 +30,10 @@ applyRoutes = (app, root, controller)->
 					console.error "Already routed: ", method, url
 				routes[url][method] = cb
 				# Apply to Express; ie. app.get( url, callback )
-				app[method] url, cb
+				if _.isArray cb
+					app[method].apply app, [ url, cb... ]
+				else
+					app[method] url, cb
 	routes
 
 module.exports = {
