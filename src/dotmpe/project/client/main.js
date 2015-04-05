@@ -25,9 +25,7 @@ requirejs.config({
     'angular-route': [ 'angular' ]
   },
   deps: [
-    'cs!dotmpe-project/document',
     'cs!dotmpe-project/ng'
   ]
 });
-//require(['app/document']);
 

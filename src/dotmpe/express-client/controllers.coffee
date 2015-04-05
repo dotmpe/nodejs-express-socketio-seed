@@ -3,6 +3,8 @@
 module.exports = ( module )->
 
   base = module.core.base
+  config = module.core.config
+  config.lib.js.require_main.push '/script/client/index.js'
 
   # install backend
   #be = require("./backend/#{config.client_type}")( module )

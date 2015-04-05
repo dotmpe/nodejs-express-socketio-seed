@@ -18,4 +18,6 @@ head(prefix="og: http://ogp.me/ns# nodejsexpressdemo: http://ogp.me/ns/apps/node
   - each path in head.css
     link(rel='stylesheet', href=path)
 
-  block header
+  for r_main in head.js.require_main
+    script(data-main=r_main, src=head.js.requirejs)
+

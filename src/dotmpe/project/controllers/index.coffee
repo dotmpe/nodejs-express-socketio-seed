@@ -65,7 +65,7 @@ module.exports = ( module ) ->
       ctx = super
       ctx.docpath = req.query.docpath
       # script/project is build by r.js from dotmpe/project/client
-      ctx.head.js.require_main.push "/script/project/main.js"
+      #ctx.head.js.require_main.push "/script/project/main.js"
       ctx
 
   # controller for docs tpl
@@ -78,7 +78,7 @@ module.exports = ( module ) ->
       ctx = super
       ctx.docpath = req.query.docpath
       # script/project is build by r.js from dotmpe/project/client
-      ctx.head.js.require_main.push "/script/project/main.js"
+      #ctx.head.js.require_main.push "/script/project/main.js"
       ctx
 
   # TODO: or look at express-socket for GUI excersize
@@ -108,7 +108,7 @@ module.exports = ( module ) ->
         ng: route:
           '': base.redirect '/project/ng-client'
           client: base.redirect '/project/ng-client'
-          view: route:$view: route:$action: all: project_ng_view
+          view: route: $view: route: $action: all: project_ng_view
 
       #get: _.bind projectIndex.get, projectIndex
 

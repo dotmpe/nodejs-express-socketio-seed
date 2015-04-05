@@ -18,7 +18,7 @@ _ = require 'underscore'
 typeIsArray = Array.isArray ||
   ( value ) -> return {}.toString.call( value ) is '[object Array]'
 
-# TODO: support various directory formats
+# TODO: metafile should support various directory formats
 #metafiles = [ 'main.*', 'module.*', '.meta' ]
 metafiles = [ 'main.meta', 'module.meta', '.meta' ]
 

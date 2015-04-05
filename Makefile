@@ -69,3 +69,6 @@ build-clients:
 	done
 	@echo "Cleaning..";rm -v $(_CLN)
 
+TODO.list: Makefile src lib ReadMe.rst Gruntfile.js server.coffee
+	grep -srI 'TODO\|FIXME\|XXX' $^ | grep -v 'grep..srI..TODO' | grep -v 'TODO.list' > $@
+

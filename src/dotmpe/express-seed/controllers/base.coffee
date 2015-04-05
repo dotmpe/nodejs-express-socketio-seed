@@ -99,7 +99,7 @@ class Base extends Controller
       modules: [
         name: 'Mod A'
       ]
-      isActive: ()->
+      isActive: ->
       # view:includes/messages
       #info: [
       #  "Info!"

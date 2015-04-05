@@ -1,5 +1,6 @@
 _ = require 'lodash'
 
+
 module.exports = ( module ) ->
 
   base = module.core.base
@@ -10,10 +11,10 @@ module.exports = ( module ) ->
       ctx = super
       #ctx.head.js.r_main = "/script/browser/common.js"
       #ctx.head.coffeescript.main = '/script/browser/main.coffee'
-      ctx.head.js.require_main.push "/script/browser/main.js"
+      #ctx.head.js.require_main.push "/script/browser/main.js"
       ctx
 
-  # Init controller with 
+  # Init controller with
   browser = new Browser module, 'main', {}
 
   # return module object with routes/handlers and metadata

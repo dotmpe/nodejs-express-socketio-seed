@@ -1,15 +1,9 @@
 extends ../../express-seed/views/layouts/base
 
 
-block head
-
-  //- for r_main in head.js.require_main
-  //  script(data-main=r_main, src=head.js.requirejs)
-  script(id="requirejs", data-main=head.js.r_main, src=head.js.requirejs)
-
 block wrap_epilogue
   // start after page #wrap and container and create window-wide chrome for
-  // doc viewer 
+  // doc viewer
 
   form
     .form-group
@@ -28,7 +22,6 @@ block wrap_epilogue
   iframe#viewer.form-control
 
 block footer
-
   p.text-muted.credit.small Express MVC - Project - Documents
 
 

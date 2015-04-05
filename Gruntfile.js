@@ -78,17 +78,26 @@ module.exports = function(grunt) {
       },
     },
 
+/*
+TODO: put deps list into require.js app..
+*/
     requirejs: {
 
-      browser: {
+      client: {
         options: {
-          appDir: 'src/dotmpe/browser/client',
-          baseUrl: ".",
+          baseUrl: "public",
           paths: {
             app: '../app',
-            jquery: 'empty:'
+            jquery: 'empty:',
+            //cs: "../../../../public/components/require-cs/cs"
           },
-          dir: './public/script/browser'
+          //out: './public/script/client.coffee'
+          appDir: 'src/dotmpe/express-client/client',
+          modules: [
+            //{ name: 'index' }
+            //{ name: 'cs!express-client/client/x-frame' }
+          ],
+          dir: 'public/script/client'
         }
       },
 
@@ -148,6 +157,7 @@ module.exports = function(grunt) {
     'nodeunit' 
   ]);
   grunt.registerTask('build-client', [
+    'requirejs:client'
   ]);
   grunt.registerTask('client', [
     'jshint:client',

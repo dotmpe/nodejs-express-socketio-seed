@@ -17,7 +17,8 @@ module.exports =
     #root: rootPath
     root: __dirname
     modules: [
-      'node/dotmpe/x-bookmarks'
+      'dotmpe/express-client'
+      'dotmpe/x-bookmarks'
     ]
 
   test:
@@ -93,6 +94,7 @@ module.exports =
       'dotmpe/browser'
       'dotmpe/x-bookmarks'
       'dotmpe/x/backbone'
+      'dotmpe/express-client'
       #'dotmpe/x/backbone/backend',
       #'dotmpe/x/backbone/frontend'
     ]
