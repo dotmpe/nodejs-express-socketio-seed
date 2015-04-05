@@ -23,10 +23,11 @@ update:
 	npm update
 	bower update
 
-build: latest build-client
+build: TODO.list latest build-client
 
 build-client:
 	grunt client
+	grunt client-index
 
 info:
 	npm run srctree
@@ -69,6 +70,6 @@ build-clients:
 	done
 	@echo "Cleaning..";rm -v $(_CLN)
 
-TODO.list: Makefile src lib ReadMe.rst Gruntfile.js server.coffee
+TODO.list: Makefile src lib config ReadMe.rst Gruntfile.js server.coffee
 	grep -srI 'TODO\|FIXME\|XXX' $^ | grep -v 'grep..srI..TODO' | grep -v 'TODO.list' > $@
 

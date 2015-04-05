@@ -17,15 +17,25 @@ module.exports =
     #root: rootPath
     root: __dirname
     modules: [
-      'dotmpe/express-client'
       'dotmpe/x-bookmarks'
     ]
+    lib:
+      js:
+        requirejs: '/components/requirejs/require.js'
+        require_main: []
+      include_js: []
 
   test:
     root: __dirname
     app: name: 'Nodejs Express Socket IO Demo (test)'
-    db: 'mongodb://localhost/noobjs_test'
+    modules: []
+    lib:
+      js:
+        requirejs: '/components/requirejs/require.js'
+        require_main: []
+      include_js: []
     # old
+    db: 'mongodb://localhost/noobjs_test'
     notifier: notifier
     facebook: null
     ###
@@ -94,7 +104,6 @@ module.exports =
       'dotmpe/browser'
       'dotmpe/x-bookmarks'
       'dotmpe/x/backbone'
-      'dotmpe/express-client'
       #'dotmpe/x/backbone/backend',
       #'dotmpe/x/backbone/frontend'
     ]

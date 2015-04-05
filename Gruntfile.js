@@ -1,6 +1,10 @@
+var _ = require('lodash'),
+    fs = require('fs');
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
+
     pkg: grunt.file.readJSON('package.json'),
 
     jshint: {
@@ -158,6 +162,30 @@ TODO: put deps list into require.js app..
   // auto load grunt contrib tasks from package.json
   require('load-grunt-tasks')(grunt);
 
+  grunt.registerTask('client-index', "", function() {
+      global.__noderoot = __dirname
+      config = require('./config/config')
+
+      grunt.log.write('Building Require.JS index.js');
+
+      var client_index_fn = 'public/script/client/index.js',
+        tpl = fs.readFileSync('./config/requirejs.tpl').toString(),
+        doc = tpl,
+        clientdef = _.defaults( config[ config.env ].client.index,
+          { baseUrl: '/script/', paths: {}, deps: [] }
+      );
+
+      _.each( _.keys(clientdef), function( key ) {
+          var v = JSON.stringify(clientdef[key]);
+          doc = doc.replace("%("+key+")s", v);
+      });
+
+      fs.writeFileSync(client_index_fn, doc);
+  });
+
+  grunt.registerTask('init', [
+    'make:init-config'
+  ]);
   grunt.registerTask('lint', [
     'coffeelint', 'jshint', 'yamllint'
   ]);
@@ -165,7 +193,8 @@ TODO: put deps list into require.js app..
     'nodeunit' 
   ]);
   grunt.registerTask('build-client', [
-    'requirejs:client'
+    'requirejs:client',
+    'client-index'
   ]);
   grunt.registerTask('client', [
     'jshint:client',
@@ -175,7 +204,7 @@ TODO: put deps list into require.js app..
 
   // Default task.
   grunt.registerTask('default', [
-    'lint', 'test' 
+    'lint', 'test'
   ]);
 
 };

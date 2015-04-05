@@ -1,8 +1,9 @@
 global.__noderoot = __dirname
-#require('./config/config'){ rootPath: __dirname }
+config = require './config/config'
+
 
 module.exports =
 
-	development: require('./config/knex-migrate')('development')
+  development: config[ config.env ].database.main
 
 

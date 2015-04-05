@@ -48,6 +48,7 @@
     "cookie-session": "^1.0.2",
     "express": "^4.1.1",
     "forever": "latest",
+    "glob": "^5.0.3",
     "jade": "latest",
     "js-yaml": "^3.2.7",
     "lodash": "^3.4.0",
