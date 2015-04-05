@@ -1,4 +1,4 @@
-TRGTS := install update build build-clients info test lint
+TRGTS := install update build build-client info version latest test lint start
 
 empty := 
 space := $(empty) $(empty)
@@ -23,16 +23,28 @@ update:
 	npm update
 	bower update
 
-migrate:
-	knex migrate:latest
+build: latest build-client
 
-build: migrate build-clients
+build-client:
+	grunt client
 
 info:
 	npm run srctree
 	npm run srcloc
 
+start:
+	npm run start
+
 .PHONY: $(TRGTS)
+
+
+version: D := demo
+version:
+	DBNAME=$(D) ./node_modules/.bin/knex migrate:currentVersion
+
+latest: D := demo
+latest:
+	DBNAME=$(D) ./node_modules/.bin/knex migrate:latest
 
 COFFEE2JS := \
 	src/dotmpe/browser/client/main.coffee

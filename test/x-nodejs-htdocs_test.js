@@ -28,9 +28,9 @@ exports['awesome'] = {
     done();
   },
   'no args': function(test) {
-    test.expect(0);
+    test.expect(1);
     // tests here
-    //test.equal(projectlib.awesome(), 'awesome', 'should be awesome.');
+    test.equal(1, 1, 'should be ...');
     test.done();
   },
 };

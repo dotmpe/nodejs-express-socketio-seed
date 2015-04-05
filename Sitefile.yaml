@@ -1,0 +1,18 @@
+sitefile: 0.2
+routes:
+  $name: 'du:**.rst'
+specs:
+  rst2html:
+    stylesheets:
+    - 'public/style/app.css'
+    - 'public/style/node-backbone-todo-example.css'
+
+    #- 'media/style/docutils.css'
+    #- 'media/style/docutils-html.css'
+    - '/srv/project-mpe/docutils-ext/var/media/style/docutils-html.css'
+    - '/srv/project-mpe/docutils-ext/var/media/style/docutils.css'
+    #- '/media/style/html.css'
+
+
+
+

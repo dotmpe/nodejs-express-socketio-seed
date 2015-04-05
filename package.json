@@ -75,6 +75,8 @@
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-nodeunit": "^0.4.0",
     "grunt-contrib-watch": "latest",
+    "grunt-make": "^1.0.0",
+    "grunt-requirejs": "^0.4.2",
     "knex": "^0.7.3",
     "load-grunt-config": "latest",
     "load-grunt-tasks": "latest",

@@ -81,7 +81,7 @@ class Base extends Controller
   constructor: (core, @view, @seed) ->
     super core
     @viewPath = path.join @component.viewPath, @view
-    @template = jade.compileFile @viewPath +'.jade'
+    @template = jade.compileFile "#{@viewPath}.jade"
 
   getContext: ->
     if not @core

@@ -17,13 +17,11 @@ module.exports = ( core ) ->
 
   #tplpath = require.resolve '../views/site/index.jade'
   site = new base.type.Base core, 'site/index',
-        page:
-          title: "Home", summary: core.config.app.name
+    page: title: "Home", summary: core.config.app.name
 
   #tplpath = require.resolve '../views/site/about.jade'
   about = new base.type.Base core, 'site/about',
-        page:
-          title: "About", summary: core.config.app.name
+    page: title: "About", summary: core.config.app.name
 
   #class Site extends Page
   #  constructor: (opts) ->
