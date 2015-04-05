@@ -1,5 +1,5 @@
 ###
-Do the heavy lifting for Express. 
+Do the heavy lifting for Express.
 
 This module exports an options object to pass along to
 dotmpe.nodelib.module.Component
@@ -14,112 +14,112 @@ rootPath = path.normalize(__dirname)
 
 init_express = ( app, server, config, pkg, envname )->
 
-	app.set('showStackError', true)
+  app.set('showStackError', true)
 
-	# Logging
-	log
-	if envname != 'dev'
-		winston = require('winston')
-		log = 
-			stream: 
-				write: (message, encoding) ->
-					winston.info(message)
-	else 
-		log = 'dev'
+  # Logging
+  log
+  if envname != 'dev'
+    winston = require('winston')
+    log =
+      stream:
+        write: (message, encoding) ->
+          winston.info(message)
+  else
+    log = 'dev'
 
-	# Don't log during tests
-	envname != 'test' ? app.use(logger(log))
+  # Don't log during tests
+  envname != 'test' ? app.use(logger(log))
 
-	# Templating
-	app.set 'views', path.join rootPath, 'views'
-	app.set 'view engine', 'jade'
+  # Templating
+  app.set 'views', path.join rootPath, 'views'
+  app.set 'view engine', 'jade'
 
-	# expose package.json, config.lib to Express views
-	app.use (req, res, next)->
-		res.locals.pkg = pkg
-		res.locals.head = config.lib
-		next()
-	
-	helpers = require('view-helpers')
-	app.use(helpers(pkg.name))
+  # expose package.json, config.lib to Express views
+  app.use (req, res, next)->
+    res.locals.pkg = pkg
+    res.locals.head = config.lib
+    next()
 
-	envname == 'development' ?
-		app.use express.errorHandler()
-		app.locals.pretty = true
+  helpers = require('view-helpers')
+  app.use(helpers(pkg.name))
 
-	app.use((err, req, res, next)->
-		if err.message && (~err.message.indexOf('not found') || (~err.message.indexOf('Cast to ObjectId failed')))
-			return next()
-		console.error(err.stack)
-		res.status(500).render('500', { error: err.stack })
-	)
+  envname == 'development' ?
+    app.use express.errorHandler()
+    app.locals.pretty = true
+
+  app.use((err, req, res, next)->
+    if err.message && (~err.message.indexOf('not found') || (~err.message.indexOf('Cast to ObjectId failed')))
+      return next()
+    console.error(err.stack)
+    res.status(500).render('500', { error: err.stack })
+  )
 
 #load_controllers = ( app, config )->
 
 module.exports = ( )->
 
-	app = module.exports = express()
+  app = module.exports = express()
 
-	#envname = process.env.NODE_ENV or 'development'
-	envname = app.get 'env'
+  #envname = process.env.NODE_ENV or 'development'
+  envname = app.get 'env'
 
-	app.set 'port', process.env.PORT || 3000
+  app.set 'port', process.env.PORT || 3000
 
-	server = require("http").createServer(app)
+  server = require("http").createServer(app)
 
-	configs = require path.join __noderoot, 'config/config'
-	config = configs[envname]
+  configs = require path.join __noderoot, 'config/config'
+  config = configs[envname]
 
-	pkg_file = path.join __noderoot, 'package.json'
-	pkg = require( pkg_file )
+  pkg_file = path.join __noderoot, 'package.json'
+  pkg = require( pkg_file )
 
-	init_express( app, server, config, pkg, envname )
+  init_express( app, server, config, pkg, envname )
 
-	app.use express.static path.join __noderoot, 'public'
+  app.use express.static path.join __noderoot, 'public'
 
-	io = require("socket.io").listen(server)
-	app.set('io', io)
+  io = require("socket.io").listen(server)
+  app.set('io', io)
 
-	# Apply routes for socket TODO cleanup after move to controller(s)
-	io.sockets.on 'connection', (socket) ->
+  # Apply routes for socket TODO cleanup after move to controller(s)
+  io.sockets.on 'connection', (socket) ->
 
-		socket.on 'disconnect', ()->
-			console.log 'client disconnected'
+    socket.on 'disconnect', ()->
+      console.log 'client disconnected'
 
-		socket.on 'message', (msg)->
-			console.log 'message from client: '+msg
-			socket.send('hello!')
+    socket.on 'message', (msg)->
+      console.log 'message from client: '+msg
+      socket.send('hello!')
 
-		socket.emit 'test',
-			foo: 'Bar'
+    socket.emit 'test',
+      foo: 'Bar'
 
-		sendPing = ->
-			socket.emit 'ping', Date.now()
+    sendPing = ->
+      socket.emit 'ping', Date.now()
 
-		setInterval sendPing, 5000
+    setInterval sendPing, 5000
 
-	app: app
-	server: server
+  app: app
+  server: server
 
-	pkg: pkg
-	root: rootPath
-	config: config
+  pkg: pkg
+  root: rootPath
+  config: config
 
-	meta:
-		controllers: [ 
-			'controllers/base'
-			'controllers/site'
-			'controllers/admin'
-			#'controllers/user'
-		]
-		default_route: 'home'
+  meta:
+    controllers: [
+      'controllers/base'
+      'controllers/site'
+      'controllers/admin'
+      #'controllers/user'
+    ]
+    default_route: 'home'
 
-		menu: {}
-		#	home: url: '/home', label: 'Home'
-		#	about: url: '/about', label: 'About'
-		#	template: url: '/admin/template', label: 'Template'
-		#	module: url: '/modules', label: 'Modules'
+    menu: {}
+    #  home: url: '/home', label: 'Home'
+    #  about: url: '/about', label: 'About'
+    #  template: url: '/admin/template', label: 'Template'
+    #  module: url: '/modules', label: 'Modules'
 
-		page:
-			title: "Untitled"
+    page:
+      title: "Untitled"
 
