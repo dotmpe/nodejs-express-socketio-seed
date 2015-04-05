@@ -37,10 +37,18 @@ module.exports = function(grunt) {
       },
       lib: {
         src: [
-          'bin/*.coffee',
           'src/**/*.coffee',
           'lib/**/*.coffee',
           'config/**/*.coffee'
+        ]
+      }
+    },
+
+    yamllint: {
+      all: {
+        src: [
+          'config/*.yaml',
+          'src/**/*.meta'
         ]
       }
     },
@@ -151,7 +159,7 @@ TODO: put deps list into require.js app..
   require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('lint', [
-    'coffeelint', 'jshint' 
+    'coffeelint', 'jshint', 'yamllint'
   ]);
   grunt.registerTask('test', [
     'nodeunit' 

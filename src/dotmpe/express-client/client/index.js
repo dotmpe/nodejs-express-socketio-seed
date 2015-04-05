@@ -1,4 +1,5 @@
 var local_dev_paths = {
+  'express-client': './client',
   jquery: '/components/jquery/dist/jquery',
   underscore: '/components/underscore/underscore',
   //'socket.io': '/socket.io/socket.io',
@@ -13,8 +14,8 @@ requirejs.config({
     bootstrap: [ 'jquery' ],
   },
   deps: [
-    'cs!client/navbar',
-    'cs!client/document',
-    'cs!client/socket',
+    'cs!express-client/navbar',
+    'cs!express-client/document',
+    'cs!express-client/socket',
   ]
 });
