@@ -13,28 +13,28 @@ module.exports = (core, base) ->
   #app.get 'controllers' ['page']
   #
   # static route pre-config
-  
+
   route:
 
-    admin: 
+    admin:
       get: (req, res) ->
         res.render 'admin',
           _.merge {}, core.base.basicContext(core),
             page: title: "Admin"
             user: req.user
       route:
-        template: get: base.simpleExpressView 'admin/template', () ->
+        template: get: base.simpleExpressView 'admin/template', ->
           _.merge {}, core.base.basicContext(core),
             page: title: "Template"
 
     modules:
-      get: base.simpleExpressView 'admin/modules', ()->
+      get: base.simpleExpressView 'admin/modules', ->
         _.merge {}, core.base.basicContext(core),
           page: title: "Modules"
           components: core.get_all_components()
       route:
-        list: 
-          get: base.simpleExpressView 'admin/modules', () ->
+        list:
+          get: base.simpleExpressView 'admin/modules', ->
             _.merge {}, core.base.basicContext(core),
               page: title: "Modules"
               modules: core.modules

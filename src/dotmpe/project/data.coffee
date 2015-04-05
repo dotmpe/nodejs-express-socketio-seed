@@ -6,7 +6,7 @@ _ = require 'lodash'
 fs = require 'fs'
 child_process = require 'child_process'
 
-module.exports = ( module )->
+module.exports = ( module ) ->
 
   base = module.core.base
   projectDir = process.cwd()
@@ -17,7 +17,7 @@ module.exports = ( module )->
         project:
           route:
             document:
-              get: (req, res, next)->
+              get: (req, res, next) ->
 
                 q = req.query
                 _.defaults q, format: 'xml'
@@ -30,11 +30,11 @@ module.exports = ( module )->
 
                 else
 
-                  child_process.exec cmd, (error, stdout, stderr)->
+                  child_process.exec cmd, (error, stdout, stderr) ->
                     if error
                       res.type('text/plain')
                       res.status(500)
-                      res.write("exec error: "+error)
+                      res.write "exec error: #{error}"
                       res.end()
                     else if q.format == 'xml'
                       res.type 'xml'

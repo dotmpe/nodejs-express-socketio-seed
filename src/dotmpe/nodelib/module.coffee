@@ -17,7 +17,7 @@ Bookshelf = require 'bookshelf'
 metadata = require './metadata'
 applyRoutes = require('./route').applyRoutes
 
-applyParams = ( app, context )->
+applyParams = ( app, context ) ->
   if context.params
     for name, handler of context.params
       app.param( name, handler )
@@ -33,11 +33,13 @@ class Component
     @models = {}
     @params = {}
 
-  @load_config: ( name )->
+  @load_config: ( name ) ->
     {}
 
-  configure: () ->
+  configure: ->
     p = @root || @path
+
+    @name = @name || @meta.name
 
     @controllerPath = path.join p, 'controllers'
     @modelPath = path.join p, 'models'
@@ -46,10 +48,10 @@ class Component
     @load_models()
     @load_controllers()
 
-  load_models: ()->
+  load_models: ->
     knex = @app.get('knex.main')
     if not knex
-      knex = require('knex')(@config.database.main) 
+      knex = require('knex')(@config.database.main)
       @app.set('knex.main', knex)
       console.log(chalk.grey('Initialized main DB conn'))
     Base = Bookshelf.initialize(knex)
@@ -61,19 +63,19 @@ class Component
 
     p = @root || @path
 
-  load_model: ( name )->
+  load_model: ( name ) ->
     if not @models[name]
       modpath = path.join @modelPath, name
       @models[name] = require(modpath).define(@modelbase)
     @models[name]
 
-  load_controllers: ()->
+  load_controllers: ->
     if ! @meta.controllers
       console.warn 'No controllers for component', @name
       return
 
     p = @root || @path
-    
+
     # load configured controllers
     for ctrl in @meta.controllers
 
@@ -110,11 +112,11 @@ class Component
 class Core extends Component
 
   constructor: (opts) ->
-    @name = 'core'
     super opts
+    @name = @name || 'core'
 
   # static init for core, relay app init to core module, then init
-  @config: ( core_path )->
+  @config: ( core_path ) ->
     core_file = path.join __noderoot, core_path, 'main'
     core_seed_cb = require core_file
     # Return core opts
@@ -139,7 +141,7 @@ class CoreV01 extends Core
     super opts
     @modules = {}
 
-  configure: () ->
+  configure: ->
     # url must point to netpath, WITHOUT any *path* part (ie. including root)
     # so any sub-component can deal with abs or rel paths
     @url = @url || ''
@@ -148,7 +150,7 @@ class CoreV01 extends Core
 
     # Add some more locals for Jade templates
     self = @
-    @app.use (req, res, next)->
+    @app.use (req, res, next) ->
       res.locals.core = self
       res.locals.modules = []
       next()
@@ -158,7 +160,7 @@ class CoreV01 extends Core
   ###
     CoreV01.load_modules
   ###
-  load_modules: ()->
+  load_modules: )->
     #console.log 'load_modules', @config.modules
     modroot = path.join __noderoot, @config.src || 'src'
     mods = _.extend( [], @config.modules, @meta.modules )
@@ -172,16 +174,16 @@ class CoreV01 extends Core
   ###
     CoreV01.get_all_components
   ###
-  get_all_components: ()->
+  get_all_components: ->
     comps = [ @ ]
     _.union comps, _.values( @modules )
 
-  start: ()->
+  start: ->
     self = @
     @server.listen @app.get("port"), ->
       console.log "Express server listening on port " + self.app.get("port")
 
-  @load: ( core_path )->
+  @load: ( core_path ) ->
     # TODO sync with Module.load:
     #md = metadata.load( core_path )
     #if not md
@@ -194,7 +196,7 @@ class CoreV01 extends Core
 class ModuleV01 extends Component
 
   ###
-  
+
   | Handle Express MVC extension modules.
 
   - handlers
@@ -203,16 +205,16 @@ class ModuleV01 extends Component
   ###
 
   # Get new instance holding module metadata and config.
-  constructor: ( opts )->
+  constructor: ( opts ) ->
     {@core} = opts
     if !opts.name
       opts.name = 'ModuleV01'
     super opts
 
   # Static methods
-  
+
   # Read module metadata from path, load MVC-ext-type modules
-  @load: ( core, from_path )->
+  @load: ( core, from_path ) ->
     md = metadata.load( from_path )
     if !md
       console.warn "No module to load from", from_path
@@ -226,14 +228,14 @@ class ModuleV01 extends Component
           console.error "Missing MVC meta for ", mdc
         return new ModuleClass( opts )
 
-  @config: ( core, meta, from_path )->
-      #ModuleClass = module_classes[ meta.ext_version ]
-      # TODO module_config = ModuleClass.load_config( from_path )
-      meta: meta
-      core: core
-      app: core.app
-      base: core.base
-      path: from_path
+  @config: ( core, meta, from_path ) ->
+    #ModuleClass = module_classes[ meta.ext_version ]
+    # TODO module_config = ModuleClass.load_config( from_path )
+    meta: meta
+    core: core
+    app: core.app
+    base: core.base
+    path: from_path
 
 
 module_classes = {
@@ -248,7 +250,7 @@ session = {
   apps: { }
 }
 
-init = ( node_path, app_path=null )->
+init = ( node_path, app_path=null ) ->
   if not session.projects[node_path]
     code_id = uuid.v4()
     session.projects[node_path] = code_id
@@ -258,7 +260,7 @@ init = ( node_path, app_path=null )->
   global.__noderoot = node_path
 
 
-load_core = ( app_path )->
+load_core = ( app_path ) ->
   global.__approot = app_path
   app_id
 
@@ -279,7 +281,7 @@ load_core = ( app_path )->
   core
 
 
-load_module = ( mod_path )->
+load_module = ( mod_path ) ->
   module.configure extroot
   module.load app
 
@@ -292,7 +294,7 @@ module.exports = {
     Module: ModuleV01
   load_core: load_core,
   #load_module: load_module,
-  load_and_start: ( app_path )->
+  load_and_start: ( app_path ) ->
     init process.cwd()
     core = load_core app_path
     core.configure()

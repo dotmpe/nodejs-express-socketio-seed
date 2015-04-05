@@ -7,13 +7,14 @@ jade = require 'jade'
 
 indexTpl = jade.compileFile require.resolve './index.jade'
 
-module.exports = (module)->
+module.exports = (module) ->
 
-	data = ()->
-		page: title: "Backbone", summary: "Testing Backbone"
+  data = ->
+    _.merge {}, module.core.base.basicContext( module.core ),
+    page: title: "Backbone", summary: "Testing Backbone"
 
-	base = module.core.base
+  base = module.core.base
 
-	route: 'dotmpe/x/backbone/': get: base.simpleView data, indexTpl
-	meta: menu: 'x-backbone': url: '/dotmpe/x/backbone', label: 'Backbone'
+  route: 'dotmpe/x/backbone/': get: base.simpleView data, indexTpl
+  meta: menu: 'x-backbone': _url: '/dotmpe/x/backbone', _label: 'Backbone'
 

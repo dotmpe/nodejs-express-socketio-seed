@@ -1,7 +1,8 @@
-html
-  //script(type="text/javascript", src="/script/r-client/dotmpe-x-backbone.js")
-  script(data-main="/script/x-backbone/client/main",src="/components/require/build/require.js")
+extends ../../../express-seed/views/layouts/base
 
-  body
-    div dotmpe-x-backbone
-    div Index
+block head
+  script(data-main="/script/x-backbone/client/main", src=head.js.requirejs)
+
+block main
+  div dotmpe-x-backbone
+  div Index

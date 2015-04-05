@@ -13,7 +13,7 @@ block main
             - each cb, method in methods
               tr
                 td
-                  if (method == 'get')
+                  if method == 'get' || method == 'all'
                     a(href= url)= method +' ('+url+')'
                   else
                     span= method
@@ -23,5 +23,5 @@ block content
 
 block footer
 
-  p.text-muted.credit Express MVC - Modules Admin
+  p.text-muted.credit.small Express MVC - Modules Admin
 

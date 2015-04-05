@@ -10,7 +10,7 @@ browserElementPrototype.attributeChangedCallback = ->
 browserElementPrototype.testBrowser = ->
 
 require [
-], ()->
+], ->
 
   console.log 'Browser main'
 
@@ -25,6 +25,5 @@ require [
 
     $browser = $('browser-mpe')
     #$browser.get(0).testBrowser 'test'
-
 
 

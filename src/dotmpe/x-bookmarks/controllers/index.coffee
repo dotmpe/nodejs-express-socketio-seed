@@ -5,21 +5,22 @@ warehouse = require 'warehousejs'
 chalk = require 'chalk'
 
 
-module.exports = (module)->
+module.exports = (module) ->
 
   app = module.core.app
 
   # Set up a primary persisted storage
   knex = app.get('knex.main')
   if not knex
-    knex = require('knex')(module.core.config.database.main) 
+    knex = require('knex')(module.core.config.database.main)
     app.set('knex.main', knex)
   console.log(chalk.grey('Initialized main DB conn'))
 
   # Prepare DB connection
   SQLiteBase = Bookshelf.initialize(knex)
-  
+
   Bookshelf.session = SQLiteBase
+
   # Load models of module
   models = require module.modelPath
   # Prepare Bookshelf.{model,collection} registries
@@ -28,7 +29,7 @@ module.exports = (module)->
   models.location.define(SQLiteBase)
   models.bookmark.define(SQLiteBase)
 
-  # Set up barebone CRUD for SQLite3 records
+  # XXX Sets up second store connection ... barebone CRUD for SQLite3 records
   SqlBackend = require 'warehousejs/backend/sql'
 
   bookmarks = new SqlBackend
@@ -39,7 +40,7 @@ module.exports = (module)->
   warehouse.applyRoutes app, '/data/bookmarks', bookmarks.objectStore 'bm'
 
   # Return hash with handlers
-  x_bookshelf = (req, res, next)->
+  x_bookshelf = (req, res, next) ->
     Location = SQLiteBase.model('Location')
     Locations = SQLiteBase.collection('Locations')
     new Locations().query().count('id').then(
@@ -60,5 +61,5 @@ module.exports = (module)->
 
   meta:
     menu:
-      bookmarks: url: '/x-bookmarks', label: 'Bookmarks'
+      bookmarks: _url: '/x-bookmarks', _label: 'Bookmarks'
 

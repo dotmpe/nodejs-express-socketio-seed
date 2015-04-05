@@ -11,7 +11,7 @@ module.exports = ( core ) ->
     getPage: (name) ->
       (req, res) ->
         res.render name, data
-      base.simpleExpressView 'site', (context)->
+      base.simpleExpressView 'site', (context) ->
         _.extend {}, context,
           page: title: "Home", summary: core.config.app.name
 
@@ -24,7 +24,7 @@ module.exports = ( core ) ->
     page: title: "About", summary: core.config.app.name
 
   #class Site extends Page
-  #  constructor: (opts)->
+  #  constructor: (opts) ->
   #    super opts
 
   # export new types, and route/page configuration
@@ -37,7 +37,7 @@ module.exports = ( core ) ->
     about: get: _.bind about.get, about
 
 ###
-      about: get: base.simpleExpressView 'site/about', ()->
+      about: get: base.simpleExpressView 'site/about', ->
         page: title: "About", summary: core.config.app.name
         menu: core.meta.menu
 ###

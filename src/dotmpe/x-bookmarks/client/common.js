@@ -1,4 +1,4 @@
-local_dev_paths = {
+var local_dev_paths = {
 	app: 'x-bookmarks',
 	jquery: '../components/jquery/dist/jquery',
 	underscore: "/components/underscore/underscore",

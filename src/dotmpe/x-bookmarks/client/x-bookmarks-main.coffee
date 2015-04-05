@@ -1,26 +1,31 @@
-define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Backbone)->
+define [
+    'jquery',
+    "underscore",
+    'backbone',
+    'backbone.localstorage'
+], ($, _, Backbone) ->
 
   console.log 'x-Bookshelf loading'
   #console.log etch.editableInit
 
   Location = Backbone.Model.extend
-    defaults: () ->
+    defaults: ->
       id: null
       href: null
       deleted: false
       date_added: Date.now()
       #order: Locations.nextOrder()
       private: true
-    togglePrivate: () ->
+    togglePrivate: ->
       this.save(private: ! this.get 'private')
-  
+
   LocationList = Backbone.Collection.extend
     url: '/data/locations'
     model: Location
     #localStorage: new Backbone.LocalStorage("locations-backbone"),
-    count: ()->
+    count: ->
       this.where(done: true)
-    nextOrder: ()->
+    nextOrder: ->
       if !this.length
         return 1
       return this.last().get('order') + 1
@@ -31,32 +36,32 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
     tagName: 'li'
     template: _.template($('#item-template').html())
     events:
-      "dblclick .view"  : "edit"
-      "click a.destroy" : "clear"
-      "keypress .edit"  : "updateOnEnter"
-      "blur .edit"      : "close"
-    initialize: ()->
+      "dblclick .view": "edit"
+      "click a.destroy": "clear"
+      "keypress .edit": "updateOnEnter"
+      "blur .edit": "close"
+    initialize: ->
       @listenTo @model, 'change', @render
       @listenTo @model, 'destroy', @destroy
-    render: ()->
+    render: ->
       @$el.html(@template(@model.toJSON()))
       @edit = @$('.edit')
       @edit.hide()
       @global_id = @$('input.global_id')
       @href = @$('input.href')
       @
-    edit: ()->
+    edit: ->
       @$el.addClass 'editing'
       @edit.show()
       @global_id.focus()
-    close: ()->
+    close: ->
       @edit.hide()
       @model.save global_id: @global_id.val(), href: @href.val()
       @clear()
     updateOnEnter: (e) ->
       if e.keyCode == 13
         @close()
-    clear: () ->
+    clear: ->
       @model.destroy()
   )
 
@@ -65,10 +70,10 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
     lctrTemplate: _.template($('#lctr-template').html()),
     statsTemplate: _.template($('#stats-template').html()),
     events:
-      "keypress #new-location input":  "createOnEnter"
+      "keypress #new-location input": "createOnEnter"
       #"click #clear-completed": "clearCompleted"
       "click #toggle-all": "toggleAllComplete"
-    initialize: ()->
+    initialize: ->
       @id_input = @$("#new-location input.global_id")
       @href_input = @$("#new-location input.href")
       @listenTo(Locations, 'add', @addOne)
@@ -77,12 +82,12 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
       @footer = @$('footer')
       @main = $('#main')
       Locations.fetch
-        success: (collection, response, options)->
+        success: (collection, response, options) ->
           console.log('fetched', arguments)
-        error: ()->
+        error: ->
           console.log('fetch error', arguments)
       console.log 'AppView #locations initialized'
-    render: ()->
+    render: ->
       if Locations.length
         this.main.show()
         this.footer.show()
@@ -92,12 +97,12 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
       else
         this.main.hide()
         this.footer.hide()
-    addOne: (location)->
+    addOne: (location) ->
       view = new LocationView(model: location)
       this.$(".location-list").append view.render().el
-    addAll: ()->
+    addAll: ->
       Locations.each(this.addOne, this)
-    createOnEnter: (e)->
+    createOnEnter: (e) ->
       if e.keyCode != 13
         return
       if !this.href_input.val()
@@ -106,10 +111,10 @@ define ['jquery', "underscore", 'backbone', 'backbone.localstorage'], ($, _, Bac
       Locations.create(model)
       @id_input.val('')
       @href_input.val('')
-    clearCompleted: ()->
+    clearCompleted: ->
       _.invoke(Locations.done(), 'destroy')
       return false
   )
-  App = new AppView 
+  App = new AppView
 
 

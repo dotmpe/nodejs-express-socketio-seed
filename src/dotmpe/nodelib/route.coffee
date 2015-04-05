@@ -4,11 +4,11 @@ Metadata to Express helpers.
 ###
 _ = require 'lodash'
 
-applyRoutes = (app, root, controller)->
+applyRoutes = (app, root, controller) ->
 
   if !app
     console.log root, controller
-    throw "Missing app"
+    throw new Error "Missing app"
 
   routes = {}
   for name, route of controller.route
@@ -37,5 +37,6 @@ applyRoutes = (app, root, controller)->
   routes
 
 module.exports =
+
   applyRoutes: applyRoutes
 

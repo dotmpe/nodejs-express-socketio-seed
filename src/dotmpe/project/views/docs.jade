@@ -3,6 +3,8 @@ extends ../../express-seed/views/layouts/base
 
 block head
 
+  //- for r_main in head.js.require_main
+  //  script(data-main=r_main, src=head.js.requirejs)
   script(id="requirejs", data-main=head.js.r_main, src=head.js.requirejs)
 
 block wrap_epilogue
@@ -11,23 +13,22 @@ block wrap_epilogue
 
   form
     .form-group
-      label Path
-      input(name='docpath', value=docpath).form-control
+      label.col-md-1 Path
+      div.col-md-8
+        input.form-control(name='docpath', value=docpath)
     .form-group
-      label Format
-      select(name='format')
-        option(value="html") HTML
-        option(value="pseudoxml") Pseudo XML (plain text)
-        option(value="source") Source (reStructuredText)
-        option(value="xml") XML
+      label.col-md-1 Format
+      .col-md-2
+        select.form-control(name='format')
+          option(value="html") HTML
+          option(value="pseudoxml") Pseudo XML (plain text)
+          option(value="source") Source (reStructuredText)
+          option(value="xml") XML
 
-block content
-
-  .row.form-group
-    iframe#viewer.form-control
+  iframe#viewer.form-control
 
 block footer
 
-  p.text-muted.credit Express MVC - Project - Documents
+  p.text-muted.credit.small Express MVC - Project - Documents
 
 

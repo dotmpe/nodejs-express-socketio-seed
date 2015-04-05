@@ -23,6 +23,10 @@ block content
           else
             span Not an NPM project
 
+    - for name in documents
+      p
+        a(href="/project/document?docpath="+name)= name
+
     .container
       .row
 

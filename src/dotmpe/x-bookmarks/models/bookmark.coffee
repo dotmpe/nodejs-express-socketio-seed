@@ -1,4 +1,4 @@
-module.exports = 
+module.exports =
 
   # Define table schema with knex
   schema: (table) ->
@@ -10,7 +10,7 @@ module.exports =
       .inTable('locators')
 
   # Create model, collection and register with Bookshelf
-  define: (Base) -> 
+  define: (Base) ->
     Bookmark = Base.Model.extend(
       tableName: 'bm'
     )

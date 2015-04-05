@@ -12,7 +12,7 @@ express = require 'express'
 rootPath = path.normalize(__dirname)
 
 
-init_express = ( app, server, config, pkg, envname )->
+init_express = ( app, server, config, pkg, envname ) ->
 
   app.set('showStackError', true)
 
@@ -35,7 +35,7 @@ init_express = ( app, server, config, pkg, envname )->
   app.set 'view engine', 'jade'
 
   # expose package.json, config.lib to Express views
-  app.use (req, res, next)->
+  app.use (req, res, next) ->
     res.locals.pkg = pkg
     res.locals.head = config.lib
     next()
@@ -47,8 +47,9 @@ init_express = ( app, server, config, pkg, envname )->
     app.use express.errorHandler()
     app.locals.pretty = true
 
-  app.use((err, req, res, next)->
-    if err.message && (~err.message.indexOf('not found') || (~err.message.indexOf('Cast to ObjectId failed')))
+  app.use((err, req, res, next) ->
+    if err.message && ( ~err.message.indexOf('not found') ||
+       (~err.message.indexOf('Cast to ObjectId failed')))
       return next()
     console.error(err.stack)
     res.status(500).render('500', { error: err.stack })

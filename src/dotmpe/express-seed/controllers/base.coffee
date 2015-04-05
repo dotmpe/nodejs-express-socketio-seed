@@ -6,11 +6,11 @@ jade = require 'jade'
 util = {
 
   # redirect generator
-  redirect: (path)->
-    (req, res)->
+  redirect: (path) ->
+    (req, res) ->
       res.redirect(path)
 
-  basicContext: ( core )->
+  basicContext: ( core ) ->
     # view:includes/head
     page: title: 'Title'
     core: core
@@ -38,7 +38,7 @@ util = {
     #  "Warning!"
     #]
 
-  compileTemplate: ( name, component )->
+  compileTemplate: ( name, component ) ->
     tplPath = require.resolve path.join component.viewPath, "#{name}.jade"
     jade.compileFile tplPath
 
@@ -54,7 +54,7 @@ util = {
     (req, res, next) ->
       data = if getContext then getContext(req, res) else {}
       if not data
-        console.warn('No data for '+name)
+        console.warn "No data for #{name}"
       res.render( name, data )
 }
 
@@ -64,7 +64,7 @@ Function::property = (prop, desc) ->
 # Controller baseclass
 class Controller
 
-  constructor: (core)->
+  constructor: (core) ->
     @component = core
     if core.core
       @module = core
@@ -77,15 +77,15 @@ class Base extends Controller
   ###
   Base is the HTML client.
   ###
-  
+
   constructor: (core, @view, @seed)->
     super core
     @viewPath = path.join @component.viewPath, @view
-    @template = jade.compileFile @viewPath+'.jade'
-  
-  getContext: ()->
+    @template = jade.compileFile "#{@viewPath}.jade"
+
+  getContext: ->
     if not @core
-      throw "Error"
+      throw new Error "Error"
     @view_vars =
       # view:includes/head
       page:
@@ -120,16 +120,16 @@ class Base extends Controller
     return x
 
   # Static methods
-  @init: ( core, type=Controller, opts )->
+  @init: ( core, type=Controller, opts ) ->
     new type _.defaults opts, core: core
 
-  get: ( req, res, next )->
+  get: ( req, res, next ) ->
     context = _.bind @getContext, @
     browserHandler = util.simpleView context, @template
     browserHandler req, res, next
 
 
-module.exports = ( core )->
+module.exports = ( core ) ->
 
   _.merge core.base, util,
     type:

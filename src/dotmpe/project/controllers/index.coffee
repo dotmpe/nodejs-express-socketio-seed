@@ -11,7 +11,7 @@ jade = require 'jade'
 docTemplate = jade.compileFile require.resolve '../views/docs.jade'
 projectTemplate = jade.compileFile require.resolve '../views/index.jade'
 
-listProjects = ()->
+listProjects = ->
   dataDir = process.cwd()
   projectsDir = path.join dataDir, 'project'
 
@@ -29,12 +29,12 @@ listProjects = ()->
       results.push name
   results
 
-currentProject = ()->
+currentProject = ->
   pkg_fn = path.join process.cwd(), 'package.json'
   if (fs.existsSync(pkg_fn))
     require pkg_fn
 
-listDocuments = ()->
+listDocuments = ->
   docnames = []
   names = fs.readdirSync process.cwd()
   for name in names
@@ -42,7 +42,7 @@ listDocuments = ()->
       docnames.push name[0..-5]
   docnames
 
-module.exports = ( module )->
+module.exports = ( module ) ->
 
   base = module.core.base
 
@@ -57,7 +57,7 @@ module.exports = ( module )->
 
   # Rst endpoint view
   class DocViewer extends base.type.Base
-    getContext: ( req, res )->
+    getContext: ( req, res ) ->
       ctx = super
       ctx.docpath = req.query.docpath
       # script/project is build by r.js from dotmpe/project/client
@@ -70,7 +70,7 @@ module.exports = ( module )->
 
   # Angular project client
   class NgViewer extends base.type.Base
-    getContext: ( req, res )->
+    getContext: ( req, res ) ->
       ctx = super
       ctx.docpath = req.query.docpath
       # script/project is build by r.js from dotmpe/project/client
@@ -85,31 +85,32 @@ module.exports = ( module )->
   project_ng_view = (req, res, next) ->
     view = req.params.view
     action = req.params.action || view
-    tplPath = path.join( module.viewPath, 'ng', view, action ) 
+    tplPath = path.join( module.viewPath, 'ng', view, action )
     template = jade.compileFile "#{tplPath}.jade"
     res.write template url: base: '/project/ng-client/'
     res.end()
 
-  route: 
-    project: 
+  route:
+    project:
       route:
         document:
-          get: (req, res, next)->
+          get: (req, res, next) ->
             if not req.query.docpath
               req.query.docpath = 'ReadMe'
             docview.get( req, res, next )
 
         'ng-client': all: _.bind ngview.get, ngview
 
-        ng: route: 
+        ng: route:
           '': base.redirect '/project/ng-client'
           client: base.redirect '/project/ng-client'
           view: route:$view: route:$action: all: project_ng_view
 
       #get: _.bind projectIndex.get, projectIndex
 
-      get: ( req, res, next)->
-        res.write projectIndex.template _.merge projectIndex.getContext(req, res), projectIndex.seed
+      get: ( req, res, next) ->
+        data = _.merge projectIndex.getContext(req, res), projectIndex.seed
+        res.write projectIndex.template data
         res.end()
 
   meta:

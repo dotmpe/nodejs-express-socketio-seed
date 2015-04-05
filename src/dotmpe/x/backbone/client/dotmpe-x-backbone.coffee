@@ -1,7 +1,7 @@
 console.log 'test'
 
-require(['jquery'], ($)->
+require(['jquery'], ($) ->
 
-	console.log 'dotmpe-x-backbone', $
+  console.log 'dotmpe-x-backbone', $
 
 )
