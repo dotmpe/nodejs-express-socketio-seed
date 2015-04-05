@@ -1,6 +1,6 @@
 'use strict';
 
-var x_nodejs_htdocs = require('../lib/x-nodejs-htdocs.js');
+//var projectlib = require('../lib/dotmpe-project.js');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -30,7 +30,7 @@ exports['awesome'] = {
   'no args': function(test) {
     test.expect(1);
     // tests here
-    test.equal(x_nodejs_htdocs.awesome(), 'awesome', 'should be awesome.');
+    test.equal(1, 1, 'should be ...');
     test.done();
   },
 };

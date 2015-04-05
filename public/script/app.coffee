@@ -4,6 +4,7 @@ heartbeat = null
 session_start = null
 reload_after = null
 
+
 init = ->
 
 	console.log 'Initializing Socket.IO client'
@@ -48,10 +49,39 @@ init = ->
 	socket.on 'test', (data)->
 		console.log [ 'socket.io test', data ]
 
+
+navbar = null
+navbar_timer = false
+
+
+initnavbar = ()->
+	navbar = $('nav.navbar')
+	navbar.on 'mouseover', resettimeout
+	navbar.on 'mouseout', ()->
+		resettimeout()
+		primetimeout()
+	hidenavbar()
+
+primetimeout = ()-> navbar_timer = setTimeout hidenavbar, 500
+resettimeout = ()-> clearTimeout navbar_timer
+
+hidenavbar = ()->
+	if (navbar.is(':visible'))
+		navbar.hide(200)
+	
+shownavbar = ()->
+	if (!navbar.is(':visible'))
+		navbar.show()
+	
+	
 $(document).ready () ->
 	console.log 'CoffeeScript, jQuery ready'
 
 	init()
 
 
+	$(document).on 'mousemove', (event)->
+		if (event.clientY < 10)
+			shownavbar()
+	initnavbar()
 

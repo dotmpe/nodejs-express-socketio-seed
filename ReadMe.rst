@@ -12,6 +12,7 @@ Wanted
 
 See below for details, and `Branch docs`_ for work in process.
 
+:FIXME: set-up master again to something without experiments
 :XXX: After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up. Should finally ditch that.
 :FIXME: messy client build setup, start cleaning up styles into stylus files
 :TODO: angular client integration either goes or does something together with express-client

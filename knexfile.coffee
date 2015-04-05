@@ -1,4 +1,4 @@
-global.__approot = __dirname
+global.__noderoot = __dirname
 #require('./config/config'){ rootPath: __dirname }
 
 module.exports =

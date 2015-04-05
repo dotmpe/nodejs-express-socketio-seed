@@ -44,6 +44,10 @@ listDocuments = ->
 
 module.exports = ( module ) ->
 
+  io = module.core.app.get('io')
+  io.sockets.on 'connection', ( socket ) ->
+    require('./socket')(socket)
+
   base = module.core.base
 
   projectDir = process.cwd()

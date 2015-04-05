@@ -160,7 +160,7 @@ class CoreV01 extends Core
   ###
     CoreV01.load_modules
   ###
-  load_modules: )->
+  load_modules: ->
     #console.log 'load_modules', @config.modules
     modroot = path.join __noderoot, @config.src || 'src'
     mods = _.extend( [], @config.modules, @meta.modules )

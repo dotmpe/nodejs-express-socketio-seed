@@ -1,6 +1,6 @@
 _ = require 'lodash'
 
-module.exports = ( module )->
+module.exports = ( module ) ->
 
   base = module.core.base
 

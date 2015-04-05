@@ -21,6 +21,8 @@ module.exports = ( module ) ->
 
                 q = req.query
                 _.defaults q, format: 'xml'
+                #cmd = "rst2#{q.format}-mpe
+                # --link-prefix '/project/document?docpath=' '#{q.docpath}.rst'"
                 cmd = "rst2#{q.format}.py '#{q.docpath}.rst'"
 
                 if q.format == 'source'

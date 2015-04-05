@@ -1,0 +1,19 @@
+extends ../../express-seed/views/layouts/base
+
+block head
+  link(rel='stylesheet', href='/style/project.css')
+
+  - for r_main in head.js.require_main
+    script(data-main=r_main, src=head.js.requirejs)
+
+block wrap_epilogue
+  // start after page #wrap and container and create window-wide chrome for
+  // doc viewer 
+  .container
+    .ng-view-wrapper(ng-view)
+
+block footer
+
+  p.text-muted.credit Express MVC - Project - Documents
+
+

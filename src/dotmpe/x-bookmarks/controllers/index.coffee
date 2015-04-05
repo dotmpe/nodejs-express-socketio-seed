@@ -3,6 +3,7 @@ sqlite3 = require 'sqlite3'
 Bookshelf = require 'bookshelf'
 warehouse = require 'warehousejs'
 chalk = require 'chalk'
+_ = require 'lodash'
 
 
 module.exports = (module) ->
@@ -10,14 +11,16 @@ module.exports = (module) ->
   app = module.core.app
 
   # Set up a primary persisted storage
-  knex = app.get('knex.main')
-  if not knex
-    knex = require('knex')(module.core.config.database.main)
-    app.set('knex.main', knex)
-  console.log(chalk.grey('Initialized main DB conn'))
+  #knex = app.get('knex.main')
+  #if not knex
+  #  knex = require('knex')(module.core.config.database.main)
+  #  app.set('knex.main', knex)
+  #console.log(chalk.grey('Initialized main DB conn'))
 
-  # Prepare DB connection
-  SQLiteBase = Bookshelf.initialize(knex)
+  ## Prepare DB connection
+  #SQLiteBase = Bookshelf.initialize(knex)
+
+  SQLiteBase = module.core.modelbase#models['base']
 
   Bookshelf.session = SQLiteBase
 
@@ -45,14 +48,15 @@ module.exports = (module) ->
     Locations = SQLiteBase.collection('Locations')
     new Locations().query().count('id').then(
       (rs) ->
-        res.render path.join(module.viewPath, 'index'),
+        res.render path.join(module.viewPath, 'index'), _.merge {},
+          module.core.base.basicContext(module.core),
           page: title: "Bookshelf, Knex, Warehouse testing"
           module: module
-          config: module.core.config
-          pkg: module.core.pkg
-          menu: module.core.meta.menu
-          head: module.core.config.lib
           test: rs[0]['count("id")']
+
+    ).catch((err) ->
+      res.write( err )
+      res.end()
     )
 
   route:

@@ -1,0 +1,18 @@
+# TODO integrate existing *.build.js, 
+# tooling to compile, copy of script, template and styling files from src/lib to public/
+#
+# Define the parameters to build a unified requireJS app
+
+# befor building, initialize/update configs from source scripts
+configs:
+  config:
+  - config-example
+
+# build script XXX fiound this simpler than grunt right now
+dependencies:
+- type: concat
+
+- type: require
+  baseUrl: ./src/dotmpe/express-client/frontend
+  dir: public/script/express-client
+

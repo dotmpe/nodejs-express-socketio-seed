@@ -19,6 +19,7 @@
     "underscore.string": "latest",
     "require-cs": "latest",
     "coffee-script": "~1.7.1",
+    "angularAMD": "~0.1.0",
     "requirejs": "~2.1.16",
     "requirejs-plugins": "git@github.com:millermedeiros/requirejs-plugins.git#master",
     "backbone.localstorage": "latest"

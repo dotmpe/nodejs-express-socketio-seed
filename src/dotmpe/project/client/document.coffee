@@ -1,4 +1,4 @@
-require ['jquery'], ($)->
+require ['jquery'], ($) ->
 
   console.log 'Project Document: Coffee Time'
 

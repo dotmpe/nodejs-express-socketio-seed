@@ -55,9 +55,9 @@ init_express = ( app, server, config, pkg, envname ) ->
     res.status(500).render('500', { error: err.stack })
   )
 
-#load_controllers = ( app, config )->
+#load_controllers = ( app, config ) ->
 
-module.exports = ( )->
+module.exports = ->
 
   app = module.exports = express()
 
@@ -84,10 +84,10 @@ module.exports = ( )->
   # Apply routes for socket TODO cleanup after move to controller(s)
   io.sockets.on 'connection', (socket) ->
 
-    socket.on 'disconnect', ()->
+    socket.on 'disconnect', ->
       console.log 'client disconnected'
 
-    socket.on 'message', (msg)->
+    socket.on 'message', (msg) ->
       console.log 'message from client: '+msg
       socket.send('hello!')
 
@@ -107,19 +107,17 @@ module.exports = ( )->
   config: config
 
   meta:
+    name: 'core'
+
     controllers: [
       'controllers/base'
       'controllers/site'
       'controllers/admin'
-      #'controllers/user'
+      'controllers/user'
     ]
     default_route: 'home'
 
     menu: {}
-    #  home: url: '/home', label: 'Home'
-    #  about: url: '/about', label: 'About'
-    #  template: url: '/admin/template', label: 'Template'
-    #  module: url: '/modules', label: 'Modules'
 
     page:
       title: "Untitled"

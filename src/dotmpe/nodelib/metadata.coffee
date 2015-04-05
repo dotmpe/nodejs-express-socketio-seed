@@ -67,4 +67,3 @@ module.exports =
   load: load
   resolve_mvc_meta: resolve_mvc_meta
 
-

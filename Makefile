@@ -1,17 +1,60 @@
-TRGTS := build-clients build
-default:
-	echo 'use npm [start|run build]'
-	echo 'Make targets: $(TRGTS)'
+TRGTS := install update build build-client info version latest test lint start
 
-build:
-	npm run build
+empty := 
+space := $(empty) $(empty)
+default:
+	@echo 'usage:'
+	@echo '# npm [start|test|run build]'
+	@echo '# make [$(subst $(space),|,$(TRGTS))]'
+
+install:
+	npm install
+	bower install
+	make test
+
+lint:
+	grunt lint
+
+test: lint
+	npm test
+	grunt test
+
+update:
+	npm update
+	bower update
+
+build: latest build-client
+
+build-client:
+	grunt client
+
+info:
+	npm run srctree
+	npm run srcloc
+
+start:
+	npm run start
 
 .PHONY: $(TRGTS)
 
+
+version: D := demo
+version:
+	DBNAME=$(D) ./node_modules/.bin/knex migrate:currentVersion
+
+latest: D := demo
+latest:
+	DBNAME=$(D) ./node_modules/.bin/knex migrate:latest
+
 COFFEE2JS := \
-	src/dotmpe/project/client/document.coffee \
 	src/dotmpe/browser/client/main.coffee
-CLN_JS := $(COFFEE2JS:%.coffee=%.js)
+#	src/dotmpe/project/client/document.coffee \
+#	src/dotmpe/project/client/ng.coffee 
+_CLN := \
+	$(COFFEE2JS:%.coffee=%.js)
+#	public/script/project/document.coffee \
+#	public/script/project/ng.coffee \
+#	public/script/browser/main.coffee
 
 build-clients:
 	@for x in $(COFFEE2JS); \
@@ -24,5 +67,5 @@ build-clients:
 		r.js -o $$x; \
 		echo "$$x done"; \
 	done
-	@echo "Cleaning..";rm -v $(CLN_JS)
+	@echo "Cleaning..";rm -v $(_CLN)
 

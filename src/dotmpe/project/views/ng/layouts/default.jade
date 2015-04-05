@@ -1,0 +1,24 @@
+div.margin-left
+  block margin-left
+
+div.margin-right
+  block margin-right
+
+div.header
+  block header-top
+
+  | start
+  div(nav-menu)
+  | end
+
+  block header
+
+div.content
+  block content
+
+div.footer
+  block footer
+
+  include ../includes/base-footer
+
+
