@@ -10,6 +10,12 @@
     - controllers/index
     - data
 
+- type: jade-requirejs-client/0.1
+  name: dotmpe/project
+  compile:
+    dir: client
+    extensions: [ coffee ]
+
 # TODO: have a look at building the frontend-side state of affairs
 - type: x-jvc/0.1
   jvc:

@@ -1,8 +1,5 @@
-#jslint node: true
-#global define
-define([
-  'trojan-cs/app', 'bootstrap'
-], (app) ->
+# jrc:import ../../ng
+( app ) ->
 
   app.register.controller "navMenuController", [
     '$scope', '$route', 'SiteName', '$window', '$location',
@@ -27,7 +24,4 @@ define([
     controller: 'navMenuController',
     templateUrl: '/project/ng/view/includes/base-menu',
     #templateUrl: '/script/ng-trojan/directives/templates/navMenu.html'
-
-
-)
 

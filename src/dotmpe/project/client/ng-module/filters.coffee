@@ -1,8 +1,5 @@
-'use strict'
-
-# Filters
-
-define [ 'angular' ], (angular) ->
+#jrc:import angularAMD
+( angularAMD ) ->
 
   angular.module('dotmpe-project-ng.filters', [])
   .filter('interpolate', (version) ->

@@ -92,7 +92,7 @@ updateModule = ( dir ) ->
   packages = {}
 
   for ext in extensions
-    paths = glob.sync path.join amdpath, '*.' + ext
+    paths = glob.sync path.join amdpath, '**/*.' + ext
     bundle = []
     for p in paths
       localname = path.relative amdpath, p.substring 0, p.length-ext.length-1

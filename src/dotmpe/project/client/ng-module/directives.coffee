@@ -1,6 +1,5 @@
-'use strict'
-
-define ['angular'], (angular) ->
+# jrc:import angularAMD
+( angularAMD ) ->
   angular.module('dotmpe-project-ng.directives', [])
     .directive('appVersion', (version) ->
       (scope, elm, attrs) ->

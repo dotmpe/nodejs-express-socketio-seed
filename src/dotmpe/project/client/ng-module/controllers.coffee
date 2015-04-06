@@ -1,6 +1,5 @@
-"use strict"
-
-define ['angular'], (angular) ->
+#jrc:import angularAMD
+(angularAMD) ->
 
   console.log 'define dotmpe-project-ng.controllers'
 
@@ -16,6 +15,5 @@ define ['angular'], (angular) ->
 
     .controller 'MyCtrl2', ($scope, socket) ->
       null
-
 
 

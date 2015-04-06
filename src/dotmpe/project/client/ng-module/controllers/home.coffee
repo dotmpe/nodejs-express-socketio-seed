@@ -1,12 +1,5 @@
-'use strict'
-
-define [
-
-  'cs!dotmpe-project/app'
-  'cs!dotmpe-project/ng-module/services'
-  'cs!dotmpe-project/ng-module/directives/navMenu'
-
-], (app) ->
+# jrc:import ../../ng ../services ../directives/navMenu
+( app ) ->
 
   console.log(' Home controllers Coffee-Script', app )
 

@@ -5,21 +5,14 @@
 
 // XXX some old working paths/shims for reference:
 var local_dev_paths = {
-  'angular': '/components/angular/angular',
-  'angular-route': '/components/angular-route/angular-route',
-  'angular.socket-io': '/components/angular-socket-io/socket',
   "coffee-script": "/components/coffee-script/extras/coffee-script",
   cs: "/components/require-cs/cs"
 };
+
 var shim = {
   backbone: { exports: "Backbone" },
 //  etch: { deps: ['backbone'], exports: 'etch' }
   bootstrap: [ 'jquery' ],
-  angular: { exports: 'angular' },
-  'socket.io': [ 'angular' ],
-  'angular.socket-io': [ 'angular' ],
-  angularAMD: [ 'angular' ],
-  'angular-route': [ 'angular' ]
 };
 
 requirejs.config({
@@ -36,18 +29,32 @@ requirejs.config({
   // configured in config.<env>.lib.js
   paths: {
     components: '../components',
+
     jquery: '/components/jquery/dist/jquery',
-    "socket.io": '/socket.io/socket.io',
     bootstrap: '/components/bootstrap/dist/js/bootstrap',
+
+    "socket.io": '/socket.io/socket.io',
     webcomponentsjs: '/components/webcomponentsjs/webcomponents',
+
     underscore: "/components/underscore/underscore",
     "underscore.string": "/components/underscore.string/underscore.string",
     backbone: "/components/backbone/backbone",
-    "backbone.localstorage": "/components/backbone.localstorage/backbone.localStorage"
+    "backbone.localstorage": "/components/backbone.localstorage/backbone.localStorage",
+
+    'angular': '/components/angular/angular',
+    'angular-route': '/components/angular-route/angular-route',
+    'angular.socket-io': '/components/angular-socket-io/socket',
+
+    'angularAMD': '/components/angularAMD/angularAMD',
   },
 
   shim: {
     bootstrap: [ 'jquery' ],
+    angular: { exports: 'angular' },
+    angularAMD: [ 'angular' ],
+    'socket.io': [ 'angular' ],
+    'angular.socket-io': [ 'angular' ],
+    'angular-route': [ 'angular' ]
   },
 
   // XXX manually update from make build-client output
@@ -64,6 +71,15 @@ requirejs.config({
     ],
     'pkg-x-bookmarks': [
       'x-bookmarks/main'
+    ],
+    'pkg-dotmpe-project': [
+      'dotmpe/project/ng',
+      'dotmpe/project/ng-module/controllers',
+      'dotmpe/project/ng-module/controllers/home',
+      'dotmpe/project/ng-module/directives',
+      'dotmpe/project/ng-module/directives/navMenu',
+      'dotmpe/project/ng-module/filters',
+      'dotmpe/project/ng-module/services',
     ]
   }
 

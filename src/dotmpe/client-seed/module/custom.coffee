@@ -1,30 +1,31 @@
 # jrc:import jquery webcomponentsjs
 ( $ ) ->
 
-  console.log 'Layout main'
-
   layoutElementPrototype = Object.create HTMLElement.prototype
   layoutElementPrototype.createdCallback = ->
-    console.log arguments
+    console.log 'Custom element <layout-mpe /> created'
   layoutElementPrototype.attachedCallback = ->
-    console.log arguments
   layoutElementPrototype.detachedCallback = ->
-    console.log arguments
   layoutElementPrototype.attributeChangedCallback = ->
-    console.log arguments
-  layoutElementPrototype.testBrowser = ->
+  layoutElementPrototype.testMethod = ->
+    console.log 'Custom element <layout-mpe /> testMethod called'
 
   document.registerElement 'layout-mpe',
     'prototype': layoutElementPrototype
     #    extends: 'div'
 
+
+  # Demonstrate custom element
   $(document).ready ->
-
     layout = document.querySelector 'layout-mpe'
-    #layout.testBrowser()
-
+    layout.testMethod()
     $layout = $('layout-mpe')
-    #$layout.get(0).testBrowser 'test'
+    $layout.get(0).testMethod 'test'
 
+
+  # Export
   title: 'Client Seed .mpe - Custom Elements'
+
+  prototypes:
+    layout: layoutElementPrototype
 

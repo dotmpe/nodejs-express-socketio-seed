@@ -1,15 +1,5 @@
-'use strict'
-
-### Services ###
-
-
-# Demonstrate how to register services
-# In this case it is a simple value service.
-define [
-  'angular'
-  'socket.io'
-  'angular.socket-io'
-], (angular) ->
+# jrc:import angularAMD socket.io angular.socket-io
+( angularAMD ) ->
 
   console.log ('dotmpe-project-ng.services')
 

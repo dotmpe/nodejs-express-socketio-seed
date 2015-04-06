@@ -1,17 +1,15 @@
 // Template based on express-seed base view
 // for custom elements client.
 // 
-// XXX this should perhaps shrink a little, or grow into something 
-//   to render resources client side
-//
-//   But a client side router takes over, calling for each 
-//   navigation a corresponding layout or view anchor handler.
-//   ( this is fragment-based client navigation, there is no transparent backend routing)
+// TODO make layout-mpe do something
 
 extends ../../express-seed/views/layouts/base
 
 
 block head
+  // Need this to load webcomponentsjs and our own custom elements declaration
+  // just like the data in wrap_epilogue, this should all move to something
+  // more appropiate in client-seed/module/views
   script(type="text/javascript")
     | window.on_client_seed = function() {
     |    require( [ 'dotmpe/client-seed/custom' ] );
@@ -24,13 +22,15 @@ block wrap_epilogue
 
   // take over docutils-esque layout
   layout-mpe(name="base", type="node-docutils-mpe")
+
     // set up primary view here to receive routes
     view-mpe(name="base", type="express-seed-client")
+
       // the -mpe components protoype loads the controller, template and default
       // metadata. The metadata is used for paremetrization of -mpe components.
       // But components can freely mix (compatible) HTML and custom-elements in 
       // templates.
-      //
+
       // So view-mpe subnodes are html, and custom elements. 
       // While metadata applies only to certain custom elements.
 

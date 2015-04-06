@@ -2,7 +2,7 @@ Makefile:# TODO: find module.meta files instead of hardcoding module paths
 src/dotmpe/client-seed/module/socket.coffee:  # TODO announce, handshake; (re)set/update any session based client components
 src/dotmpe/client-seed/module/socket.coffee:    # XXX some client side socket io examples
 src/dotmpe/client-seed/module.meta:# XXX default config
-src/dotmpe/client-seed/views/client.jade:// XXX this should perhaps shrink a little, or grow into something 
+src/dotmpe/client-seed/views/client.jade:// TODO make layout-mpe do something
 src/dotmpe/express-seed/main.coffee:  # Apply routes for socket TODO cleanup after move to controller(s)
 src/dotmpe/express-seed/views/includes/script.jade:// XXX need to make Jade views part of JRC modules
 src/dotmpe/nodelib/metadata.coffee:# TODO: metafile should support various directory formats
