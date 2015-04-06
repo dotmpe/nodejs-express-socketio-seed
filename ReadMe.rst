@@ -59,14 +59,14 @@ src
 
 Branch docs
 -----------
-master
+master [*]_
   - Initial project structure, documentation.
 
   f_bootstrap
     - Going to dust off my own Du stylesheets and get bootstrap components and
       layout into the picture.
 
-  f_clientbuild [*]_
+  f_clientbuild
     - Testing Grunt or Delinting.
     - Found r.js optimizer a bit tempramental. So using require.js
       at client side only.
