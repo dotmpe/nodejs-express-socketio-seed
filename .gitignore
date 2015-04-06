@@ -3,13 +3,7 @@ node_modules/
 public/components/
 config/config-keys.coffee
 # Build files
-public/script/pkg-*.js
-public/script/browser
-public/script/project
-public/script/x-backbone
-public/script/x-bookmarks
 public/script/dotmpe
-public/script/client
 www-build/
 main.sqlite3.db
 # Misc. local files

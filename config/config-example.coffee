@@ -83,7 +83,9 @@ module.exports =
         coffeescript: '/components/coffee-script/extras/coffee-script.js'
         angular: '/components/angular/angular.min.js'
         requirejs: '/components/requirejs/require.js'
-        require_main: []
+        require_main: [
+          '/script/main.js'
+        ]
       # booststrap here without requirejs:
       include_js: [
         'socket_io'
@@ -102,6 +104,7 @@ module.exports =
     client: {}
     # extension modules to load:
     modules: [
+      'dotmpe/client-seed'
       'dotmpe/project'
       'dotmpe/browser'
       'dotmpe/x-bookmarks'

@@ -30,7 +30,7 @@ applyRoutes = (app, root, module) ->
     for method in ['all', 'get', 'put', 'post', 'options', 'delete']
       cb = route[method]
       if cb
-        #console.log url, method
+        console.log url, method
         # Track all routes?
         if url not of routes
           routes[url] = {}

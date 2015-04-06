@@ -1,8 +1,0 @@
-# -*- Yaml -*-
-
-#- name: index
-#
-#- type: express-mvc-ext-controller/0.1
-#  name: dotmpe/project:index
-
-# vim:ft=yaml:

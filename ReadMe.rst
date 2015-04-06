@@ -52,6 +52,10 @@ src
     dotmpe/npm-project
       - TODO Express-MVC module to interact with other npm projects
 
+    dotmpe/browser
+      - For a really minimal extension module with custom route/page and AMD
+        client module.
+
 
 Branch docs
 -----------

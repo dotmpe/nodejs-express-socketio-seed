@@ -25,11 +25,10 @@ applyParams = ( app, context ) ->
 class Component
 
   constructor: ( opts ) ->
-    {@app, @server, @root, @pkg, @config, @meta, @url, @path} = opts
+    {@app, @server, @root, @pkg, @config, @meta, @url, @path, @route} = opts
     @base = {}
     @controllers = {}
     @routes = {}
-    @route = {}
     @models = {}
     @params = {}
 
@@ -41,9 +40,12 @@ class Component
 
     @name = @name || @meta.name
 
-    @controllerPath = path.join p, 'controllers'
-    @modelPath = path.join p, 'models'
-    @viewPath = path.join p, 'views'
+    if not @controllerPath
+      @controllerPath = path.join p, 'controllers'
+    if not @modelPath
+      @modelPath = path.join p, 'models'
+    if not @viewPath
+      @viewPath = path.join p, 'views'
 
     @load_models()
     @load_controllers()
@@ -58,10 +60,7 @@ class Component
     @modelbase = Bookshelf.session = Base
     # Prepare Bookshelf.{model,collection} registries
     Base.plugin 'registry'
-    if ! @meta.models
-      return
 
-    p = @root || @path
 
   load_model: ( name ) ->
     if not @models[name]
@@ -100,17 +99,21 @@ class Component
 
       console.log "Component: #{@name} loaded", ctrl, "controller"
 
+
   update_controller: ( updateObj ) ->
+    #console.log @meta, updateObj
     # update global meta object
     comp = @core || @
     if updateObj.meta
       _.merge comp.meta, updateObj.meta
 
-    # keep params at local module
-    _.merge @params, updateObj.params
+    if updateObj.params
+      # keep params at local module
+      _.merge @params, updateObj.params
 
-    # keep routes at local module
-    _.merge @route, updateObj.route
+    if updateObj.route
+      # keep routes at local module
+      _.merge @route, updateObj.route
 
   apply_controllers: ->
     # pick of new routes from updateObj
@@ -135,6 +138,7 @@ class Core extends Component
     core_seed_cb = require core_file
     # Return core opts
     opts = core_seed_cb core_path
+    _.defaults opts, route: {}
     opts
 
 
@@ -235,22 +239,21 @@ class ModuleV01 extends Component
       return
     for mdc in md
       if mdc.type in [ 'express-mvc-ext/0.1', 'express-mvc-ext/0.2' ]
-        meta = metadata.resolve_mvc_meta from_path, mdc
-        ModuleClass = module_classes[ meta.ext_version ]
-        opts = ModuleClass.config( core, meta, from_path )
-        if !meta.controllers
+        md = metadata.resolve_mvc_meta from_path, mdc
+        if !md.controllers
           console.error "Missing MVC meta for ", mdc
+        ModuleClass = module_classes[ md.ext_version ]
+        opts = ModuleClass.config( core, md, from_path )
         return new ModuleClass( opts )
 
-  @config: ( core, meta, from_path ) ->
-    #ModuleClass = module_classes[ meta.ext_version ]
-    # TODO module_config = ModuleClass.load_config( from_path )
-    meta: meta
+  @config: ( core, md, from_path ) ->
+    meta: md || name: md.name
+    config: md.config || {}
+    route: md.route || {}
     core: core
     app: core.app
     base: core.base
     path: from_path
-
 
 module_classes = {
   '0.1': ModuleV01

@@ -1,7 +1,10 @@
 # jrc:export dotmpe/browser/main
-# jrc:import jquery, custom-element
+# jrc:import jquery webcomponentsjs
 ( $ ) ->
 
+  console.log 'Browser main: registering custom element <browser-mpe /> '
+
+  # Create the prototype for the browser element
   browserElementPrototype = Object.create HTMLElement.prototype
   browserElementPrototype.createdCallback = ->
     console.log arguments
@@ -13,12 +16,14 @@
     console.log arguments
   browserElementPrototype.testBrowser = ->
 
-  console.log 'Browser main'
 
+  # register the custom element
   document.registerElement 'browser-mpe',
     'prototype': browserElementPrototype
     #    extends: 'div'
 
+
+  # demonstrate custom element
   $(document).ready ->
 
     browser = document.querySelector 'browser-mpe'

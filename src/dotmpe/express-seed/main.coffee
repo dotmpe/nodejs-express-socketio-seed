@@ -94,11 +94,6 @@ module.exports = ->
     socket.emit 'test',
       foo: 'Bar'
 
-    sendPing = ->
-      socket.emit 'ping', Date.now()
-
-    setInterval sendPing, 5000
-
   app: app
   server: server
 

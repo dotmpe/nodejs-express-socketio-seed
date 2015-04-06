@@ -36,9 +36,3 @@ module.exports = ( core ) ->
     home: get: _.bind site.get, site
     about: get: _.bind about.get, about
 
-###
-      about: get: base.simpleExpressView 'site/about', ->
-        page: title: "About", summary: core.config.app.name
-        menu: core.meta.menu
-###
-

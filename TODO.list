@@ -9,11 +9,11 @@ src/dotmpe/nodelib/metadata.coffee:# TODO: metafile should support various direc
 src/dotmpe/nodelib/module.coffee:  | XXX what to use for models?
 src/dotmpe/nodelib/module.coffee:    # TODO sync with Module.load:
 src/dotmpe/nodelib/module.coffee:    # TODO module_config = ModuleClass.load_config( from_path )
+src/dotmpe/nodelib/route.coffee:# XXX Init one-off controller instance to handle str-spec callback..
 src/dotmpe/project/controllers/index.coffee:  # TODO: or look at express-socket for GUI excersize
 src/dotmpe/project/module.meta:# TODO: have a look at building the frontend-side state of affairs
 src/dotmpe/x-bookmarks/controllers/index.coffee:  # XXX Sets up second store connection ... barebone CRUD for SQLite3 records
 config/config-example.coffee:    # XXX old
-config/config.browser.coffee:    # XXX add to client/index..
 ReadMe.rst:  - View-Controller metadata TODO: spec
 ReadMe.rst::FIXME: set-up master again to something without experiments
 ReadMe.rst::XXX: After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up. Should finally ditch that.

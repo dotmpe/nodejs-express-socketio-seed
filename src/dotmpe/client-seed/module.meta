@@ -5,8 +5,13 @@
 
 - type: express-mvc-ext/0.1
   name: dotmpe/client-seed
+  components:
+  - controllers
+  controllers:
+  - backend
 
-  components: []
+# XXX default config
+  config: {}
 
 
 # Set up metadata for Require.JS client build
