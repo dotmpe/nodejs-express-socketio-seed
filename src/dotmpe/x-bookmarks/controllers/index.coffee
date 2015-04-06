@@ -65,5 +65,7 @@ module.exports = (module) ->
 
   meta:
     menu:
-      bookmarks: _url: '/x-bookmarks', _label: 'Bookmarks'
+      x:
+        _menu: 'X'
+        bookmarks: _url: '/x-bookmarks', _label: 'Bookmarks'
 

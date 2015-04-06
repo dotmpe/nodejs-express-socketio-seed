@@ -17,9 +17,9 @@ module.exports = ( module ) ->
     client:
       get: 'Base(client)'
 
-  meta:
-    menu:
-      client:
-        _url: '/client'
-        _label: 'Client Seed'
+  meta: menu: x:
+    _menu: 'X'
+    client:
+      _url: '/client'
+      _label: 'Client Seed'
 

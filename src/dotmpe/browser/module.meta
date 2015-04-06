@@ -13,9 +13,11 @@
         get: Base(main)
     meta:
       menu:
-        browser:
-          _url: /browser
-          _label: Browser
+        x:
+          _menu: 'X'
+          browser:
+            _url: /browser
+            _label: Browser
 
 
 # Set up metadata for Require.JS client build

@@ -16,5 +16,7 @@ module.exports = (module) ->
   base = module.core.base
 
   route: 'dotmpe/x/backbone/': get: base.simpleView data, indexTpl
-  meta: menu: 'x-backbone': _url: '/dotmpe/x/backbone', _label: 'Backbone'
+  meta: menu: x:
+    _menu: 'X'
+    backbone: _url: 'dotmpe/x/backbone', _label: 'Backbone'
 
