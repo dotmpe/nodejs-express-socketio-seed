@@ -1,14 +1,33 @@
 # -*- Yaml -*-
 
-# Work in progress
-- type: express-mvc-ext/0.1
+
+# Setup the metadata to server extensions
+
+- type: express-mvc-ext/0.2
   name: dotmpe/browser
   components:
     - controllers
-    - views
   controllers:
-    - controller
-  views:
-    - controller
+    route:
+      browser:
+        get: Base(main)
+    meta:
+      menu:
+        browser:
+          _url: /browser
+          _label: Browser
+
+
+# Set up metadata for Require.JS client build
+
+- type: jade-requirejs-client/0.1
+  # AMD container module ID?
+  name: dotmpe/browser
+  compile:
+    # Path to AMD sources
+    dir: client
+    extensions: [ coffee ]
+    scanSignature: false
+
 
 # vim:ft=yaml:

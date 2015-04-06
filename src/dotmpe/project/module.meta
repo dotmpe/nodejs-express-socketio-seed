@@ -1,6 +1,7 @@
 # -*- Yaml -*-
 
-# Work in progress
+# Setup the metadata to server extension modules
+
 - type: express-mvc-ext/0.1
   name: dotmpe/project
   components:

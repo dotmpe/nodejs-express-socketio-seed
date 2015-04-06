@@ -24,7 +24,7 @@ module.exports =
         requirejs: '/components/requirejs/require.js'
         require_main: []
       include_js: []
-
+    client: {}
   test:
     root: __dirname
     app: name: 'Nodejs Express Socket IO Demo (test)'
@@ -34,6 +34,7 @@ module.exports =
         requirejs: '/components/requirejs/require.js'
         require_main: []
       include_js: []
+    client: {}
     # old
     db: 'mongodb://localhost/noobjs_test'
     notifier: notifier
@@ -98,6 +99,7 @@ module.exports =
         #/style/bootstrap-responsive.min.css'
         '/style/app.css'
       ]
+    client: {}
     # extension modules to load:
     modules: [
       'dotmpe/project'

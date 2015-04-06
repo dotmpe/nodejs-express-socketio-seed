@@ -1,6 +1,3 @@
-var _ = require('lodash'),
-    fs = require('fs');
-
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -61,6 +58,14 @@ module.exports = function(grunt) {
       files: ['test/**/*_test.js'],
     },
 
+    clean: {
+      build: {
+        src: [
+          'public/script/dotmpe/'
+        ]
+      }
+    },
+
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -90,98 +95,10 @@ module.exports = function(grunt) {
       },
     },
 
-/*
-TODO: put deps list into require.js app..
-*/
-    requirejs: {
-
-      client: {
-        options: {
-          baseUrl: "public",
-          paths: {
-            app: '../app',
-            jquery: 'empty:',
-            //cs: "../../../../public/components/require-cs/cs"
-          },
-          //out: './public/script/client.coffee'
-          appDir: 'src/dotmpe/express-client/client',
-          modules: [
-            //{ name: 'index' }
-            //{ name: 'cs!express-client/client/x-frame' }
-          ],
-          dir: 'public/script/client'
-        }
-      },
-
-      // XXX: better copy/compile files by hand..
-      //'r-app': {
-      //  options: {
-      //     appDir: "./src/dotmpe/x/backbone/client/",
-      //     baseUrl: '.',
-      //     dir: './public/script/client/',
-      //     paths: {
-      //       jquery: "empty:",
-      //     },
-      //     modules: [
-      //       { name: 'dotmpe-x-backbone' }
-      //     ],
-      //  },
-      //},
-
-      project: {
-        options: {
-          appDir: 'src/dotmpe/project/client',
-          baseUrl: '.',// relative to appDir
-          paths: {
-              app: '../client',
-              jquery: 'empty:',
-              "coffee-script": "../../../../public/components/coffee-script/extras/coffee-script",
-              cs: "../../../../public/components/require-cs/cs"
-          },
-          modules: [
-              { name: 'main',}
-          ],
-          dir: './public/script/project'
-        },
-      },
-
-      'x-bookmarks': {
-        options: {
-          appDir: 'src/dotmpe/x-bookmarks/client',
-          baseUrl: '.',// relative to appDir
-          paths: { },
-          modules: [ ],
-          dir: './public/script/x-bookmarks',
-        }
-      }
-
-    },
-
   });
 
   // auto load grunt contrib tasks from package.json
   require('load-grunt-tasks')(grunt);
-
-  grunt.registerTask('client-index', "", function() {
-      global.__noderoot = __dirname
-      config = require('./config/config')
-
-      grunt.log.write('Building Require.JS index.js');
-
-      var client_index_fn = 'public/script/client/index.js',
-        tpl = fs.readFileSync('./config/requirejs.tpl').toString(),
-        doc = tpl,
-        clientdef = _.defaults( config[ config.env ].client.index,
-          { baseUrl: '/script/', paths: {}, deps: [] }
-      );
-
-      _.each( _.keys(clientdef), function( key ) {
-          var v = JSON.stringify(clientdef[key]);
-          doc = doc.replace("%("+key+")s", v);
-      });
-
-      fs.writeFileSync(client_index_fn, doc);
-  });
 
   grunt.registerTask('init', [
     'make:init-config'
@@ -193,13 +110,15 @@ TODO: put deps list into require.js app..
     'nodeunit' 
   ]);
   grunt.registerTask('build-client', [
-    'requirejs:client',
-    'client-index'
+    'make:build-client',
   ]);
   grunt.registerTask('client', [
     'jshint:client',
     'coffeelint:client',
     'build-client'
+  ]);
+  grunt.registerTask('build', [
+    'client'
   ]);
 
   // Default task.

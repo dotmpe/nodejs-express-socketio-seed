@@ -74,6 +74,15 @@ class Component
       console.warn 'No controllers for component', @name
       return
 
+    cs = @meta.controllers
+    if _.isArray cs
+      @load_controller_names()
+    else if _.isObject( cs ) and not _.isEmpty cs
+      @update_controller cs
+
+    @apply_controllers()
+
+  load_controller_names: ->
     p = @root || @path
 
     # load configured controllers
@@ -87,18 +96,23 @@ class Component
         console.error "Unable to load #{ctrl}"
         throw err
 
-      # update global meta object
-      comp = @core || @
-      if updateObj.meta
-        _.merge comp.meta, updateObj.meta
-
-      # keep params at local module
-      _.merge @params, updateObj.params
-      # keep routes at local module
-      _.merge @route, updateObj.route
+      @update_controller updateObj
 
       console.log "Component: #{@name} loaded", ctrl, "controller"
 
+  update_controller: ( updateObj ) ->
+    # update global meta object
+    comp = @core || @
+    if updateObj.meta
+      _.merge comp.meta, updateObj.meta
+
+    # keep params at local module
+    _.merge @params, updateObj.params
+
+    # keep routes at local module
+    _.merge @route, updateObj.route
+
+  apply_controllers: ->
     # pick of new routes from updateObj
     _.extend @routes, applyRoutes( @app, @url, @ )
 
@@ -220,7 +234,7 @@ class ModuleV01 extends Component
       console.warn "No module to load from", from_path
       return
     for mdc in md
-      if mdc.type == 'express-mvc-ext/0.1'
+      if mdc.type in [ 'express-mvc-ext/0.1', 'express-mvc-ext/0.2' ]
         meta = metadata.resolve_mvc_meta from_path, mdc
         ModuleClass = module_classes[ meta.ext_version ]
         opts = ModuleClass.config( core, meta, from_path )
@@ -240,6 +254,7 @@ class ModuleV01 extends Component
 
 module_classes = {
   '0.1': ModuleV01
+  '0.2': ModuleV01
 }
 
 # set globals to track projects and apps

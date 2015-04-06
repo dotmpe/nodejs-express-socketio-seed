@@ -4,14 +4,22 @@ Metadata to Express helpers.
 ###
 _ = require 'lodash'
 
-applyRoutes = (app, root, controller) ->
+
+# XXX Init one-off controller instance to handle str-spec callback..
+resolveHandler = (module, cb) ->
+  [ type, name ] = cb.substr( 0, cb.length - 1 ).split('(')
+  core = module.core
+  new core.base.type[ type ]( module, name )
+
+
+applyRoutes = (app, root, module) ->
 
   if !app
-    console.log root, controller
+    #console.log root, module
     throw new Error "Missing app"
 
   routes = {}
-  for name, route of controller.route
+  for name, route of module.route
     # full url
     url = [ root, name ].join('/').replace('$', ':')
     # recurse to sub-route
@@ -32,6 +40,9 @@ applyRoutes = (app, root, controller) ->
         # Apply to Express; ie. app.get( url, callback )
         if _.isArray cb
           app[method].apply app, [ url, cb... ]
+        else if _.isString cb
+          h = resolveHandler( module, cb )
+          app[method] url, _.bind h[method], h
         else
           app[method] url, cb
   routes

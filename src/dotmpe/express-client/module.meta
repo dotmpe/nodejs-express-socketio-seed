@@ -1,13 +1,39 @@
 # -*- Yaml -*-
 
-# Work in progress
+# Setup the metadata to server extension modules
+
 - type: express-mvc-ext/0.1
   name: dotmpe/express-client
+
   components:
     - controllers
+  # XXX models.. views.. 
+
   controllers:
     - controllers
-  # XXX models..
+
+# XXX default config
+  config:
+    all:
+      modules:
+      - 'dotmpe/express-client'
+      lib:
+        js:
+          require_main:
+          - '/script/client/index.js'
+
+
+# Set up metadata for Require.JS client build
+
+- type: jade-requirejs-client
+  version: '0.1'
+  type: jade-requirejs-client/0.1
+  # AMD container module ID
+  name: dotmpe/express-client
+  compile:
+    # Path to AMD sources
+    dir: client
+    extensions: [ coffee ]
+
 
 # vim:ft=yaml:
-

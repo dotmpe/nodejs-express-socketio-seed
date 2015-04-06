@@ -1,0 +1,24 @@
+# -*- Yaml -*-
+
+
+# Setup the metadata to server extension modules
+
+- type: express-mvc-ext/0.1
+  name: dotmpe/client-seed
+
+  components: []
+
+
+# Set up metadata for Require.JS client build
+
+- type: jade-requirejs-client/0.1
+  # AMD container module ID?
+  name: dotmpe/client-seed
+  compile:
+    # Path to AMD sources
+    dir: module
+    extensions: [ coffee ]
+    scanSignature: false
+
+
+# vim:ft=yaml:

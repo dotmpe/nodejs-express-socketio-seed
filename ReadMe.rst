@@ -14,7 +14,6 @@ See below for details, and `Branch docs`_ for work in process.
 
 :FIXME: set-up master again to something without experiments
 :XXX: After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up. Should finally ditch that.
-:FIXME: messy client build setup, start cleaning up styles into stylus files
 :TODO: angular client integration either goes or does something together with express-client
 :TODO: loose the src/dotmpe too, move stuff to lib/
 :XXX: there aren't any tests
@@ -64,13 +63,13 @@ master
       layout into the picture.
 
   f_clientbuild [*]_
-    - Want to build lazy-loading, fully packaged client. 
-      Need build-system, code and style compilers.
-    - Testing Grunt.
-    - Got some require.js build running which I like.
-    - Removed modulr but may want to do lazy eval later again.
-    - Started express-client to experiment with metadata driven pages,
-      and to think some specific types resources display and navigate.
+    - Testing Grunt or Delinting.
+    - Found r.js optimizer a bit tempramental. So using require.js
+      at client side only.
+    - Removed modulr, but may want to do lazy eval later again.
+    - Started jade-requirejs-client to experiment with metadata driven pages,
+      and to think some about resource representations and navigation.
+    - TODO: stylus compiler.
 
   f_ext
     - Get an extension framework going at the backend with plugin modules.

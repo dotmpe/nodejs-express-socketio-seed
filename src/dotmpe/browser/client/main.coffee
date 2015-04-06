@@ -1,16 +1,17 @@
-browserElementPrototype = Object.create HTMLElement.prototype
-browserElementPrototype.createdCallback = ->
-  console.log arguments
-browserElementPrototype.attachedCallback = ->
-  console.log arguments
-browserElementPrototype.detachedCallback = ->
-  console.log arguments
-browserElementPrototype.attributeChangedCallback = ->
-  console.log arguments
-browserElementPrototype.testBrowser = ->
+# jrc:export dotmpe/browser/main
+# jrc:import jquery, custom-element
+( $ ) ->
 
-require [
-], ->
+  browserElementPrototype = Object.create HTMLElement.prototype
+  browserElementPrototype.createdCallback = ->
+    console.log arguments
+  browserElementPrototype.attachedCallback = ->
+    console.log arguments
+  browserElementPrototype.detachedCallback = ->
+    console.log arguments
+  browserElementPrototype.attributeChangedCallback = ->
+    console.log arguments
+  browserElementPrototype.testBrowser = ->
 
   console.log 'Browser main'
 
