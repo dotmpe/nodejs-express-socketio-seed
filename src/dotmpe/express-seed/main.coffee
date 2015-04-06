@@ -82,17 +82,18 @@ module.exports = ->
   app.set('io', io)
 
   # Apply routes for socket TODO cleanup after move to controller(s)
-  io.sockets.on 'connection', (socket) ->
+  # FIXME: can only listen to connection once.. get a session leader
+  #io.sockets.on 'connection', (socket) ->
 
-    socket.on 'disconnect', ->
-      console.log 'client disconnected'
+  #  socket.on 'disconnect', ->
+  #    console.log 'client disconnected'
 
-    socket.on 'message', (msg) ->
-      console.log 'message from client: '+msg
-      socket.send('hello!')
+  #  socket.on 'message', (msg) ->
+  #    console.log 'message from client: '+msg
+  #    socket.send('hello!')
 
-    socket.emit 'test',
-      foo: 'Bar'
+  #  socket.emit 'test',
+  #    foo: 'Bar'
 
   app: app
   server: server

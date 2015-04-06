@@ -12,6 +12,7 @@ Wanted
 
 See below for details, and `Branch docs`_ for work in process.
 
+:FIXME: angular socket.io seems to be out of order (dotmpe/project)
 :FIXME: set-up master again to something without experiments
 :XXX: After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up. Should finally ditch that.
 :TODO: angular client integration either goes or does something together with express-client

@@ -46,6 +46,8 @@ requirejs.config({
     'angular.socket-io': '/components/angular-socket-io/socket',
 
     'angularAMD': '/components/angularAMD/angularAMD',
+
+    HomeCtrl: 'dotmpe/project/controllers/home',
   },
 
   shim: {

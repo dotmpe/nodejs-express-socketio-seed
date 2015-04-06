@@ -1,6 +1,12 @@
 extends ../../express-seed/views/layouts/base
 
 
+block head
+  script(type="text/javascript")
+    | window.on_client_seed = function() {
+    |   require(['dotmpe/client-seed/document']);
+    | }
+
 block wrap_epilogue
   // start after page #wrap and container and create window-wide chrome for
   // doc viewer

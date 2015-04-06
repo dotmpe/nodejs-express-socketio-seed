@@ -4,14 +4,15 @@ module.exports = ( module ) ->
 
   app = module.core.app
 
-  io = app.get 'io'
+  # FIXME: can only listen to connection once.. get a session leader
+  #io = app.get 'io'
 
-  io.sockets.on 'connection', (socket) ->
+  #io.sockets.on 'connection', (socket) ->
 
-    sendPing = ->
-      socket.emit 'ping', Date.now()
+  #  sendPing = ->
+  #    socket.emit 'ping', Date.now()
 
-    setInterval sendPing, 5000
+  #  setInterval sendPing, 5000
 
   route:
     client:

@@ -45,6 +45,8 @@ listDocuments = ->
 module.exports = ( module ) ->
 
   io = module.core.app.get('io')
+
+  # FIXME: can only listen to connection once.. get a session leader
   io.sockets.on 'connection', ( socket ) ->
     require('./socket')(socket)
 

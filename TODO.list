@@ -1,14 +1,17 @@
 Makefile:# TODO: find module.meta files instead of hardcoding module paths
+src/dotmpe/client-seed/backend.coffee:  # FIXME: can only listen to connection once.. get a session leader
 src/dotmpe/client-seed/module/socket.coffee:  # TODO announce, handshake; (re)set/update any session based client components
 src/dotmpe/client-seed/module/socket.coffee:    # XXX some client side socket io examples
 src/dotmpe/client-seed/module.meta:# XXX default config
 src/dotmpe/client-seed/views/client.jade:// TODO make layout-mpe do something
 src/dotmpe/express-seed/main.coffee:  # Apply routes for socket TODO cleanup after move to controller(s)
+src/dotmpe/express-seed/main.coffee:  # FIXME: can only listen to connection once.. get a session leader
 src/dotmpe/express-seed/views/includes/script.jade:// XXX need to make Jade views part of JRC modules
 src/dotmpe/nodelib/metadata.coffee:# TODO: metafile should support various directory formats
 src/dotmpe/nodelib/module.coffee:  | XXX what to use for models?
 src/dotmpe/nodelib/module.coffee:    # TODO sync with Module.load:
 src/dotmpe/nodelib/route.coffee:# XXX Init one-off controller instance to handle str-spec callback..
+src/dotmpe/project/controllers/index.coffee:  # FIXME: can only listen to connection once.. get a session leader
 src/dotmpe/project/controllers/index.coffee:  # TODO: or look at express-socket for GUI excersize
 src/dotmpe/project/module.meta:# TODO: have a look at building the frontend-side state of affairs
 src/dotmpe/project/views/doap.jade:    | TODO
@@ -19,6 +22,7 @@ src/dotmpe/project/views/doap.jade:    // FIXME repository
 src/dotmpe/x-bookmarks/controllers/index.coffee:  # XXX Sets up second store connection ... barebone CRUD for SQLite3 records
 config/config-example.coffee:    # XXX old
 ReadMe.rst:  - View-Controller metadata TODO: spec
+ReadMe.rst::FIXME: angular socket.io seems to be out of order (dotmpe/project)
 ReadMe.rst::FIXME: set-up master again to something without experiments
 ReadMe.rst::XXX: After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up. Should finally ditch that.
 ReadMe.rst::TODO: angular client integration either goes or does something together with express-client
