@@ -23,10 +23,14 @@
 # Set up metadata for Require.JS client build
 
 - type: jade-requirejs-client/0.1
-  # AMD container module ID?
+  # AMD container module ID
   name: dotmpe/browser
+  depends:
+  - jquery
+  - webcomponentsjs
+  - dotmpe/client-seed
   compile:
-    # Path to AMD sources
+    # Path to JRC sources
     dir: client
     extensions: [ coffee ]
     scanSignature: false

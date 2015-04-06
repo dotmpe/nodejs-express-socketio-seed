@@ -19,6 +19,10 @@
 - type: jade-requirejs-client/0.1
   # AMD container module ID?
   name: dotmpe/client-seed
+  depends:
+  - socket.io
+  - jquery
+  - webcomponentsjs
   compile:
     # Path to AMD sources
     dir: module

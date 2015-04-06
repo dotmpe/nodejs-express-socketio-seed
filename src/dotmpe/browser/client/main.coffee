@@ -1,6 +1,6 @@
 # jrc:export dotmpe/browser/main
-# jrc:import jquery webcomponentsjs
-( $ ) ->
+# jrc:import ../client-seed/index jquery webcomponentsjs
+( client, $ ) ->
 
   console.log 'Browser main: registering custom element <browser-mpe /> '
 

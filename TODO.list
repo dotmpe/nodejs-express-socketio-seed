@@ -1,17 +1,21 @@
 Makefile:# TODO: find module.meta files instead of hardcoding module paths
-src/dotmpe/express-client/client/socket.coffee:  # TODO announce, handshake; (re)set/update any session based client components
-src/dotmpe/express-client/client/socket.coffee:    # XXX some client side socket io examples
-src/dotmpe/express-client/module.meta:  # XXX models.. views.. 
-src/dotmpe/express-client/module.meta:# XXX default config
-src/dotmpe/express-client/views/client.jade:// XXX this should perhaps shrink a little, or grow into something 
+src/dotmpe/client-seed/module/socket.coffee:  # TODO announce, handshake; (re)set/update any session based client components
+src/dotmpe/client-seed/module/socket.coffee:    # XXX some client side socket io examples
+src/dotmpe/client-seed/module.meta:# XXX default config
+src/dotmpe/client-seed/views/client.jade:// XXX this should perhaps shrink a little, or grow into something 
 src/dotmpe/express-seed/main.coffee:  # Apply routes for socket TODO cleanup after move to controller(s)
+src/dotmpe/express-seed/views/includes/script.jade:// XXX need to make Jade views part of JRC modules
 src/dotmpe/nodelib/metadata.coffee:# TODO: metafile should support various directory formats
 src/dotmpe/nodelib/module.coffee:  | XXX what to use for models?
 src/dotmpe/nodelib/module.coffee:    # TODO sync with Module.load:
-src/dotmpe/nodelib/module.coffee:    # TODO module_config = ModuleClass.load_config( from_path )
 src/dotmpe/nodelib/route.coffee:# XXX Init one-off controller instance to handle str-spec callback..
 src/dotmpe/project/controllers/index.coffee:  # TODO: or look at express-socket for GUI excersize
 src/dotmpe/project/module.meta:# TODO: have a look at building the frontend-side state of affairs
+src/dotmpe/project/views/doap.jade:    | TODO
+src/dotmpe/project/views/doap.jade:    | TODO
+src/dotmpe/project/views/doap.jade:        // created TODO
+src/dotmpe/project/views/doap.jade:        // foaf:mbox_sha1sum TODO
+src/dotmpe/project/views/doap.jade:    // FIXME repository
 src/dotmpe/x-bookmarks/controllers/index.coffee:  # XXX Sets up second store connection ... barebone CRUD for SQLite3 records
 config/config-example.coffee:    # XXX old
 ReadMe.rst:  - View-Controller metadata TODO: spec

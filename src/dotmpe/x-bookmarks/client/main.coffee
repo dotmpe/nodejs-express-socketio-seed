@@ -1,9 +1,5 @@
-define [
-    'jquery',
-    "underscore",
-    'backbone',
-    'backbone.localstorage'
-], ($, _, Backbone) ->
+# jrc:import jquery underscore backbone backbone.localstorage
+($, _, Backbone) ->
 
   console.log 'x-Bookshelf loading'
   #console.log etch.editableInit

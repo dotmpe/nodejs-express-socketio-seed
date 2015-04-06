@@ -34,7 +34,8 @@ build-client:
 	mkdir -p public/script/dotmpe
 	find src -iname module.meta | while read mod; \
 	do echo $$mod; ./build.coffee $$mod; done
-	tree public/script/dotmpe
+	@echo Done
+	@tree public/script
 
 info:
 	npm run srctree

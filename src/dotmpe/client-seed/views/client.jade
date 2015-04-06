@@ -11,6 +11,13 @@
 extends ../../express-seed/views/layouts/base
 
 
+block head
+  script(type="text/javascript")
+    | window.on_client_seed = function() {
+    |    require( [ 'dotmpe/client-seed/custom' ] );
+    | }
+
+
 block wrap_epilogue
   // embed custom element view, and take the excercitation from there
   // there is alreay some layout chrome from base.jade

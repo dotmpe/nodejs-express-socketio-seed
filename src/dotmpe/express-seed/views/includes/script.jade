@@ -1,0 +1,14 @@
+// XXX need to make Jade views part of JRC modules
+// Currently, routing/representation is handled by Express-MVC
+//
+
+mixin client_bootstrap( deps )
+
+  script(type="text/javascript")
+    | window.on_client_seed = function() {
+
+    - each dep in deps
+      |    require( [ 'dotmpe/client-seed/navbar' ] );
+
+    | }
+

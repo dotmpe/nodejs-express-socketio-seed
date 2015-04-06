@@ -3,7 +3,7 @@ node_modules/
 public/components/
 config/config-keys.coffee
 # Build files
-public/script/dotmpe
+public/script/pkg-*
 www-build/
 main.sqlite3.db
 # Misc. local files

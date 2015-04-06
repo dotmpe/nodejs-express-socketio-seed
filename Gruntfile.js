@@ -38,6 +38,7 @@ module.exports = function(grunt) {
       },
       lib: {
         src: [
+          '*.coffee',
           'src/**/*.coffee',
           'lib/**/*.coffee',
           'config/**/*.coffee'
@@ -61,6 +62,7 @@ module.exports = function(grunt) {
     clean: {
       build: {
         src: [
+          'public/script/pkg-*.js',
           'public/script/dotmpe/'
         ]
       }

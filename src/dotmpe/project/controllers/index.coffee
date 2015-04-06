@@ -126,8 +126,6 @@ module.exports = ( module ) ->
         ng: _url: '/project/ng-client', _label: 'NG Client'
         current: _url: '/project', _label: 'Current'
         docview: _url: '/project/document', _label: 'DocView'
-        doap:
-          _url: '/doap.rdf'
-          _label: 'DOAP'
+        doap: _url: '/doap.rdf', _label: 'DOAP'
 
 

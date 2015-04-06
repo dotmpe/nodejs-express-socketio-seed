@@ -1,11 +1,19 @@
 # -*- Yaml -*-
 
 - type: express-mvc-ext/0.1
-  name: dotmpe/x-bookmarks
+  name: x-bookmarks
   components:
     - controllers
     - models
   controllers:
     - controllers/index
+
+
+- type: jade-requirejs-client/0.1
+  name: x-bookmarks
+  compile:
+    dir: client
+    extensions: [ coffee ]
+
 
 # vim:ft=yaml:

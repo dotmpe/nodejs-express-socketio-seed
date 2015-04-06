@@ -3,7 +3,7 @@
 
 Packages jade-requirejs-client sources into a bundle.
 
-XXX: I could not get r.js -o to do anything useful, so 
+XXX: I could not get r.js -o to do anything useful, so
    wrote build.coffee to process jrc modules.
 
 TODO:
@@ -78,7 +78,8 @@ updateModule = ( dir ) ->
 
   #console.log 'jr', dir, jr_md
 
-  fp = fs.openSync "public/script/#{jr_md.name}.js", 'w+'
+  pkgname = jr_md.name.replace('/', '-')
+  fp = fs.openSync "public/script/pkg-#{pkgname}.js", 'w+'
 
   fs.writeSync fp, """/* build.coffee: Compiling #{jr_md.name} from #{dir} */
 
@@ -112,8 +113,8 @@ updateModule = ( dir ) ->
         throw new Error "FIXME: support #{ext}"
       deps = mdef.deps || []
       for dep, i in deps
-        if dep.substr(0, 2) == './'
-          deps[i] = path.join jr_md.name, dep.substr(2)
+        if dep.substr(0, 1) == '.'
+          deps[i] = path.join jr_md.name, dep
       mdef_deps = JSON.stringify deps || []
 
       fs.writeSync fp, """/* build.coffee: src: #{mdef.src} */
@@ -124,7 +125,7 @@ updateModule = ( dir ) ->
 
       """
 
-    packages[ jr_md.name ] = bundle
+    packages[ 'pkg-' + jr_md.name ] = bundle
   packages
 
 process.exit main process.argv

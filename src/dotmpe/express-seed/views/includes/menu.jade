@@ -1,0 +1,19 @@
+mixin mainmenu( items )
+
+  each route, name in items
+
+    if route._url
+      li(class=isActive(route._url) ? 'active' : '')
+        a(href=route._url)= route._label
+
+    else if route._divider
+      li.divider
+
+    else if route._menu
+      li.dropdown
+        a.dropdown-toggle(href="#", data-toggle="dropdown")= route._menu
+          b.caret
+        ul.dropdown-menu
+          +mainmenu( route )
+
+

@@ -1,6 +1,12 @@
 extends ../../express-seed/views/layouts/base
 
 
+block head
+  script(type="text/javascript")
+    | window.on_client_seed = function() {
+    |   require(['dotmpe/browser/main']);
+    | }
+
 block main
 
   span Custom Element test:
