@@ -86,15 +86,13 @@ module.exports =
         require_main: [
           '/script/main.js'
         ]
-      # booststrap here without requirejs:
+      # includes for Jade template, see also requirejs
       include_js: [
-        'socket_io'
-        'jquery'
         'coffeescript'
-        'bootstrap'
       ]
       coffeescript:
         app: '/script/app.coffee'
+
       css: [
         '/components/bootstrap/dist/css/bootstrap.css'
         '/components/bootstrap/dist/css/bootstrap-theme.css'

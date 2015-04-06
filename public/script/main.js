@@ -12,7 +12,6 @@ var local_dev_paths = {
   "underscore.string": "/components/underscore.string/underscore.string",
   backbone: "/components/backbone/backbone",
   "backbone.localstorage": "/components/backbone.localstorage/backbone.localStorage",
-  bootstrap: '/components/bootstrap/dist/js/bootstrap',
   "coffee-script": "/components/coffee-script/extras/coffee-script",
   cs: "/components/require-cs/cs"
 };
@@ -33,6 +32,7 @@ requirejs.config({
 
   // TODO: switch deps based on page, some sort of dynamic injection..
   deps: [
+    'bootstrap',
     'dotmpe/client-seed/index',
     'dotmpe/browser/main'
   ],
@@ -43,7 +43,12 @@ requirejs.config({
     components: '../components',
     jquery: '/components/jquery/dist/jquery',
     "socket.io": '/socket.io/socket.io',
+    bootstrap: '/components/bootstrap/dist/js/bootstrap',
     webcomponentsjs: '/components/webcomponentsjs/webcomponents'
+  },
+
+  shim: {
+    bootstrap: [ 'jquery' ],
   },
 
   // XXX manually update from make build-client output

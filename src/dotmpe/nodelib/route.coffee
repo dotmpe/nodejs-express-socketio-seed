@@ -15,7 +15,6 @@ resolveHandler = (module, cb) ->
 applyRoutes = (app, root, module) ->
 
   if !app
-    #console.log root, module
     throw new Error "Missing app"
 
   routes = {}
@@ -30,7 +29,7 @@ applyRoutes = (app, root, module) ->
     for method in ['all', 'get', 'put', 'post', 'options', 'delete']
       cb = route[method]
       if cb
-        console.log url, method
+        #console.log url, method
         # Track all routes?
         if url not of routes
           routes[url] = {}

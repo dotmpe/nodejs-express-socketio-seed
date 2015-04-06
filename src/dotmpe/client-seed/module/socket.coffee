@@ -56,7 +56,7 @@
       console.log 'message from server: '+msg
 
     socket.on 'test', (data)->
-      console.log [ 'socket.io test', data ]
+      console.log 'socket.io received "test", data:', data
 
   init()
 
