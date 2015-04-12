@@ -26,15 +26,15 @@ install:
 	bower install
 	make test
 
+update:
+	npm update
+	bower update
+
 lint:
 	grunt lint
 
 test:
 	#NODE_ENV=development coffee test/runner.coffee
-
-update:
-	npm update
-	bower update
 
 build: TODO.list latest build-client
 

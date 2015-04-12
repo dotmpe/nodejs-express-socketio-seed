@@ -1,7 +1,7 @@
 {
   "name": "nodejs-express-socketio-seed-mpe",
   "description": "Work in progress seed project. ",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/dotmpe/nodejs-express-socketio-seed",
   "author": {
     "name": "B. van Berkum",

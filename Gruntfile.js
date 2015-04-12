@@ -117,15 +117,18 @@ module.exports = function(grunt) {
   grunt.registerTask('init', [
     'make:init-config'
   ]);
+
   grunt.registerTask('lint', [
     'coffeelint',
     'jshint',
     'yamllint'
   ]);
+
   grunt.registerTask('test', [
     'lint',
     'nodeunit'
   ]);
+
   grunt.registerTask('build-client', [
     'make:build-client',
   ]);

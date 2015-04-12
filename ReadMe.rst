@@ -1,6 +1,6 @@
 NodeJS Socket.IO Seed
 =====================
-:version: 0.0.1
+:version: 0.0.2
 :package status:
 
   .. image:: https://gemnasium.com/dotmpe/nodejs-express-socketio-seed.png
