@@ -1,8 +1,8 @@
-sitefile: 0.2
+sitefile: 0.0.2
 routes:
   $name: 'du:**/*.rst'
   '': 'redir:ReadMe'
-specs:
+params:
   rst2html:
     stylesheets:
     - 'public/style/app.css'

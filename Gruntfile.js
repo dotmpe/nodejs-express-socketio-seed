@@ -36,8 +36,14 @@ module.exports = function(grunt) {
           'src/dotmpe/**/client/*.coffee'
         ]
       },
+      test: {
+        src: [
+          'test/**/*.coffee'
+        ]
+      },
       lib: {
         src: [
+          '*.coffee',
           'src/**/*.coffee',
           'lib/**/*.coffee',
           'config/**/*.coffee'
@@ -61,6 +67,8 @@ module.exports = function(grunt) {
     clean: {
       build: {
         src: [
+          'public/style/pkg-*.css',
+          'public/script/pkg-*.js',
           'public/script/dotmpe/'
         ]
       }
@@ -84,14 +92,20 @@ module.exports = function(grunt) {
       },
       lib: {
         files: [
-            '<%= jshint.lib.src %>',
-            '<%= coffeelint.lib.src %>'
+          '<%= jshint.lib.src %>',
+          '<%= coffeelint.lib.src %>'
         ],
-        tasks: ['jshint:lib', 'nodeunit']
+        tasks: [
+          'jshint:lib',
+          'nodeunit'
+        ]
       },
       test: {
         files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'nodeunit']
+        tasks: [
+          'jshint:test',
+          'nodeunit'
+        ]
       },
     },
 
@@ -104,10 +118,13 @@ module.exports = function(grunt) {
     'make:init-config'
   ]);
   grunt.registerTask('lint', [
-    'coffeelint', 'jshint', 'yamllint'
+    'coffeelint',
+    'jshint',
+    'yamllint'
   ]);
   grunt.registerTask('test', [
-    'nodeunit' 
+    'lint',
+    'nodeunit'
   ]);
   grunt.registerTask('build-client', [
     'make:build-client',
@@ -123,7 +140,7 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', [
-    'lint', 'test'
+    'test'
   ]);
 
 };
