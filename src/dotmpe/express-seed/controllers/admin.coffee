@@ -5,7 +5,15 @@ module.exports = (core, base) ->
 
   base = core.base
 
-  modules = new base.type.Base core, 'admin/modules', {}
+  class AdminModules extends base.type.Base
+    getContext: ->
+      _.merge super,
+        isArray: _.isArray
+        stringify: JSON.stringify
+        page: title: "Modules"
+        components: @core.get_all_components()
+
+  modules = new AdminModules core, 'admin/modules'
 
   # Dynamic define of resource subtypes?
   #types = app.get 'controllers'
@@ -28,17 +36,7 @@ module.exports = (core, base) ->
             page: title: "Template"
 
     modules:
-      get: base.simpleExpressView 'admin/modules', ->
-        _.merge {}, core.base.basicContext(core),
-          page: title: "Modules"
-          components: core.get_all_components()
-      route:
-        list:
-          get: base.simpleExpressView 'admin/modules', ->
-            _.merge {}, core.base.basicContext(core),
-              page: title: "Modules"
-              modules: core.modules
-              components: core.get_all_components()
+      get: _.bind modules.get, modules
 
   meta:
     menu:

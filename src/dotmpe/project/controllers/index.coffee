@@ -44,6 +44,8 @@ listDocuments = ->
 
 module.exports = ( module ) ->
 
+  types = require('./types') module.core.base
+
   io = module.core.app.get('io')
 
   # FIXME: can only listen to connection once.. get a session leader
@@ -96,9 +98,14 @@ module.exports = ( module ) ->
     res.write template url: base: '/project/ng-client/'
     res.end()
 
+  _.merge module.core.base,
+    type: types
+    listProjects: listProjects
+    currentProject: currentProject
+    listDocuments: listDocuments
+
+
   route:
-    'doap.rdf':
-      get: 'Base(doap)'
     project:
       route:
         document:

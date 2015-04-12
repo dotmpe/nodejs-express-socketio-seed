@@ -1,23 +1,52 @@
 extends ../../express-seed/views/layouts/base
 
+// TODO: the non-standard elements should be added automatically by build.
+//   Should replace the client/document require with a custom element.
 
 block head
   script(type="text/javascript")
     | window.on_client_seed = function() {
-    |   require(['dotmpe/client-seed/document']);
+    |   require([
+    |     'dotmpe/client-seed/document'
+    |   ]);
     | }
+  link(rel="import", href="/components/polymer/polymer.html")
+  link(rel="import", href="/components/paper-input/paper-input.html")
+  link(rel="import", href="/components/core-item/core-item.html")
+  link(rel="import", href="/components/core-icon/core-icon.html")
+  link(rel="import", href="/components/core-menu/core-menu.html")
+  link(rel="import", href="/components/core-toolbar/core-toolbar.html")
+  link(rel="import", href="/components/core-header-panel/core-header-panel.html")
+  link(rel="import", href="/components/paper-item/paper-item.html")
+  link(rel="import", href="/components/paper-dropdown/paper-dropdown.html")
+  link(rel="import", href="/components/paper-menu-button/paper-menu-button.html")
+  link(rel="import", href="/components/paper-dropdown-menu/paper-dropdown-menu.html")
+  link(rel="import", href="/components/polymer-paper-dropdown/polymer-paper-dropdown.html")
+  link(rel="import", href="/components/html5-paper-input/html5-paper-input.html")
 
 block wrap_epilogue
   // start after page #wrap and container and create window-wide chrome for
   // doc viewer
 
+  //core-header-panel.span-md-12
+  //  core-toolbar
+  //    div Hello World!
+
   form
     .form-group
-      label.col-md-1 Path
-      div.col-md-8
-        input.form-control(name='docpath', value=docpath)
+      html5-paper-input( name='docpath', dismisslabel, value=docpath,
+        required, pattern="[A-Za-z-][0-9A-Za-z_\.-]*", label='Path' ).col-md-9
+
     .form-group
-      label.col-md-1 Format
+      //paper-dropdown-menu(label="Format")
+      //  paper-dropdown.dropdown(name='format')
+      //    paper-menu.menu
+      //      paper-item(value="html") HTML
+      //      paper-item(value="pseudoxml") Pseudo XML (plain text)
+      //      paper-item(value="source") Source (reStructuredText)
+      //      paper-item(value="xml") XML
+
+      Label.col-md-1 Format
       .col-md-2
         select.form-control(name='format')
           option(value="html") HTML

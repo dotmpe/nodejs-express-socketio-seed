@@ -5,19 +5,47 @@ block main
   h3 Routes
   div URLs loaded from core and MVC extension modules..
 
-    - each comp, index in components
+    each comp, index in components
+
       h4= comp.name || comp.meta.name
+
       if comp.routes
-        - each methods, url in comp.routes
-          table
-            - each cb, method in methods
-              tr
-                td
-                  if method == 'get' || method == 'all'
-                    a(href= url)= method +' ('+url+')'
-                  else
-                    span= method
-                    span= ' ('+url+')'
+
+        pre= stringify( comp.routes )
+
+
+block TODO
+
+        if isArray(comp.routes)
+          div
+            span TODO
+            span= stringify(comp.routes)
+
+        else
+            each methods, url in comp.routes
+
+              div
+                span XXX 
+                span= url
+                span= methods
+
+              if isArray(methods)
+                table
+
+                  each h in methods
+                    tr
+                      td= stringify(h)
+              else
+                table
+
+                  each cb, method in methods
+                    tr
+                      td
+                        if method == 'get' || method == 'all'
+                          a(href= url)= method +' ('+url+')'
+                        else
+                          span= method
+                          span= ' ('+url+')'
 
 block content
 

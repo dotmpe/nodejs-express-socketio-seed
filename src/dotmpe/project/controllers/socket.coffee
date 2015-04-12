@@ -7,8 +7,8 @@ module.exports = (socket) ->
     name: 'Bob'
 
   sendTime = ->
-      socket.emit 'send:time',
-        time: new Date().toString()
+    socket.emit 'send:time',
+      time: new Date().toString()
   setInterval sendTime, 1000
 
   sendPing = ->

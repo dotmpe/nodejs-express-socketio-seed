@@ -1,20 +1,47 @@
 # -*- Yaml -*-
 
+
 # Setup the metadata to server extension modules
 
 - type: express-mvc-ext/0.1
   name: dotmpe/project
   components:
-    - controllers
+  - controllers
   controllers:
-    - controllers/index
-    - data
+  - controllers/index
+  - data
+
+
+  route:
+
+  - get: 'doap.rdf'
+    handler: 'Base(doap)'
+
+  - handler: DocView(source)
+    all:
+    - src/
+    - src/:source
+
+#  - all: '/src'
+#    handler: 'redir:/src/'
+
+  - handler: ProjectDocument
+
+  - handler: Project(project)
+    all:
+    - n/project/
+    - n/project/current
+    - n/project/:project
+
+
+# Setup for client build too
 
 - type: jade-requirejs-client/0.1
   name: dotmpe/project
   compile:
     dir: client
     extensions: [ coffee ]
+
 
 # TODO: have a look at building the frontend-side state of affairs
 - type: x-jvc/0.1

@@ -1,3 +1,10 @@
+###
+Base utils/classes to adapt HTTP requests to resource representations.
+Basicly some template handing right now. 
+
+Would rename or move current classes to types more specific to 
+HTML client resources later. 
+###
 _ = require 'lodash'
 path = require 'path'
 jade = require 'jade'
@@ -10,6 +17,7 @@ util = {
     (req, res) ->
       res.redirect(path)
 
+  # variables used in the current Jade template setup
   basicContext: ( core ) ->
     # view:includes/head
     page: title: 'Title'
@@ -43,9 +51,10 @@ util = {
     jade.compileFile tplPath
 
   # Generates a route handler
-  simpleView: (data_cb, template_cb) ->
+  simpleView: (data, template_cb) ->
     (req, res, next) ->
-      data = if data_cb then data_cb(req, res) else {}
+      if data && _.isFunction data
+        data = data()
       res.write( template_cb( data ) )
       res.end()
 
@@ -58,11 +67,15 @@ util = {
       res.render( name, data )
 }
 
-Function::property = (prop, desc) ->
-  Object.defineProperty @prototype, prop, desc
+#Function::property = (prop, desc) ->
+#  Object.defineProperty @prototype, prop, desc
 
-# Controller baseclass
+
 class Controller
+
+  ###
+  Server handler base class for specific resource representations.
+  ###
 
   constructor: (core) ->
     @component = core
@@ -72,10 +85,14 @@ class Controller
     else
       @core = core
 
+
 class Base extends Controller
 
   ###
-  Base is the HTML client.
+  Base accumulates a context, available for the template named by view.
+  It offers a simple get method and uses base.simpleView to do the actual rendering.
+  No compilation. Also no other assumptions about any specific resource.
+  TODO: may want to set some content type sometimes.
   ###
 
   constructor: (core, @view, @seed) ->

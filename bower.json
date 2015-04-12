@@ -22,7 +22,9 @@
     "angularAMD": "~0.1.0",
     "requirejs": "~2.1.16",
     "requirejs-plugins": "git@github.com:millermedeiros/requirejs-plugins.git#master",
-    "webcomponentsjs": "~0.6.0"
+    "webcomponentsjs": "~0.6.0",
+    "html5-paper-input": "~1.0.1",
+    "polymer-paper-dropdown": "*"
   },
   "authors": [
     "Berend (.mpe) <dev@dotmpe.com>"

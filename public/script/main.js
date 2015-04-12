@@ -75,6 +75,7 @@ requirejs.config({
       'x-bookmarks/main'
     ],
     'pkg-dotmpe-project': [
+      'dotmpe/project/source',
       'dotmpe/project/ng',
       'dotmpe/project/ng-module/controllers',
       'dotmpe/project/ng-module/controllers/home',

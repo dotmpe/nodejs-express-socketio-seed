@@ -1,0 +1,22 @@
+extends ../../express-seed/views/layouts/base
+
+
+block head
+  script(type="text/javascript")
+    | window.on_client_seed = function() {
+    |   require([
+    |     'dotmpe/project/source'
+    |   ]);
+    | }
+
+
+block wrap_epilogue
+
+  div= core.name
+  div= page.title
+  //div= '/src/' + req.params.source
+
+
+block footer
+  p.text-muted.credit.small Express MVC - Project - Source
+

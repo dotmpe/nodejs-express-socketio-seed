@@ -6,12 +6,22 @@ _ = require 'lodash'
 fs = require 'fs'
 child_process = require 'child_process'
 
+
 module.exports = ( module ) ->
 
   base = module.core.base
   projectDir = process.cwd()
 
   route:
+    src:
+      get: 'Base(source)'
+      route:
+        $path:
+          get: ( req, res, next ) ->
+            console.log 'path', req.query, req.params
+            res.write( req.params.path )
+            res.end()
+
     data:
       route:
         project:

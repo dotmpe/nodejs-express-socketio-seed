@@ -15,10 +15,12 @@
       html.clientHeight, html.scrollHeight, html.offsetHeight )
 
   setSource = ->
-    docpath = $('[name=docpath]').val()
-    format = $('[name=format]').val()
+    $docpath = $('[name=docpath]')
+    $format = $('[name=format]')
     url = '/data/project/document?' +
-      $.param docpath: docpath, format: format
+      $.param docpath: $docpath.val(), format: $format.val()
+
+    console.log 'docview docpath', $docpath, $docpath.val()
 
     $('#viewer')
       .attr('src', url)

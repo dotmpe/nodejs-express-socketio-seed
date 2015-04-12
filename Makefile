@@ -1,14 +1,25 @@
-TRGTS := install update build build-client info version latest test lint start
+# special rule targets
+STRGTS := \
+   default \
+   info \
+   version latest \
+   lint \
+   test \
+   build build-client \
+   install \
+   update \
+   publish \
+   start
 
-.PHONY: $(TRGTS)
+.PHONY: $(STRGTS)
 
-
-empty := 
+empty :=
 space := $(empty) $(empty)
 default:
 	@echo 'usage:'
 	@echo '# npm [start|test|run build]'
-	@echo '# make [$(subst $(space),|,$(TRGTS))]'
+	@echo '# grunt [lint|..]'
+	@echo '# make [$(subst $(space),|,$(STRGTS))]'
 
 install:
 	npm install
@@ -18,9 +29,8 @@ install:
 lint:
 	grunt lint
 
-test: lint
-	npm test
-	grunt test
+test:
+	NODE_ENV=development coffee test/runner.coffee
 
 update:
 	npm update
@@ -45,7 +55,6 @@ start:
 	npm run start
 
 
-
 version: D := demo
 version:
 	DBNAME=$(D) ./node_modules/.bin/knex migrate:currentVersion
@@ -54,6 +63,15 @@ latest: D := demo
 latest:
 	DBNAME=$(D) ./node_modules/.bin/knex migrate:latest
 
+
+VERSION :=
+
+publish: DRY := yes
+publish:
+	@[ -z "$(VERSION)" ] && exit 1 || echo Publishing $(VERSION)
+	grep version..$(VERSION) ReadMe.rst
+	@./check.coffee $(VERSION)
+	git push
 
 TODO.list: Makefile src lib config ReadMe.rst Gruntfile.js server.coffee
 	grep -srI 'TODO\|FIXME\|XXX' $^ | grep -v 'grep..srI..TODO' | grep -v 'TODO.list' > $@

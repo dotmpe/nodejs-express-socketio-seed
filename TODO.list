@@ -4,6 +4,7 @@ src/dotmpe/client-seed/module/socket.coffee:  # TODO announce, handshake; (re)se
 src/dotmpe/client-seed/module/socket.coffee:    # XXX some client side socket io examples
 src/dotmpe/client-seed/module.meta:# XXX default config
 src/dotmpe/client-seed/views/client.jade:// TODO make layout-mpe do something
+src/dotmpe/express-seed/controllers/base.coffee:  TODO: may want to set some content type sometimes.
 src/dotmpe/express-seed/main.coffee:  # Apply routes for socket TODO cleanup after move to controller(s)
 src/dotmpe/express-seed/main.coffee:  # FIXME: can only listen to connection once.. get a session leader
 src/dotmpe/express-seed/views/includes/script.jade:// XXX need to make Jade views part of JRC modules
@@ -19,16 +20,15 @@ src/dotmpe/project/views/doap.jade:    | TODO
 src/dotmpe/project/views/doap.jade:        // created TODO
 src/dotmpe/project/views/doap.jade:        // foaf:mbox_sha1sum TODO
 src/dotmpe/project/views/doap.jade:    // FIXME repository
+src/dotmpe/project/views/docs.jade:// TODO: the non-standard elements should be added automatically by build.
 src/dotmpe/x-bookmarks/controllers/index.coffee:  # XXX Sets up second store connection ... barebone CRUD for SQLite3 records
 config/config-example.coffee:    # XXX old
 ReadMe.rst:  - View-Controller metadata TODO: spec
 ReadMe.rst::FIXME: angular socket.io seems to be out of order (dotmpe/project)
-ReadMe.rst::FIXME: set-up master again to something without experiments
-ReadMe.rst::XXX: After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up. Should finally ditch that.
-ReadMe.rst::TODO: angular client integration either goes or does something together with express-client
-ReadMe.rst::TODO: loose the src/dotmpe too, move stuff to lib/
+ReadMe.rst::XXX: angular client integration either goes or does something together with express-client
+ReadMe.rst::XXX: loose the src/dotmpe too, move stuff to lib/
+ReadMe.rst::XXX: should set-up master again to something without experiments
 ReadMe.rst::XXX: there aren't any tests
 ReadMe.rst:  TODO
 ReadMe.rst:      - TODO Express-MVC module to deal with projects
 ReadMe.rst:      - TODO Express-MVC module to interact with other npm projects
-ReadMe.rst:    - TODO: stylus compiler.

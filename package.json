@@ -5,7 +5,7 @@
   "homepage": "https://github.com/dotmpe/nodejs-express-socketio-seed",
   "author": {
     "name": "B. van Berkum",
-    "email": "mpe@dotmpe.com"
+    "email": "dev@dotmpe.com"
   },
   "keywords": [
     "express",
@@ -25,13 +25,13 @@
     "url": "https://github.com/dotmpe/nodejs-socketio-seed.git"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
+    "node": "0.12.x",
+    "npm": "2.7.x"
   },
   "main": "server.coffee",
   "scripts": {
     "start": "NODE_ENV=development nodemon server.coffee -w coffee -w src -w public -e jade,js,coffee,meta,yaml",
-    "test": "grunt nodeunit",
+    "test": "make test",
     "build": "make build",
     "srctree": "tree -I 'node_modules|build|components'",
     "srcloc": "find config/ lib/ migrations/ public/script/app.coffee test/ -iname '*.js' -o -iname '*.coffee' -exec cat {} + | grep -v '^\\s*$' | wc -l"
@@ -76,13 +76,14 @@
     "grunt-contrib-coffee": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-nodeunit": "^0.4.0",
+    "grunt-contrib-stylus": "^0.21.0",
     "grunt-contrib-watch": "latest",
     "grunt-make": "^1.0.0",
     "grunt-yamllint": "^0.2.0",
     "knex": "^0.7.3",
     "load-grunt-config": "latest",
     "load-grunt-tasks": "latest",
-    "modulr": "^0.14.0",
+    "minijasminenode2": "^1.0.0",
     "sqlite3": "^3.0.5"
   }
 }

@@ -3,10 +3,14 @@
 
 Packages jade-requirejs-client sources into a bundle.
 
+- Handles scanning for and bundling, packaging of client script files.
+
+TODO: scan jade files for dependencies. see lib/x-jade
+TODO: compile stylus
+
+
 XXX: I could not get r.js -o to do anything useful, so
    wrote build.coffee to process jrc modules.
-
-TODO:
 
 - Scan for jade-requirejs-client modules.
   Metadata specifies build parameters, and prerequisites.

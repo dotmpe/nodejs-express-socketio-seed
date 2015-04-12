@@ -1,4 +1,6 @@
+# coffeelint: disable=max_line_length
 # jrc:import angularAMD angular-route ./ng-module/controllers ./ng-module/services ./ng-module/filters ./ng-module/directives angular.socket-io
+# coffeelint: enable=max_line_length
 ( angularAMD ) ->
   # Maybe use another angular+require.js setup. angularAMD does not seem needed
   # See http://www.startersquad.com/blog/angularjs-requirejs/

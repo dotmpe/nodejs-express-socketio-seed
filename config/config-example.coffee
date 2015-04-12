@@ -98,6 +98,7 @@ module.exports =
         '/components/bootstrap/dist/css/bootstrap-theme.css'
         #/style/bootstrap-responsive.min.css'
         '/style/app.css'
+        '/style/pkg-lib.css'
       ]
     client: {}
     # extension modules to load:

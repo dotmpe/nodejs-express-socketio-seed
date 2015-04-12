@@ -1,5 +1,22 @@
 NodeJS Socket.IO Seed
 =====================
+:version: 0.0.1
+:package status:
+
+  .. image:: https://gemnasium.com/dotmpe/nodejs-express-socketio-seed.png
+     :target: https://gemnasium.com/dotmpe/nodejs-express-socketio-seed
+     :alt: Dependencies
+
+  .. image:: https://secure.travis-ci.org/dotmpe/nodejs-express-socketio-seed.png
+     :target: https://travis-ci.org/dotmpe/nodejs-express-socketio-seed
+     :alt: Build
+
+:repository:
+
+  .. image:: https://badge.fury.io/gh/dotmpe%2Fnodejs-express-socketio-seed.png
+     :target: http://badge.fury.io/gh/dotmpe%2Fnodejs-express-socketio-seed
+     :alt: GIT
+
 Seed project for NodeJS+Express.
 
 Working
@@ -13,10 +30,9 @@ Wanted
 See below for details, and `Branch docs`_ for work in process.
 
 :FIXME: angular socket.io seems to be out of order (dotmpe/project)
-:FIXME: set-up master again to something without experiments
-:XXX: After x-nodejs-socketio-ng-seed-mpe, started new repo for clean set-up. Should finally ditch that.
-:TODO: angular client integration either goes or does something together with express-client
-:TODO: loose the src/dotmpe too, move stuff to lib/
+:XXX: angular client integration either goes or does something together with express-client
+:XXX: loose the src/dotmpe too, move stuff to lib/
+:XXX: should set-up master again to something without experiments
 :XXX: there aren't any tests
 
 Tree docs
@@ -74,7 +90,6 @@ master
     - Removed modulr, but may want to do lazy eval later again.
     - Started jade-requirejs-client to experiment with metadata driven pages,
       and to think some about resource representations and navigation.
-    - TODO: stylus compiler.
 
   f_ext
     - Get an extension framework going at the backend with plugin modules.
