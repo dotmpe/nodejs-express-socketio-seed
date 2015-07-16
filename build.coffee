@@ -3,7 +3,7 @@
 
 Packages jade-requirejs-client sources into a bundle.
 
-XXX: I could not get r.js -o to do anything useful, so 
+XXX: I could not get r.js -o to do anything useful, so
    wrote build.coffee to process jrc modules.
 
 TODO:

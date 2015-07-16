@@ -11,10 +11,9 @@ bodyParser = require('body-parser')
 cookieParser = require('cookie-parser')
 methodOverride = require('method-override')
 
-core = require( "#{__noderoot}/src/dotmpe/nodelib/module" )
-  .load_core( 'src/dotmpe/express-seed' )
+nodelib = require 'nodelib'
+core = nodelib.module.load_core( 'src/dotmpe/express-seed' )
 base = core.base
-utils = require "#{__noderoot}/src/dotmpe/nodelib/util"
 
 
 handlers = {}
@@ -83,7 +82,7 @@ handlers.create = (req, res) ->
     return
   ).catch (err) ->
     data = _.merge {}, base.basicContext( core ),
-      error: utils.errors(err.errors)
+      error: nodelib.util.errors(err.errors)
       user: user
       title: 'Sign up'
     res.render 'users/signup', data

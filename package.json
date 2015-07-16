@@ -31,7 +31,7 @@
   "main": "server.coffee",
   "scripts": {
     "start": "NODE_ENV=development nodemon server.coffee -w coffee -w src -w public -e jade,js,coffee,meta,yaml",
-    "test": "grunt nodeunit",
+    "test": "grunt lint test",
     "build": "make build",
     "srctree": "tree -I 'node_modules|build|components'",
     "srcloc": "find config/ lib/ migrations/ public/script/app.coffee test/ -iname '*.js' -o -iname '*.coffee' -exec cat {} + | grep -v '^\\s*$' | wc -l"
@@ -54,6 +54,7 @@
     "lodash": "^3.4.0",
     "method-override": "^2.3.2",
     "node-uuid": "^1.4.3",
+    "nodelib": "git://github.com/dotmpe/nodelib#dev",
     "notifier": "latest",
     "passport": "latest",
     "passport-facebook": "latest",
@@ -76,6 +77,7 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-coffee": "latest",
     "grunt-contrib-jshint": "latest",
+    "grunt-jasmine-node-coffee": "^0.1.4",
     "grunt-contrib-nodeunit": "^0.4.0",
     "grunt-contrib-watch": "latest",
     "grunt-make": "^1.0.0",

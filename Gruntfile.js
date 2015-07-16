@@ -64,6 +64,14 @@ module.exports = function(grunt) {
       files: ['test/**/*_test.js'],
     },
 
+    //jasmine_node: {
+    //  forceExit: true,
+    //  extensions: 'coffee',
+    //  projectRoot: 'test/jasmine/',
+    //  matchall: true,
+    //  specNameMatches: ''
+    //},
+
     clean: {
       build: {
         src: [
@@ -126,6 +134,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'lint',
+    //'jasmine_node',
     'nodeunit'
   ]);
 
