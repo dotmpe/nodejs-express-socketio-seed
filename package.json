@@ -82,7 +82,7 @@
     "grunt-contrib-watch": "latest",
     "grunt-make": "^1.0.0",
     "grunt-yamllint": "^0.2.0",
-    "knex": "^0.7.3",
+    "knex": "^0.20.1",
     "load-grunt-config": "latest",
     "load-grunt-tasks": "latest",
     "modulr": "^0.14.0",
