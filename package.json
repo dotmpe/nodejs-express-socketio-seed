@@ -51,7 +51,7 @@
     "glob": "^5.0.3",
     "jade": "latest",
     "js-yaml": "^3.2.7",
-    "lodash": "^3.4.0",
+    "lodash": "^4.17.21",
     "method-override": "^2.3.2",
     "node-uuid": "^1.4.3",
     "nodelib": "git://github.com/dotmpe/nodelib#dev",
